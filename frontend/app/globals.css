@@ -1,0 +1,303 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sistema visual «El libro de la finca»: tinta verde sobre papel frío.
+   Las reglas (hairlines) estructuran la información; las sombras suaves y las
+   tarjetas idénticas quedan fuera: la jerarquía la marcan el color, la
+   tipografía y el espacio.
+
+   Toda la paleta vive aquí como variables: la clase `dark` en <html> la
+   intercambia, de modo que el tema oscuro no necesita una sola clase
+   `dark:` repartida por los componentes. */
+:root {
+  /* Escala de marca: en claro va de la superficie más clara (50) al texto
+     más oscuro (950). */
+  --e-50: 241 246 241;
+  --e-100: 225 237 227;
+  --e-200: 198 220 203;
+  --e-300: 159 197 170;
+  --e-400: 109 164 126;
+  --e-500: 70 135 91;
+  --e-600: 47 109 68;
+  --e-700: 35 90 55;
+  --e-800: 27 71 41;
+  --e-900: 20 53 31;
+  --e-950: 11 33 20;
+
+  --background: #f6f7f3;
+  --foreground: #14201a;
+  /* Superficie y filetes en trípletes RGB: las consume Tailwind como
+     rgb(var(--superficie) / <alpha-value>) y un hex haría inválida la
+     declaración (el elemento quedaba transparente). */
+  --superficie: 255 255 255;
+  --regla: 227 232 223;
+  --muted: 94 107 97;
+  /* Sombra de los paneles flotantes (menú de ayuda). */
+  --sombra: 11 33 20;
+
+  /* Avisos (ámbar) y alertas (rojo) */
+  --a-50: 254 251 235;
+  --a-100: 254 243 199;
+  --a-200: 253 230 138;
+  --a-300: 252 211 77;
+  --a-400: 251 191 36;
+  --a-500: 245 158 11;
+  --a-600: 217 119 6;
+  --a-700: 180 83 9;
+  --a-800: 146 64 14;
+  --a-900: 120 53 15;
+
+  --r-50: 254 242 242;
+  --r-100: 254 226 226;
+  --r-200: 254 202 202;
+  --r-300: 252 165 165;
+  --r-400: 248 113 113;
+  --r-500: 239 68 68;
+  --r-600: 220 38 38;
+  --r-700: 185 28 28;
+  --r-800: 153 27 27;
+  --r-900: 127 29 29;
+
+  /* Verde de marca para superficies sólidas (botón, píldoras, sello). */
+  --marca: 35 90 55;
+  --marca-fg: 255 255 255;
+
+  color-scheme: light;
+}
+
+/* Tema oscuro: la escala invierte su sentido — 50 es la superficie más
+   oscura y 950 el texto de mayor contraste. Los pasos intermedios se eligen
+   por rol, no por monotonía. */
+.dark {
+  --e-50: 16 26 20;
+  --e-100: 22 36 27;
+  --e-200: 29 47 35;
+  --e-300: 42 68 51;
+  --e-400: 60 102 73;
+  --e-500: 78 140 97;
+  --e-600: 62 122 82;
+  --e-700: 111 191 140;
+  --e-800: 168 195 174;
+  --e-900: 203 218 207;
+  --e-950: 234 241 234;
+
+  --background: #0e1611;
+  --foreground: #eaf1ea;
+  --superficie: 23 35 28;
+  --regla: 42 68 51;
+  --muted: 168 195 174;
+  --sombra: 0 0 0;
+
+  /* Avisos y alertas: en oscuro el fondo se oscurece y el texto se aclara. */
+  --a-50: 69 46 8;
+  --a-100: 88 59 10;
+  --a-200: 120 79 12;
+  --a-300: 154 101 16;
+  --a-400: 187 128 20;
+  --a-500: 217 148 24;
+  --a-600: 253 230 138;
+  --a-700: 253 230 138;
+  --a-800: 254 240 202;
+  --a-900: 255 247 237;
+
+  --r-50: 69 26 26;
+  --r-100: 91 33 33;
+  --r-200: 122 44 44;
+  --r-300: 153 55 55;
+  --r-400: 185 66 66;
+  --r-500: 220 38 38;
+  --r-600: 254 202 202;
+  --r-700: 254 202 202;
+  --r-800: 254 226 226;
+  --r-900: 254 242 242;
+
+  --marca: 46 107 69;
+  --marca-fg: 255 255 255;
+
+  color-scheme: dark;
+}
+
+/* La etiqueta QR es un artefacto imprimible: se mantiene siempre en claro
+   (el QR necesita fondo blanco para leerse) re-declarando la paleta clara
+   dentro de su contenedor. */
+.ficha-impresa {
+  --e-50: 241 246 241;
+  --e-100: 225 237 227;
+  --e-200: 198 220 203;
+  --e-300: 159 197 170;
+  --e-400: 109 164 126;
+  --e-500: 70 135 91;
+  --e-600: 47 109 68;
+  --e-700: 35 90 55;
+  --e-800: 27 71 41;
+  --e-900: 20 53 31;
+  --e-950: 11 33 20;
+  --background: #f6f7f3;
+  --foreground: #14201a;
+  /* Superficie y filetes en trípletes RGB: las consume Tailwind como
+     rgb(var(--superficie) / <alpha-value>) y un hex haría inválida la
+     declaración (el elemento quedaba transparente). */
+  --superficie: 255 255 255;
+  --regla: 227 232 223;
+  --muted: 94 107 97;
+  --sombra: 11 33 20;
+  --marca: 35 90 55;
+  --marca-fg: 255 255 255;
+  --a-50: 254 251 235;
+  --a-100: 254 243 199;
+  --a-200: 253 230 138;
+  --a-300: 252 211 77;
+  --a-400: 251 191 36;
+  --a-500: 245 158 11;
+  --a-600: 217 119 6;
+  --a-700: 180 83 9;
+  --a-800: 146 64 14;
+  --a-900: 120 53 15;
+  --r-50: 254 242 242;
+  --r-100: 254 226 226;
+  --r-200: 254 202 202;
+  --r-300: 252 165 165;
+  --r-400: 248 113 113;
+  --r-500: 239 68 68;
+  --r-600: 220 38 38;
+  --r-700: 185 28 28;
+  --r-800: 153 27 27;
+  --r-900: 127 29 29;
+  /* El texto heredado también vuelve a oscuro dentro de la etiqueta. */
+  color: var(--foreground);
+  color-scheme: light;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-ui), system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-feature-settings: "cv05" 1, "ss01" 1;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+    background-color: rgb(var(--marca));
+    color: rgb(var(--marca-fg));
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-emerald-900/20 bg-superficie px-5 py-2.5 text-sm font-semibold text-emerald-800 transition hover:border-emerald-700/40 hover:bg-emerald-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-700;
+  }
+  .card {
+    @apply rounded-card border border-emerald-900/10 bg-superficie p-6;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-semibold;
+  }
+  .input {
+    @apply w-full rounded-lg border border-emerald-900/15 bg-superficie px-4 py-2.5 text-sm text-emerald-950 outline-none transition placeholder:text-emerald-900/35 focus:border-emerald-700 focus:ring-2 focus:ring-emerald-700/15;
+  }
+  .label {
+    @apply mb-1.5 block text-[13px] font-semibold text-emerald-950;
+  }
+
+  /* Fila de libro contable: sin caja, solo filete. */
+  .fila {
+    @apply flex flex-wrap items-center justify-between gap-3 border-b border-emerald-900/10 px-1 py-3 last:border-b-0;
+  }
+  /* Etiqueta pequeña en versalitas, nunca en mayúsculas sostenidas. */
+  .rotulo {
+    @apply text-[13px] font-semibold tracking-normal text-emerald-900/60;
+  }
+  /* Sello circular de verificación. */
+  .sello {
+    @apply inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full;
+    background-color: rgb(var(--marca));
+    color: rgb(var(--marca-fg));
+  }
+  /* Superficie de marca (píldoras activas, pasos completados). */
+  .marca {
+    background-color: rgb(var(--marca));
+    color: rgb(var(--marca-fg));
+  }
+
+  /* Panel flotante: se despega del contenido con sombra suave. */
+  .panel {
+    @apply rounded-card border border-emerald-900/15 bg-superficie;
+    box-shadow: 0 12px 32px -16px rgb(var(--sombra) / 0.45);
+  }
+
+  /* Recuadro de contenido (manual, avisos de página). */
+  .recuadro {
+    @apply rounded-xl border px-4 py-3 text-sm leading-relaxed;
+  }
+  .recuadro--nota {
+    @apply border-emerald-900/10 bg-emerald-50 text-emerald-900;
+  }
+  .recuadro--info {
+    @apply border-l-2 border-emerald-700 bg-emerald-50 text-emerald-900;
+  }
+  .recuadro--alerta {
+    @apply border-amber-400/50 bg-amber-50 text-amber-900;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hoja de impresión de la etiqueta QR: 6 etiquetas en cuadrícula 2×3.
+   Carta (216×279 mm) con margen de 10 mm → 196×259 mm útiles; dos columnas
+   de 94 mm y tres filas de 81 mm con 8 mm de separación para guillotinar.
+   Oculta en pantalla: solo aparece dentro de @media print. */
+.hoja-impresion {
+  display: none;
+}
+
+/* Carta con margen de corte: el tamaño y el margen los manda @page, no el
+   formato del diálogo de imprimir. */
+@page {
+  size: letter;
+  margin: 10mm;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+  .print-only {
+    display: block !important;
+  }
+
+  /* El <main> aporta su propio padding en pantalla; al imprimir el margen
+     lo pone @page y cualquier píxel de más empujaría la hoja a una segunda
+     página en blanco. */
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    min-height: 0 !important;
+  }
+
+  /* La única cosa impresa: la cuadrícula 2×3, a tamaño exacto de la caja
+     útil de la página. print-color-adjust conserva los filetes punteados y
+     el fondo blanco del QR. */
+  .hoja-impresion {
+    display: grid !important;
+    grid-template-columns: repeat(2, 94mm);
+    grid-template-rows: repeat(3, 81mm);
+    gap: 8mm;
+    width: 196mm;
+    height: 259mm;
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
