@@ -13,7 +13,7 @@ const secciones = [
     href: "/ayuda/versiones",
     titulo: "Novedades y versiones",
     texto:
-      "Qué cambió en cada ciclo, desde el anclaje en Stellar hasta el diseño actual, con la versión que está en producción.",
+      "Qué cambió en cada ciclo, desde el primer anclaje hasta el diseño actual, con la versión que está en producción.",
     etiqueta: "Historial completo",
   },
   {

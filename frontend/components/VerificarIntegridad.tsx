@@ -31,7 +31,7 @@ export default function VerificarIntegridad({
     if (inicial === undefined) return;
     setResultado(inicial);
     if (inicial === null) {
-      // Sin backend/Stellar no se puede afirmar nada: se marca como no disponible.
+      // Sin backend/NEAR no se puede afirmar nada: se marca como no disponible.
       setEstado("fallo");
     } else if (inicial.verificado) {
       setEstado("ok");
@@ -47,7 +47,7 @@ export default function VerificarIntegridad({
     if (r?.verificado) {
       setEstado("ok");
     } else if (!r || r.error) {
-      // null = backend/Stellar inaccesible; error = falla de infraestructura.
+      // null = backend/NEAR inaccesible; error = falla de infraestructura.
       // En ninguno de los dos casos se afirma "alterado".
       setEstado("fallo");
     } else {
@@ -64,7 +64,7 @@ export default function VerificarIntegridad({
           </h2>
           <p className="mt-1 text-sm text-emerald-900/70">
             Recalcula el hash SHA-256 de los datos del lote y lo compara con el
-            hash registrado en <strong>Stellar Testnet</strong>.
+            hash registrado en <strong>NEAR Testnet</strong>.
           </p>
         </div>
         <button onClick={verificar} disabled={estado === "verificando"} className="btn-primary shrink-0">
@@ -77,7 +77,7 @@ export default function VerificarIntegridad({
           <p className="badge bg-emerald-600 text-white">✅ Información verificada e inalterada</p>
           <dl className="mt-3 grid gap-2 text-sm">
             <div>
-              <dt className="font-semibold text-emerald-900">Hash registrado en Stellar</dt>
+              <dt className="font-semibold text-emerald-900">Hash registrado en NEAR</dt>
               <dd className="break-all font-mono text-xs">{resultado.hash_registrado ?? "—"}</dd>
             </div>
             <div>
@@ -86,18 +86,18 @@ export default function VerificarIntegridad({
             </div>
             <div>
               <dt className="font-semibold text-emerald-900">
-                Transacción{resultado.ledger ? ` · ledger ${resultado.ledger}` : ""}
+                Transacción{resultado.block ? ` · bloque ${resultado.block}` : ""}
               </dt>
               <dd className="break-all font-mono text-xs">
                 {trunc(resultado.tx_hash, 24)}
                 {resultado.tx_hash && (
                   <a
                     className="ml-2 text-emerald-700 underline"
-                    href={`https://horizon-testnet.stellar.org/transactions/${resultado.tx_hash}`}
+                    href={`https://explorer.testnet.near.org/transactions/${resultado.tx_hash}`}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    ver en Horizon ↗
+                    ver en el explorador ↗
                   </a>
                 )}
               </dd>
@@ -106,7 +106,7 @@ export default function VerificarIntegridad({
           {resultado.demo && (
             <p className="mt-2 text-xs text-emerald-800/70">
               Modo demo: el ancla está simulada en el navegador. Con el backend
-              activo se consulta Stellar Testnet real.
+              activo se consulta NEAR Testnet real.
             </p>
           )}
         </div>
@@ -120,13 +120,13 @@ export default function VerificarIntegridad({
           <p className="mt-2 text-sm text-amber-900">
             {resultado?.error
               ? `No se pudo completar la verificación on-chain: ${resultado.error}`
-              : "No se pudo consultar el backend o Stellar Testnet en este momento. Intenta de nuevo en unos segundos."}
+              : "No se pudo consultar el backend o NEAR Testnet en este momento. Intenta de nuevo en unos segundos."}
           </p>
           {resultado && (
             <dl className="mt-3 grid gap-2 text-sm">
               <div>
                 <dt className="font-semibold text-amber-900">
-                  Hash registrado en Stellar
+                  Hash registrado en NEAR
                 </dt>
                 <dd className="break-all font-mono text-xs">
                   {resultado.hash_registrado ?? "—"}

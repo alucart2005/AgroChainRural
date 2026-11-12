@@ -1,9 +1,10 @@
 import type { Evento, Lote } from "./types";
 import { hashLote, payloadDeLote, sha256Hex } from "./hash";
 
-// v3: la semilla pasa a ser el lote real HUE-2026-008 (antes HUE-2027-001);
-// subir la versión fuerza el re-sembrado en navegadores con datos viejos.
-const KEY = "agrotrace.demo.lotes.v3";
+// v4: los lotes pasan de `stellar_tx_hash`/`stellar_ledger` a
+// `near_tx_hash`/`near_block`; subir la versión fuerza el re-sembrado en
+// navegadores con datos de la época de Stellar.
+const KEY = "agrotrace.demo.lotes.v4";
 
 function readStore(): Lote[] {
   if (typeof window === "undefined") return [];
@@ -66,7 +67,7 @@ async function makeSeed(): Promise<Lote> {
     ],
   };
   // El lote demo replica el lote real HUE-2026-008 de producción: con los
-  // mismos 8 campos canónicos, hashLote reproduce el hash anclado en Stellar
+  // mismos 8 campos canónicos, hashLote reproduce el hash anclado en NEAR
   // (paridad backend/frontend probada en tests/test_sha256.py).
   const hash = await hashLote(payloadDeLote(base));
   const eventos: Evento[] = [
@@ -114,9 +115,10 @@ async function makeSeed(): Promise<Lote> {
     ],
     evidencias: base.evidencias,
     hash_sha256: hash,
-    // Ancla real del lote en Stellar Testnet (viewable en cualquier explorador).
-    stellar_tx_hash: "0b3a48c0934f2d5e512ddae3a2dc79ec6051bf3599302a0c286dcffa9c118ca9",
-    stellar_ledger: 5377565,
+    // Ancla real del lote en NEAR Testnet (viewable en el explorador). El
+    // hash de arriba es el que quedó guardado en el contrato con `set`.
+    near_tx_hash: "EEFcqPN8qug4FS5joGDVvX17UQmdpQQFTGhKqBDD16Rp",
+    near_block: 277310783,
     eventos,
     created_at: "2026-10-25T06:56:49.864498Z",
     demo: true,
@@ -159,6 +161,9 @@ export async function crearLote(input: {
     evidencias: input.fotos.map((f) => ({ nombre: f.nombre, tamano: f.tamano })),
   };
   const hash = await hashLote(payloadDeLote(base));
+  // En modo demo no hay cadena: el «ancla» es un valor derivado del propio
+  // hash, solo para que la ficha muestre algo coherente. La verificación real
+  // (HU-03) consulta el contrato con el backend activo.
   const tx = await sha256Hex("demo-anchor:" + hash);
   const now = new Date().toISOString();
   const lote: Lote = {
@@ -166,8 +171,8 @@ export async function crearLote(input: {
     ...base,
     fotos: input.fotos.map((f) => f.dataUrl),
     hash_sha256: hash,
-    stellar_tx_hash: tx,
-    stellar_ledger: 5377565 + lotes.length,
+    near_tx_hash: tx,
+    near_block: 277310783 + lotes.length,
     eventos: [
       {
         id: "ev-1",

@@ -50,7 +50,7 @@ export default function Footer() {
           <p className="mt-2">
             Trazabilidad con{" "}
             <span className="font-semibold text-emerald-800">
-              SHA-256 + Stellar Testnet
+              SHA-256 + NEAR Testnet
             </span>
           </p>
           <p className="mt-3 text-xs text-emerald-900/50">

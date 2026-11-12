@@ -50,7 +50,7 @@ export default function Buscador({ compacto = false }: { compacto?: boolean }) {
         </h2>
         <p className="mt-2 max-w-[46ch] text-sm leading-relaxed text-emerald-900/70">
           Escribe el código impreso bajo el QR de la cubeta. Verás el origen, las
-          fotos y la comprobación de la huella en Stellar.
+          fotos y la comprobación de la huella en NEAR.
         </p>
         <p className="mt-3 text-sm text-emerald-900/60">
           ¿No tienes un código a mano?{" "}

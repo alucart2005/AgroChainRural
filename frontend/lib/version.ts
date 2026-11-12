@@ -6,21 +6,35 @@
  * de novedades (`/ayuda/versiones`).
  */
 
-export const VERSION = "0.5.0";
-export const CICLO = "Version-0.05";
-export const FECHA_LANZAMIENTO = "2026-11-09";
+export const VERSION = "0.6.0";
+export const CICLO = "Version-0.06";
+export const FECHA_LANZAMIENTO = "2026-11-11";
 
 export const ENLACES = {
   app: "https://frontend-2mx1.vercel.app",
   api: "https://agrotrace-backend-z3q1.onrender.com",
-  repositorio: "https://github.com/alucart2005/AgroTraceRural",
+  repositorio: "https://github.com/alucart2005/AgroChainRural",
   video: "https://www.youtube.com/watch?v=stVQCivrmCg",
-  horizonte: "https://horizon-testnet.stellar.org",
+  // Explorador de NEAR Testnet: el ancla se consulta por el ESTADO del
+  // contrato, y la transacción que lo escribió se ve aquí.
+  red: "https://explorer.testnet.near.org",
   correo: "soporte@agrotrace.co",
 };
 
 /** Novedades de cada ciclo, tal como quedaron en el historial de git. */
 export const NOVEDADES = [
+  {
+    version: "0.6.0",
+    ciclo: "Version-0.06",
+    fecha: "2026-11-11",
+    titulo: "El ancla se mueve de Stellar a NEAR",
+    cambios: [
+      "El SHA-256 de cada lote se guarda ahora en un contrato propio de NEAR Testnet en lugar del memo de una transacción de Stellar.",
+      "La verificación lee el estado del contrato: el detalle de las transacciones caduca en el RPC público, el estado no.",
+      "La ficha enlaza la transacción en el explorador de NEAR y muestra el bloque en lugar del ledger.",
+      "Nuevo contrato KV en Rust (contract/) con reintentos idempotentes: repetir un ancla no cambia nada y un hash distinto para el mismo lote se rechaza.",
+    ],
+  },
   {
     version: "0.5.0",
     ciclo: "Version-0.05",

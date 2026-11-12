@@ -31,9 +31,9 @@ const pasos = [
   },
   {
     n: "2",
-    titulo: "Hash y ancla en Stellar",
+    titulo: "Hash y ancla en NEAR",
     texto:
-      "El sistema calcula el SHA-256 de los datos y ancla la huella en Stellar Testnet (solo el hash).",
+      "El sistema calcula el SHA-256 de los datos y guarda la huella en un contrato de NEAR Testnet (solo el hash).",
     href: "/lote/HUE-2026-008",
     hu: "HU-03",
   },
@@ -102,7 +102,7 @@ export default function Home() {
             <strong className="font-semibold text-emerald-950">SHA-256</strong>{" "}
             queda anclada en{" "}
             <strong className="font-semibold text-emerald-950">
-              Stellar Testnet
+              NEAR Testnet
             </strong>{" "}
             y un QR lleva al comprador hasta el origen.
           </p>
@@ -130,9 +130,11 @@ export default function Home() {
           <p className="border-t border-emerald-900/10 pt-4 text-[13px] leading-relaxed text-emerald-900/70 sm:hidden">
             <strong className="font-semibold text-emerald-950">8 campos</strong>{" "}
             en la huella ·{" "}
-            <strong className="font-semibold text-emerald-950">1 XLM</strong> por
-            ancla ·{" "}
-            <strong className="font-semibold text-emerald-950">3–5 s</strong> de
+            <strong className="font-semibold text-emerald-950">
+              ≈0,001 NEAR
+            </strong>{" "}
+            por ancla ·{" "}
+            <strong className="font-semibold text-emerald-950">1–3 s</strong> de
             confirmación
           </p>
           <dl className="hidden max-w-lg grid-cols-3 gap-4 border-t border-emerald-900/10 pt-5 text-sm sm:grid">
@@ -141,13 +143,15 @@ export default function Home() {
               <dd className="font-display text-2xl font-semibold text-emerald-950">8</dd>
             </div>
             <div>
-              <dt className="text-emerald-900/55">Transacción</dt>
-              <dd className="font-display text-2xl font-semibold text-emerald-950">1 XLM</dd>
+              <dt className="text-emerald-900/55">Ancla</dt>
+              <dd className="font-display text-2xl font-semibold text-emerald-950">
+                ≈0,001 NEAR
+              </dd>
             </div>
             <div>
               <dt className="text-emerald-900/55">Confirmación</dt>
               <dd className="font-display text-2xl font-semibold text-emerald-950">
-                3–5 s
+                1–3 s
               </dd>
             </div>
           </dl>
@@ -268,11 +272,11 @@ export default function Home() {
         </h2>
         <p className="mt-3 max-w-[70ch] text-[14px] leading-relaxed text-emerald-900/75 sm:text-sm">
           Los archivos pesados —las fotos— nunca van a la blockchain: se guardan
-          en almacenamiento externo. En Stellar <em>solo</em> viaja la huella
-          SHA-256 de 32 bytes dentro del <em>memo</em> de una transacción. Así
-          productor, consumidor y autoridad sanitaria pueden auditar de forma
-          independiente que los registros no fueron alterados, con costos casi
-          nulos y confirmación en 3–5 segundos.
+          en almacenamiento externo. En NEAR <em>solo</em> viaja la huella
+          SHA-256 como el valor de una entrada en un contrato. Así productor,
+          consumidor y autoridad sanitaria pueden auditar de forma independiente
+          que los registros no fueron alterados, con costos casi nulos y
+          confirmación en 1–3 segundos.
         </p>
         <p className="mt-4 text-sm">
           <Link

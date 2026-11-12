@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | AgroTrace Rural",
   },
   description:
-    "Pasaporte digital para productos del campo: QR + SHA-256 anclados en Stellar Testnet.",
+    "Pasaporte digital para productos del campo: QR + SHA-256 anclados en NEAR Testnet.",
 };
 
 /**

@@ -70,7 +70,7 @@ function GaleriaEvidencias() {
       <EncabezadoPagina
         eyebrow="Catálogo"
         titulo="Evidencias"
-        descripcion="Las fotos que respaldan cada lote. Son la prueba que entra en la huella SHA-256 que se ancla en Stellar."
+        descripcion="Las fotos que respaldan cada lote. Son la prueba que entra en la huella SHA-256 que se ancla en NEAR."
         acciones={
           <Link href="/productor/nuevo" className="btn-primary">
             + Nuevo lote

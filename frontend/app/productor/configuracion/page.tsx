@@ -215,10 +215,10 @@ function PanelConfiguracion() {
               municipio y evidencias.
             </p>
             <p className="text-sm text-emerald-900/75">
-              Solo esa huella (32 bytes) viaja a{" "}
-              <strong className="text-emerald-800">Stellar Testnet</strong> como
-              memo de un pago de 1 XLM. Las fotos nunca se suben a la red
-              pública.
+              Solo esa huella (64 caracteres en hexadecimal) viaja a{" "}
+              <strong className="text-emerald-800">NEAR Testnet</strong> como el
+              valor de una entrada en el contrato. Las fotos nunca se suben a la
+              red pública.
             </p>
             <p className="flex items-start gap-2 rounded-xl bg-emerald-50 px-3 py-2.5 text-xs text-emerald-900/75">
               <IconoUbicacion className="mt-0.5 h-4 w-4 shrink-0 text-emerald-700" />

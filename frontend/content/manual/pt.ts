@@ -11,7 +11,7 @@ export const manual: Manual = {
       titulo: "O que é o AgroTrace e como funciona",
       parrafos: [
         "O AgroTrace Rural abre um canal direto entre a fazenda e o comprador. Cada colheita registrada recebe um código único (por exemplo HUE-2026-008), sua própria página pública e uma etiqueta QR para colar na bandeja. Quem compra escaneia o código e vê a origem, a data, as fotos e a linha do tempo do lote.",
-        "O princípio é simples: arquivos pesados nunca vão para a blockchain. As fotos ficam em armazenamento externo e para o Stellar vai apenas a impressão digital SHA-256 de 32 bytes, dentro do memo de um pagamento de 1 XLM.",
+        "O princípio é simples: arquivos pesados nunca vão para a blockchain. As fotos ficam em armazenamento externo e para o NEAR vai apenas a impressão digital SHA-256, como o valor de uma entrada no contrato.",
       ],
       tabla: {
         columnas: ["Dado que entra na impressão", "Exemplo"],
@@ -48,7 +48,7 @@ export const manual: Manual = {
         {
           titulo: "Verifique a integridade",
           texto:
-            "Toque no ícone de informação ao lado de “Situação” para ver o hash registrado, o hash recalculado e a transação no Stellar.",
+            "Toque no ícone de informação ao lado de “Situação” para ver o hash registrado, o hash recalculado e a transação no NEAR.",
         },
       ],
       aviso: {
@@ -78,7 +78,7 @@ export const manual: Manual = {
         {
           titulo: "Resumo",
           texto:
-            "Revise tudo e salve. O código HUE-YYYY-NNN é gerado, a impressão é calculada e ancorada no Stellar.",
+            "Revise tudo e salve. O código HUE-YYYY-NNN é gerado, a impressão é calculada e ancorada no NEAR.",
         },
       ],
       aviso: {
@@ -105,12 +105,12 @@ export const manual: Manual = {
       id: "verificar",
       titulo: "Verificar a integridade",
       lista: [
-        "Lote verificado: a impressão recalculada coincide com a ancorada no Stellar Testnet.",
+        "Lote verificado: a impressão recalculada coincide com a ancorada no NEAR Testnet.",
         "Lote não verificado: a impressão não coincide com a âncora.",
-        "Verificação indisponível: não foi possível consultar o backend ou a rede Stellar.",
+        "Verificação indisponível: não foi possível consultar o backend ou a rede NEAR.",
       ],
       parrafos: [
-        "No detalhe você pode abrir a transação no explorador Horizon e ler o memo, onde está a impressão em hexadecimal. A rede em uso é a Stellar Testnet, a de testes.",
+        "No detalhe você pode abrir a transação no explorador do NEAR e ler a impressão em hexadecimal guardada no contrato. A rede em uso é a NEAR Testnet, a de testes.",
       ],
     },
     {
@@ -140,7 +140,7 @@ export const manual: Manual = {
       titulo: "Ajuda e limites",
       lista: [
         "O AgroTrace prova que o registro não foi alterado; não certifica a qualidade do produto nem substitui o registro sanitário oficial.",
-        "A ancoragem acontece na Stellar Testnet, a rede de testes.",
+        "A ancoragem acontece na NEAR Testnet, a rede de testes.",
         "As fotos ficam em armazenamento externo, não na blockchain.",
       ],
       parrafos: [

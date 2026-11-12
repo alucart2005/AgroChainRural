@@ -138,7 +138,7 @@ export default function EtiquetaLote({
         {url}
       </p>
       <p className="mt-3 text-[11px] leading-relaxed text-emerald-900/55">
-        Escanea para verificar el origen y la integridad del lote en Stellar.
+        Escanea para verificar el origen y la integridad del lote en NEAR.
       </p>
     </div>
   );

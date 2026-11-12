@@ -30,8 +30,10 @@ export interface Lote {
   fotos: string[];
   evidencias: Evidencia[];
   hash_sha256: string;
-  stellar_tx_hash: string | null;
-  stellar_ledger: number | null;
+  /** Hash de la transacción que ancló la huella en el contrato de NEAR. */
+  near_tx_hash: string | null;
+  /** Altura del bloque que incluyó esa transacción (cosmético; puede ser null). */
+  near_block: number | null;
   eventos: Evento[];
   created_at: string;
   demo?: boolean;
@@ -42,9 +44,9 @@ export interface Verificacion {
   hash_calculado: string;
   hash_registrado: string | null;
   tx_hash: string | null;
-  ledger: number | null;
+  block: number | null;
   demo: boolean;
-  /** Motivo de falla de infraestructura (Horizon caído, lote sin anclar...). */
+  /** Motivo de falla de infraestructura (RPC de NEAR caído, lote sin anclar...). */
   error?: string | null;
 }
 

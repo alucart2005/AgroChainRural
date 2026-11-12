@@ -27,7 +27,7 @@ function estadoDe(v: Verificacion | null | undefined): EstadoVerificacion {
   return v.verificado ? "verificado" : "noverificado";
 }
 
-/** Banner superior del mockup: solo afirma lo que la verificación证明了. */
+/** Banner superior: solo afirma lo que la verificación demostró. */
 function BannerVerificacion({ estado }: { estado: EstadoVerificacion }) {
   if (estado === "verificando") {
     return (
@@ -36,7 +36,7 @@ function BannerVerificacion({ estado }: { estado: EstadoVerificacion }) {
         <div>
           <p className="text-lg font-bold text-emerald-950">Verificando lote…</p>
           <p className="text-sm text-emerald-900/70">
-            Consultando la huella SHA-256 en Stellar Testnet.
+            Consultando la huella SHA-256 en NEAR Testnet.
           </p>
         </div>
       </div>
@@ -72,7 +72,7 @@ function BannerVerificacion({ estado }: { estado: EstadoVerificacion }) {
             Lote no verificado
           </p>
           <p className="text-sm text-red-800/80">
-            La huella calculada no coincide con la anclada en Stellar.
+            La huella calculada no coincide con la anclada en NEAR.
           </p>
         </div>
       </div>
@@ -89,7 +89,7 @@ function BannerVerificacion({ estado }: { estado: EstadoVerificacion }) {
           Verificación no disponible
         </p>
         <p className="text-sm text-amber-900/80">
-          No se pudo consultar el backend o Stellar Testnet.
+          No se pudo consultar el backend o NEAR Testnet.
         </p>
       </div>
     </div>

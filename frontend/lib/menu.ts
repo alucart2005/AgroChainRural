@@ -41,7 +41,7 @@ export interface GrupoMenu {
   items: EnlaceMenu[];
 }
 
-/** Lote de ejemplo: es real y está anclado en Stellar Testnet. */
+/** Lote de ejemplo: es real y está anclado en NEAR Testnet. */
 export const LOTE_DEMO = "HUE-2026-008";
 
 export const ENTRADAS: (GrupoMenu | (EnlaceMenu & { id: string }))[] = [

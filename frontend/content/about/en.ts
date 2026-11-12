@@ -11,7 +11,7 @@ export const about: ContenidoAbout = {
       titulo: "What AgroTrace Rural is",
       parrafos: [
         "AgroTrace Rural is an agrifood traceability project aiming to build a farm → buyer channel: to reduce the dependence on middlemen and let consumers verify the origin of what they buy through a QR code.",
-        "At the heart of the project is a platform of digital records with SHA-256 cryptographic fingerprints and selective anchoring of events on the Stellar network. Documents, photographs and videos are never stored on the blockchain: they live in digital storage and only their cryptographic fingerprint, date, batch and reference are recorded, so that any later change to the file can be detected.",
+        "At the heart of the project is a platform of digital records with SHA-256 cryptographic fingerprints and selective anchoring of events on the NEAR network. Documents, photographs and videos are never stored on the blockchain: they live in digital storage and only their cryptographic fingerprint, date, batch and reference are recorded, so that any later change to the file can be detected.",
       ],
     },
     {
@@ -36,7 +36,7 @@ export const about: ContenidoAbout = {
       id: "sello",
       titulo: "How a batch is sealed",
       parrafos: [
-        "For every batch a SHA-256 fingerprint is computed over eight fields: code, harvest date, production line, quantity, unit, farm, municipality and evidence. That 32-byte fingerprint travels to Stellar Testnet inside the memo of a 1 XLM payment; everything else stays off the network.",
+        "For every batch a SHA-256 fingerprint is computed over eight fields: code, harvest date, production line, quantity, unit, farm, municipality and evidence. That fingerprint in hexadecimal travels to NEAR Testnet as the value of an entry in the contract; everything else stays off the network.",
       ],
       lista: [
         "The buyer recomputes the fingerprint from the public page and compares it with the anchor.",
@@ -52,7 +52,7 @@ export const about: ContenidoAbout = {
         "Backend in FastAPI on Docker, deployed on Render.",
         "Database on Neon Postgres.",
         "Photographic evidence on Cloudflare R2 (S3 compatible).",
-        "Anchoring on Stellar Testnet, where only the SHA-256 hash travels as a Memo Hash.",
+        "Anchoring on NEAR Testnet, where only the SHA-256 hash travels as the value of an entry in the contract.",
         "For local development: SQLite and browser demo mode.",
       ],
     },

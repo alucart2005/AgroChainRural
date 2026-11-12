@@ -281,7 +281,7 @@ function WizardLote() {
           </h1>
           <p className="mt-1 text-sm text-emerald-900/70">
             Se creó el identificador único del lote y su huella quedó lista para
-            anclarse en Stellar Testnet.
+            anclarse en NEAR Testnet.
           </p>
           <p className="mt-4 text-3xl font-black text-emerald-800">
             {creado.codigo}
@@ -292,9 +292,9 @@ function WizardLote() {
               <dd className="break-all font-mono">{creado.hash_sha256}</dd>
             </div>
             <div>
-              <dt className="font-semibold text-emerald-900">Tx Stellar</dt>
+              <dt className="font-semibold text-emerald-900">Tx NEAR</dt>
               <dd className="break-all font-mono">
-                {creado.stellar_tx_hash ?? "pendiente"}
+                {creado.near_tx_hash ?? "pendiente"}
               </dd>
             </div>
             <div>
@@ -504,7 +504,7 @@ function WizardLote() {
                 </h2>
                 <p className="text-sm text-emerald-900/70">
                   Revisa los datos antes de guardar: son los que entran en la
-                  huella que se ancla en Stellar.
+                  huella que se ancla en NEAR.
                 </p>
               </div>
 
@@ -560,7 +560,7 @@ function WizardLote() {
               <p className="rounded-xl bg-emerald-50 px-4 py-3 text-xs text-emerald-900/70">
                 Al guardar se calcula el SHA-256 de los 8 campos del lote (código,
                 fechas, producto, cantidad, unidad, finca, ubicación y
-                evidencias) y solo esa huella viaja a Stellar Testnet. Las fotos
+                evidencias) y solo esa huella viaja a NEAR Testnet. Las fotos
                 quedan como evidencia y nunca se suben a la red pública.
               </p>
             </div>
@@ -691,7 +691,7 @@ function WizardLote() {
             )}
 
             <p className="text-xs text-emerald-900/50">
-              Las imágenes se comprimen a 800 px para guardarlas; en Stellar solo
+              Las imágenes se comprimen a 800 px para guardarlas; en NEAR solo
               viaja su huella SHA-256.
             </p>
           </aside>

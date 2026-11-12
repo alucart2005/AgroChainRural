@@ -11,7 +11,7 @@ export const about: ContenidoAbout = {
       titulo: "O que é o AgroTrace Rural",
       parrafos: [
         "O AgroTrace Rural é um projeto de rastreabilidade agroalimentar que quer criar um canal fazenda → comprador: reduzir a dependência de intermediários e permitir que o consumidor verifique a origem do que compra por meio de um código QR.",
-        "O coração do projeto é uma plataforma de registros digitais com impressões criptográficas SHA-256 e ancoragem seletiva de eventos na rede Stellar. Documentos, fotografias e vídeos não ficam na blockchain: ficam em armazenamento digital e só se registra a impressão criptográfica, a data, o lote e a referência, de modo que uma alteração posterior do arquivo possa ser detectada.",
+        "O coração do projeto é uma plataforma de registros digitais com impressões criptográficas SHA-256 e ancoragem seletiva de eventos na rede NEAR. Documentos, fotografias e vídeos não ficam na blockchain: ficam em armazenamento digital e só se registra a impressão criptográfica, a data, o lote e a referência, de modo que uma alteração posterior do arquivo possa ser detectada.",
       ],
     },
     {
@@ -36,7 +36,7 @@ export const about: ContenidoAbout = {
       id: "sello",
       titulo: "Como um lote é selado",
       parrafos: [
-        "De cada lote se calcula uma impressão SHA-256 sobre oito campos: código, data da colheita, linha produtiva, quantidade, unidade, fazenda, município e evidências. Essa impressão de 32 bytes viaja ao Stellar Testnet dentro do memo de um pagamento de 1 XLM; todo o restante fica fora da rede.",
+        "De cada lote se calcula uma impressão SHA-256 sobre oito campos: código, data da colheita, linha produtiva, quantidade, unidade, fazenda, município e evidências. Essa impressão em hexadecimal viaja ao NEAR Testnet como o valor de uma entrada no contrato; todo o restante fica fora da rede.",
       ],
       lista: [
         "O comprador recalcula a impressão pela página pública e compara com a âncora.",
@@ -52,7 +52,7 @@ export const about: ContenidoAbout = {
         "Backend em FastAPI sobre Docker, hospedado no Render.",
         "Banco de dados no Neon Postgres.",
         "Evidências fotográficas no Cloudflare R2 (compatível com S3).",
-        "Ancoragem no Stellar Testnet, onde viaja apenas o hash SHA-256 como Memo Hash.",
+        "Ancoragem no NEAR Testnet, onde viaja apenas o hash SHA-256 como o valor de uma entrada no contrato.",
         "No desenvolvimento local: SQLite e modo demo no navegador.",
       ],
     },

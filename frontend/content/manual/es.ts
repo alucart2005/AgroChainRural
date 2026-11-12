@@ -11,7 +11,7 @@ export const manual: Manual = {
       titulo: "Qué es AgroTrace y cómo funciona",
       parrafos: [
         "AgroTrace Rural abre un canal directo entre la finca y el consumidor. Cada cosecha registrada recibe un código único (por ejemplo HUE-2026-008), su propia página pública y una etiqueta QR para pegar en la cubeta. Quien compra escanea el código y ve el origen, la fecha, las fotos y la línea de tiempo del lote.",
-        "El principio es sencillo: los archivos pesados nunca van a la blockchain. Las fotos se guardan en almacenamiento externo y en Stellar solo viaja la huella SHA-256 de 32 bytes, dentro del memo de un pago de 1 XLM.",
+        "El principio es sencillo: los archivos pesados nunca van a la blockchain. Las fotos se guardan en almacenamiento externo y en NEAR solo viaja la huella SHA-256, como el valor de una entrada en el contrato.",
       ],
       tabla: {
         columnas: ["Dato que entra en la huella", "Ejemplo"],
@@ -48,7 +48,7 @@ export const manual: Manual = {
         {
           titulo: "Verifica la integridad",
           texto:
-            "Pulsa el ícono de información junto a «Estado» para ver el hash registrado, el hash recalculado y la transacción en Stellar.",
+            "Pulsa el ícono de información junto a «Estado» para ver el hash registrado, el hash recalculado y la transacción en NEAR.",
         },
       ],
       aviso: {
@@ -78,7 +78,7 @@ export const manual: Manual = {
         {
           titulo: "Resumen",
           texto:
-            "Revisa todo y guarda. Se genera el código HUE-YYYY-NNN, se calcula la huella y se ancla en Stellar.",
+            "Revisa todo y guarda. Se genera el código HUE-YYYY-NNN, se calcula la huella y se ancla en NEAR.",
         },
       ],
       aviso: {
@@ -105,12 +105,12 @@ export const manual: Manual = {
       id: "verificar",
       titulo: "Verificar la integridad",
       lista: [
-        "Lote verificado: la huella recalculada coincide con la anclada en Stellar Testnet.",
+        "Lote verificado: la huella recalculada coincide con la anclada en NEAR Testnet.",
         "Lote no verificado: la huella no coincide con el ancla.",
-        "Verificación no disponible: no se pudo consultar el backend o la red de Stellar.",
+        "Verificación no disponible: no se pudo consultar el backend o la red de NEAR.",
       ],
       parrafos: [
-        "Desde el detalle puedes abrir la transacción en el explorador de Horizon y leer el memo, donde está la huella en hexadecimal. La red usada es Stellar Testnet, la de pruebas.",
+        "Desde el detalle puedes abrir la transacción en el explorador de NEAR y leer la huella en hexadecimal guardada en el contrato. La red usada es NEAR Testnet, la de pruebas.",
       ],
     },
     {
@@ -140,7 +140,7 @@ export const manual: Manual = {
       titulo: "Ayuda y límites",
       lista: [
         "AgroTrace demuestra que el registro no fue alterado; no certifica la calidad del producto ni reemplaza el registro sanitario oficial.",
-        "El anclaje se hace en Stellar Testnet, la red de pruebas.",
+        "El anclaje se hace en NEAR Testnet, la red de pruebas.",
         "Las fotos viven en almacenamiento externo, no en la blockchain.",
       ],
       parrafos: [

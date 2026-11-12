@@ -133,10 +133,10 @@ export async function verificarLote(codigo: string): Promise<Verificacion | null
   if (API_URL) {
     try {
       // El backend es la fuente de verdad: recalcula el hash en el servidor
-      // y contrasta el ancla con Horizon (HU-03).
+      // y contrasta el estado del contrato de NEAR (HU-03).
       return await fetchJson<Verificacion>(`/api/verify/${codigo}`);
     } catch {
-      // Sin backend/Stellar no se puede afirmar verificación → null.
+      // Sin backend/NEAR no se puede afirmar verificación → null.
       return null;
     }
   }
@@ -145,13 +145,13 @@ export async function verificarLote(codigo: string): Promise<Verificacion | null
   if (!lote) return null;
   const hashCalculado = await hashLote(payloadDeLote(lote));
   const verificado =
-    !!lote.stellar_tx_hash && hashCalculado === lote.hash_sha256;
+    !!lote.near_tx_hash && hashCalculado === lote.hash_sha256;
   return {
     verificado,
     hash_calculado: hashCalculado,
     hash_registrado: lote.hash_sha256,
-    tx_hash: lote.stellar_tx_hash,
-    ledger: lote.stellar_ledger,
+    tx_hash: lote.near_tx_hash,
+    block: lote.near_block,
     demo: !!lote.demo,
   };
 }

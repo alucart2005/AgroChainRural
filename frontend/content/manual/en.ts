@@ -11,7 +11,7 @@ export const manual: Manual = {
       titulo: "What AgroTrace is and how it works",
       parrafos: [
         "AgroTrace Rural opens a direct channel between the farm and the buyer. Every registered harvest gets a unique code (for example HUE-2026-008), its own public page and a QR label to stick on the crate. Buyers scan the code and see the origin, the date, the photos and the timeline of the batch.",
-        "The principle is simple: heavy files never go on the blockchain. The photos live in external storage and only the 32-byte SHA-256 fingerprint travels to Stellar, inside the memo of a 1 XLM payment.",
+        "The principle is simple: heavy files never go on the blockchain. The photos live in external storage and only the SHA-256 fingerprint travels to NEAR, as the value of an entry in the contract.",
       ],
       tabla: {
         columnas: ["Data included in the fingerprint", "Example"],
@@ -48,7 +48,7 @@ export const manual: Manual = {
         {
           titulo: "Verify the integrity",
           texto:
-            "Tap the information icon next to “Status” to see the recorded hash, the hash recalculated now and the transaction on Stellar.",
+            "Tap the information icon next to “Status” to see the recorded hash, the hash recalculated now and the transaction on NEAR.",
         },
       ],
       aviso: {
@@ -78,7 +78,7 @@ export const manual: Manual = {
         {
           titulo: "Summary",
           texto:
-            "Review everything and save. The HUE-YYYY-NNN code is generated, the fingerprint is computed and anchored on Stellar.",
+            "Review everything and save. The HUE-YYYY-NNN code is generated, the fingerprint is computed and anchored on NEAR.",
         },
       ],
       aviso: {
@@ -105,12 +105,12 @@ export const manual: Manual = {
       id: "verificar",
       titulo: "Verifying integrity",
       lista: [
-        "Batch verified: the recalculated fingerprint matches the one anchored on Stellar Testnet.",
+        "Batch verified: the recalculated fingerprint matches the one anchored on NEAR Testnet.",
         "Batch not verified: the fingerprint does not match the anchor.",
-        "Verification unavailable: neither the backend nor the Stellar network could be reached.",
+        "Verification unavailable: neither the backend nor the NEAR network could be reached.",
       ],
       parrafos: [
-        "From the detail panel you can open the transaction in the Horizon explorer and read the memo, where the fingerprint sits in hexadecimal. The network in use is Stellar Testnet, the test one.",
+        "From the detail panel you can open the transaction in the NEAR explorer and read the fingerprint in hexadecimal stored in the contract. The network in use is NEAR Testnet, the test one.",
       ],
     },
     {
@@ -140,7 +140,7 @@ export const manual: Manual = {
       titulo: "Help and limits",
       lista: [
         "AgroTrace proves that the record was not altered; it does not certify product quality nor replace the official sanitary register.",
-        "Anchoring happens on Stellar Testnet, the test network.",
+        "Anchoring happens on NEAR Testnet, the test network.",
         "Photos live in external storage, not on the blockchain.",
       ],
       parrafos: [

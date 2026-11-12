@@ -11,7 +11,7 @@ export const about: ContenidoAbout = {
       titulo: "Qué es AgroTrace Rural",
       parrafos: [
         "AgroTrace Rural es un proyecto de trazabilidad agroalimentaria que busca crear un canal finca → cliente: reducir la dependencia de intermediarios y permitir que el consumidor verifique el origen de lo que compra mediante un código QR.",
-        "El corazón del proyecto es una plataforma de registros digitales con huellas criptográficas SHA-256 y anclaje selectivo de eventos en la red Stellar. Los documentos, las fotografías y los videos no se almacenan en la blockchain: se conservan en almacenamiento digital y solo se registra su huella criptográfica, la fecha, el lote y la referencia, de modo que una modificación posterior del archivo pueda ser detectada.",
+        "El corazón del proyecto es una plataforma de registros digitales con huellas criptográficas SHA-256 y anclaje selectivo de eventos en la red NEAR. Los documentos, las fotografías y los videos no se almacenan en la blockchain: se conservan en almacenamiento digital y solo se registra su huella criptográfica, la fecha, el lote y la referencia, de modo que una modificación posterior del archivo pueda ser detectada.",
       ],
     },
     {
@@ -36,7 +36,7 @@ export const about: ContenidoAbout = {
       id: "sello",
       titulo: "Cómo se sella un lote",
       parrafos: [
-        "De cada lote se calcula una huella SHA-256 sobre ocho campos: código, fecha de cosecha, línea productiva, cantidad, unidad, finca, municipio y evidencias. Esa huella de 32 bytes viaja a Stellar Testnet dentro del memo de un pago de 1 XLM; el resto de la información se queda fuera de la red.",
+        "De cada lote se calcula una huella SHA-256 sobre ocho campos: código, fecha de cosecha, línea productiva, cantidad, unidad, finca, municipio y evidencias. Esa huella en hexadecimal viaja a NEAR Testnet como el valor de una entrada en el contrato; el resto de la información se queda fuera de la red.",
       ],
       lista: [
         "El consumidor recalcula la huella desde la ficha pública y la compara con el ancla.",
@@ -52,7 +52,7 @@ export const about: ContenidoAbout = {
         "Backend en FastAPI sobre Docker, desplegado en Render.",
         "Base de datos en Neon Postgres.",
         "Evidencias fotográficas en Cloudflare R2 (compatible con S3).",
-        "Anclaje en Stellar Testnet, donde viaja solo el hash SHA-256 como Memo Hash.",
+        "Anclaje en NEAR Testnet, donde viaja solo el hash SHA-256 como valor de una entrada en el contrato.",
         "En desarrollo local: SQLite y modo demo en el navegador.",
       ],
     },
