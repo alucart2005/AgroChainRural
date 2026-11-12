@@ -7,8 +7,9 @@ Uso (desde ``backend/``):
 
 Qué hace:
 1. Copia ``lotes`` y ``eventos`` conservando identificadores, hashes SHA-256 y
-   la referencia de la transacción de Stellar. NADA se recalcula: el hash que
-   viaja en la blockchain debe ser exactamente el mismo de siempre.
+   las referencias de ancla (``near_*`` y el archivo ``stellar_*``). NADA se
+   recalcula: el hash que viaja en la blockchain debe ser exactamente el mismo
+   de siempre.
 2. Recalcula cada hash tras copiar y lo compara con el guardado, para detectar
    cualquier corrupción durante la transferencia.
 3. Sincroniza las secuencias de ``eventos.id`` con el máximo copiado; sin esto
@@ -162,8 +163,12 @@ def migrar(ruta_sqlite: str, forzar: bool) -> int:
                     fotos=datos["fotos"] or [],
                     evidencias=datos["evidencias"] or [],
                     hash_sha256=datos["hash_sha256"],
-                    stellar_tx_hash=datos["stellar_tx_hash"],
-                    stellar_ledger=datos["stellar_ledger"],
+                    # `.get()`: un origen anterior a la migración 0003 no tiene
+                    # las columnas near_* todavía (stellar_* es archivo).
+                    near_tx_hash=datos.get("near_tx_hash"),
+                    near_block=datos.get("near_block"),
+                    stellar_tx_hash=datos.get("stellar_tx_hash"),
+                    stellar_ledger=datos.get("stellar_ledger"),
                     created_at=datos["created_at"],
                     eventos=[
                         Evento(

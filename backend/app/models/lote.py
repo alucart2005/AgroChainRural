@@ -36,6 +36,13 @@ class Lote(Base):
     # [{nombre, tamano}, ...] — es lo que entra en el hash canónico.
     evidencias: Mapped[list] = mapped_column(JSON, default=list)
     hash_sha256: Mapped[str] = mapped_column(String(64))
+    # Ancla en NEAR Testnet: hash de la transacción y bloque que la incluyó.
+    # Ambos quedan en None mientras el RPC no confirme; se reintenta con
+    # `POST /api/lotes/{codigo}/anclar`.
+    near_tx_hash: Mapped[str | None] = mapped_column(String(64))
+    near_block: Mapped[int | None] = mapped_column(Integer)
+    # Archivo del anclaje previo en Stellar Testnet. NO se lee ni se escribe:
+    # los lotes del piloto conservan así su trazabilidad original.
     stellar_tx_hash: Mapped[str | None] = mapped_column(String(64))
     stellar_ledger: Mapped[int | None] = mapped_column(Integer)
     # Productor que lo registró (HU-08). Queda FUERA del hash canónico y es

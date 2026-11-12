@@ -1,10 +1,10 @@
-"""Flujo de creación de un lote: fotos a R2, huella SHA-256 y ancla en Stellar.
+"""Flujo de creación de un lote: fotos a R2, huella SHA-256 y ancla en NEAR.
 
 Orden de operaciones (nunca se guarda un lote a medias):
 1. Se decodifican y suben las fotos a Cloudflare R2 → si falla, NO se crea nada.
 2. Se persiste el lote con su hash y el evento inicial de cosecha.
-3. Se ancla el hash en Stellar Testnet (Memo Hash); si Horizon falla, el lote
-   queda guardado con ``stellar_tx_hash = None`` y se reintenta con
+3. Se ancla el hash en el contrato KV de NEAR Testnet; si el RPC falla, el lote
+   queda guardado con ``near_tx_hash = None`` y se reintenta con
    ``POST /api/lotes/{codigo}/anclar``.
 """
 
@@ -26,7 +26,7 @@ from sqlalchemy.orm import Session
 from app.models.lote import Evento, Lote
 from app.services import storage
 from app.services.sha256 import hash_lote
-from app.services.stellar import StellarError, anchor_hash
+from app.services.near import NearError, anchor_hash
 
 log = logging.getLogger(__name__)
 
@@ -197,16 +197,16 @@ def _persistir(
 
 
 def anclar_lote(db: Session, lote: Lote) -> bool:
-    """Ancla el hash del lote en Stellar Testnet. Idempotente; False si falla."""
-    if lote.stellar_tx_hash:
+    """Ancla el hash del lote en NEAR Testnet. Idempotente; False si falla."""
+    if lote.near_tx_hash:
         return True
     try:
         respuesta = anchor_hash(lote.codigo, lote.hash_sha256)
-    except StellarError as exc:
+    except NearError as exc:
         log.warning("Anclaje pendiente para %s: %s", lote.codigo, exc)
         return False
-    lote.stellar_tx_hash = respuesta.get("tx_hash")
-    lote.stellar_ledger = respuesta.get("ledger")
+    lote.near_tx_hash = respuesta.get("tx_hash")
+    lote.near_block = respuesta.get("block")
     db.commit()
     db.refresh(lote)
     return True

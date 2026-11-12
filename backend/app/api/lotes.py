@@ -17,13 +17,14 @@ from app.schemas import EventoIn, EventoOut, LoteCreateIn, LoteOut, Verificacion
 from app.services import lotes as servicio
 from app.services.lotes import CodigoNoDisponible
 from app.services.sha256 import hash_lote
-from app.services.stellar import StellarError, verify_anchor
+from app.services.near import NearError, verify_anchor
 from app.services.storage import StorageError
 
 router = APIRouter()
 
-# Escrituras internas sin usuario detrás (eventos, anclaje, auditoría de tx):
-# siguen con la X-API-Key. El registro de lotes NO está aquí: exige sesión.
+# Escrituras internas sin usuario detrás (eventos, anclaje, auditoría del
+# ancla): siguen con la X-API-Key. El registro de lotes NO está aquí: exige
+# sesión.
 ESCRITURA = [Depends(require_api_key)]
 
 
@@ -114,51 +115,67 @@ def agregar_evento(codigo: str, datos: EventoIn, db: Session = Depends(get_db)):
     dependencies=ESCRITURA,
 )
 def anclar(codigo: str, db: Session = Depends(get_db)):
-    """Reintento de anclaje si Stellar falló al crear el lote."""
+    """Reintento de anclaje si NEAR falló al crear el lote."""
     lote = _obtener(db, codigo)
     if not servicio.anclar_lote(db, lote):
         raise HTTPException(
             status_code=502,
-            detail="Stellar no confirmó el ancla; vuelve a intentarlo",
+            detail="NEAR no confirmó el ancla; vuelve a intentarlo",
         )
     return lote
 
 
 @router.get("/api/verify/{codigo}", response_model=VerificacionOut)
 def verificar(codigo: str, db: Session = Depends(get_db)):
-    """HU-03: recomputa el hash en el servidor y lo contrasta con Horizon."""
+    """HU-03: recomputa el hash y lo contrasta con el estado del contrato.
+
+    Tres valores deben coincidir: el calculado en el navegador, el guardado en
+    la base y el anclado en NEAR. La cadena se consulta con ``view get``, no
+    por transacción: el RPC público solo conserva ~36 h de histórico.
+    """
     lote = _obtener(db, codigo)
     hash_calculado = hash_lote(lote.como_dict())
     registrado = lote.hash_sha256
 
-    if not lote.stellar_tx_hash:
+    if not lote.near_tx_hash:
         return VerificacionOut(
             verificado=False,
             hash_calculado=hash_calculado,
             hash_registrado=registrado,
             tx_hash=None,
-            ledger=None,
-            error="El lote aún no está anclado en Stellar.",
+            block=None,
+            error="El lote aún no está anclado en NEAR.",
         )
 
     try:
-        resultado = verify_anchor(lote.stellar_tx_hash, registrado)
-    except StellarError as exc:
+        resultado = verify_anchor(codigo, registrado)
+    except NearError as exc:
         return VerificacionOut(
             verificado=False,
             hash_calculado=hash_calculado,
             hash_registrado=registrado,
-            tx_hash=lote.stellar_tx_hash,
-            ledger=lote.stellar_ledger,
-            error=f"Stellar no respondió: {exc}",
+            tx_hash=lote.near_tx_hash,
+            block=lote.near_block,
+            error=f"NEAR no respondió: {exc}",
         )
 
-    verificado = bool(resultado.get("verified")) and hash_calculado == registrado
+    onchain = resultado.get("hash_registrado")
+    if onchain is None:
+        return VerificacionOut(
+            verificado=False,
+            hash_calculado=hash_calculado,
+            hash_registrado=registrado,
+            tx_hash=lote.near_tx_hash,
+            block=lote.near_block,
+            error="El contrato no devuelve el lote; puede haberse perdido el ancla.",
+        )
+
+    verificado = onchain == registrado and hash_calculado == registrado
     return VerificacionOut(
         verificado=verificado,
         hash_calculado=hash_calculado,
-        hash_registrado=registrado,
-        tx_hash=lote.stellar_tx_hash,
-        ledger=resultado.get("ledger") or lote.stellar_ledger,
+        hash_registrado=onchain,
+        tx_hash=lote.near_tx_hash,
+        block=lote.near_block,
         error=None,
     )

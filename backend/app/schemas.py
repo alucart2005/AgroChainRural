@@ -101,8 +101,8 @@ class LoteOut(BaseModel):
     fotos: list[str]
     evidencias: list[EvidenciaOut]
     hash_sha256: str
-    stellar_tx_hash: str | None = None
-    stellar_ledger: int | None = None
+    near_tx_hash: str | None = None
+    near_block: int | None = None
     eventos: list[EventoOut] = Field(default_factory=list)
     created_at: datetime
 
@@ -114,10 +114,10 @@ class VerificacionOut(BaseModel):
     hash_calculado: str
     hash_registrado: str | None
     tx_hash: str | None
-    ledger: int | None
+    block: int | None
     demo: bool = False
-    # Motivo por el que NO se pudo verificar (infraestructura), p.ej. Horizon
-    # inaccesible o lote aún sin anclar. Si es ``None`` y ``verificado`` es
+    # Motivo por el que NO se pudo verificar (infraestructura), p.ej. el RPC de
+    # NEAR inaccesible o lote aún sin anclar. Si es ``None`` y ``verificado`` es
     # False, los datos fueron alterados.
     error: str | None = None
 

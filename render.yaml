@@ -6,9 +6,10 @@
 #
 # IMPORTANTE — por qué el backend va en Render y NO en Vercel:
 # las funciones serverless de Vercel (plan Hobby) se cortan a los 10 s, y el
-# anclaje en Stellar puede superarlo con holgura (Friendbot + espera + 3
-# reintentos). Además el filesystem de Vercel es efímero, así que un SQLite
-# allí solo sirve de instantánea de solo lectura que se pierde en cada deploy.
+# anclaje en NEAR puede superarlo con holgura (espera de finalización + 3
+# reintentos ante fallos transitorios del RPC). Además el filesystem de Vercel
+# es efímero, así que un SQLite allí solo sirve de instantánea de solo lectura
+# que se pierde en cada deploy.
 services:
   - type: web
     name: agrotrace-backend
@@ -43,16 +44,25 @@ services:
       # deploy cerraría la sesión de todos los productores.
       - key: AUTH_SECRET
         sync: false
-      # Cuenta Stellar Testnet — se generan con
-      # `python -m scripts.stellar_account create` y se pegan en el panel;
-      # la clave secreta jamás viaja al repositorio.
-      - key: STELLAR_NETWORK
+      # NEAR Testnet — la cuenta y la clave se crean con
+      # `python -m scripts.near_account create <cuenta.testnet>` y se pegan en
+      # el panel; la clave secreta jamás viaja al repositorio.
+      - key: NEAR_NETWORK
         value: testnet
-      - key: HORIZON_URL
-        value: https://horizon-testnet.stellar.org
-      - key: STELLAR_PUBLIC_KEY
+      # RPC público de NEAR Testnet. La verificación lee el ESTADO del
+      # contrato (`view get`), no el histórico de transacciones: ese detalle
+      # caduca en el RPC público, el estado no.
+      - key: NEAR_RPC_URL
+        value: https://test.rpc.fastnear.com
+      # Cuenta que firma los anclajes (recibe el faucet una sola vez).
+      - key: NEAR_ACCOUNT_ID
         sync: false
-      - key: STELLAR_SECRET_KEY
+      # Clave ed25519 de esa cuenta (incluye el prefijo `ed25519:`).
+      - key: NEAR_PRIVATE_KEY
+        sync: false
+      # Cuenta donde está desplegado contract/res/agrotrace_kv.wasm
+      # (python -m scripts.desplegar_contrato).
+      - key: NEAR_CONTRACT_ID
         sync: false
       # Cloudflare R2 (evidencia fotográfica; nunca sube a la blockchain).
       - key: R2_ACCOUNT_ID

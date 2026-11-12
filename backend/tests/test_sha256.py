@@ -27,7 +27,7 @@ LOTE_CON_FOTOS = {
         {"nombre": "galpon-huevos.jpg", "tamano": 2481930},
         {"nombre": "cubetas-empaque.jpg", "tamano": 512000},
     ],
-    "stellar_tx_hash": "abc",  # tampoco entra
+    "near_tx_hash": "abc",  # tampoco entra
 }
 
 LOTE_SIN_FOTOS = {
@@ -62,7 +62,8 @@ def test_payload_solo_incluye_los_ocho_campos():
     payload = payload_lote(LOTE_CON_FOTOS)
     assert set(payload) == set(CAMPOS_LOTE)
     assert "fecha_postura" not in payload
-    assert "stellar_tx_hash" not in payload
+    assert "near_tx_hash" not in payload
+    assert "stellar_tx_hash" not in payload  # archivo: tampoco entra
 
 
 def test_payload_normaliza_evidencias_a_nombre_y_tamano():

@@ -1,4 +1,4 @@
-"""Entorno de pruebas: BD en memoria, R2 y Stellar simulados (sin red)."""
+"""Entorno de pruebas: BD en memoria, R2 y NEAR simulados (sin red)."""
 
 from __future__ import annotations
 
@@ -93,22 +93,22 @@ def client(db_session, subidas, usuario_prueba, monkeypatch):
 
     monkeypatch.setattr("app.services.lotes.storage.upload_evidence", _subir)
 
-    # Stellar simulado (sin red).
+    # NEAR simulado (sin red). `verify_anchor` devuelve el mismo hash que se
+    # le pasa: así la triangulación navegador → BD → cadena cierra y la
+    # prueba de integridad tiene sentido sin tocar la red.
     monkeypatch.setattr(
         "app.services.lotes.anchor_hash",
         lambda codigo, hash_hex: {
             "tx_hash": f"tx-{hash_hex[:12]}",
-            "ledger": 999,
+            "block": 999,
             "successful": True,
         },
     )
     monkeypatch.setattr(
         "app.api.lotes.verify_anchor",
-        lambda tx_hash, hash_hex: {
+        lambda codigo, hash_hex: {
             "verified": True,
-            "memo_match": True,
-            "successful": True,
-            "ledger": 999,
+            "hash_registrado": hash_hex,
         },
     )
 

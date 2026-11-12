@@ -5,12 +5,24 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     # Declaración moderna (Pydantic V2): la clase interna `Config` está
     # deprecada y emite PydanticDeprecatedSince20 en cada arranque.
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
+    #
+    # `extra="ignore"`: las variables de entorno que no corresponden a un campo
+    # se descartan en lugar de impedir el arranque. Es lo que permite que un
+    # `.env` heredado de la época de Stellar (STELLAR_*, HORIZON_URL) conviva
+    # con este código sin tumbar la API mientras se renombran a NEAR_*.
+    model_config = SettingsConfigDict(
+        env_file=".env", env_file_encoding="utf-8", extra="ignore"
+    )
 
-    stellar_network: str = "testnet"
-    horizon_url: str = "https://horizon-testnet.stellar.org"
-    stellar_public_key: str = ""
-    stellar_secret_key: str = ""
+    # NEAR Testnet: el contrato KV guarda el SHA-256 de cada lote.
+    # `near_private_key` es la clave de `near_account_id` (ed25519); solo vive
+    # en `.env` y en el panel de Render, jamás en el repositorio.
+    near_network: str = "testnet"
+    near_rpc_url: str = "https://test.rpc.fastnear.com"
+    near_account_id: str = ""
+    near_private_key: str = ""
+    # Cuenta donde está desplegado `contract/res/agrotrace_kv.wasm`.
+    near_contract_id: str = ""
     frontend_url: str = "http://localhost:3000"
 
     # Cloudflare R2 (S3-compatible) — evidencia fuera de la blockchain

@@ -1,7 +1,7 @@
 """Cloudflare R2 (S3-compatible) storage for evidence files.
 
 Las fotos, videos y archivos pesados NUNCA van en blockchain. Se guardan en un
-bucket de R2 y solo se referencia su *key*; en Stellar viaja únicamente el hash
+bucket de R2 y solo se referencia su *key*; en NEAR viaja únicamente el hash
 SHA-256. El cliente usa el endpoint S3-compatible de R2 y `boto3` se importa de
 forma perezosa para no requerirlo solo por importar el módulo.
 """

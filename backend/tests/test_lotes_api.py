@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from app.core.config import settings
 from app.services.sha256 import hash_lote
-from app.services.stellar import StellarError
+from app.services.near import NearError
 from app.services.storage import StorageError
 from tests.conftest import FOTO_DATA_URL, payload_lote
 
@@ -40,8 +40,8 @@ def test_crear_lote_con_fotos_y_anclaje(client, subidas):
     )
 
     # ancla on-chain simulada + evento inicial de cosecha
-    assert lote["stellar_tx_hash"] == f"tx-{lote['hash_sha256'][:12]}"
-    assert lote["stellar_ledger"] == 999
+    assert lote["near_tx_hash"] == f"tx-{lote['hash_sha256'][:12]}"
+    assert lote["near_block"] == 999
     assert lote["eventos"][0]["tipo"] == "cosecha"
     assert "demo" not in lote
 
@@ -89,24 +89,25 @@ def test_falla_en_r2_no_deja_lote_a_medias(client, monkeypatch):
     assert client.get("/api/lotes").json() == []  # nada se persistió
 
 
-def test_falla_en_stellar_conserva_el_lote(client, monkeypatch):
+def test_falla_en_near_conserva_el_lote(client, monkeypatch):
     def _falla(codigo, hash_hex):
-        raise StellarError("Horizon inaccesible")
+        raise NearError("RPC de NEAR caído")
 
     monkeypatch.setattr("app.services.lotes.anchor_hash", _falla)
     lote = client.post("/api/lotes", json=payload_lote()).json()
 
-    assert lote["stellar_tx_hash"] is None
+    assert lote["near_tx_hash"] is None
     assert len(client.get("/api/lotes").json()) == 1  # el registro NO se pierde
 
     # reintento de anclaje (endpoint dedicado)
     monkeypatch.setattr(
         "app.services.lotes.anchor_hash",
-        lambda codigo, hash_hex: {"tx_hash": "tx-reintento", "ledger": 1000},
+        lambda codigo, hash_hex: {"tx_hash": "tx-reintento", "block": 1000},
     )
     reanclado = client.post("/api/lotes/HUE-2027-001/anclar")
     assert reanclado.status_code == 200
-    assert reanclado.json()["stellar_tx_hash"] == "tx-reintento"
+    assert reanclado.json()["near_tx_hash"] == "tx-reintento"
+    assert reanclado.json()["near_block"] == 1000
 
 
 # --- API key vs sesión de productor --------------------------------------------
@@ -220,14 +221,14 @@ def test_verify_confirma_ancla_on_chain(client):
     assert v["verificado"] is True
     assert v["hash_calculado"] == v["hash_registrado"]
     assert v["tx_hash"].startswith("tx-")
-    assert v["ledger"] == 999
+    assert v["block"] == 999
     assert v["demo"] is False
     assert v["error"] is None
 
 
 def test_verify_sin_anclar_lo_dice_explicitamente(client, monkeypatch):
     def _falla(codigo, hash_hex):
-        raise StellarError("Horizon caído")
+        raise NearError("RPC de NEAR caído")
 
     monkeypatch.setattr("app.services.lotes.anchor_hash", _falla)
     codigo = client.post("/api/lotes", json=payload_lote()).json()["codigo"]
@@ -238,16 +239,16 @@ def test_verify_sin_anclar_lo_dice_explicitamente(client, monkeypatch):
     assert v["hash_calculado"] == v["hash_registrado"]  # huella local intacta
 
 
-def test_verify_detecta_horizon_indisponible(client, monkeypatch):
+def test_verify_detecta_rpc_indisponible(client, monkeypatch):
     codigo = client.post("/api/lotes", json=payload_lote()).json()["codigo"]
 
-    def _roto(tx_hash, hash_hex):
-        raise StellarError("timeout con Horizon")
+    def _roto(codigo, hash_hex):
+        raise NearError("timeout con el RPC de NEAR")
 
     monkeypatch.setattr("app.api.lotes.verify_anchor", _roto)
     v = client.get(f"/api/verify/{codigo}").json()
     assert v["verificado"] is False
-    assert "Stellar no respondió" in v["error"]
+    assert "NEAR no respondió" in v["error"]
 
 
 def test_verify_detecta_datos_alterados(client, db_session):
@@ -269,13 +270,13 @@ def test_verify_detecta_datos_alterados(client, db_session):
 
 
 def test_verify_arbitrario_requiere_api_key(client, monkeypatch):
-    """POST /api/verify dispara una consulta a Horizon: no puede ser un proxy abierto."""
+    """POST /api/verify consulta el contrato: no puede ser un proxy abierto."""
     monkeypatch.setattr(settings, "api_key", "secreta-123")
     monkeypatch.setattr(
         "app.api.verify.verify_anchor",
-        lambda tx_hash, hash_hex: {"verified": True, "ledger": 1},
+        lambda codigo, hash_hex: {"verified": True, "hash_registrado": hash_hex},
     )
-    body = {"tx_hash": "abc", "hash_hex": "0" * 64}
+    body = {"codigo": "HUE-2027-001", "hash_hex": "0" * 64}
 
     assert client.post("/api/verify", json=body).status_code == 401
     assert (

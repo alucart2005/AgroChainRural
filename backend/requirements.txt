@@ -1,7 +1,9 @@
 fastapi>=0.115,<1
 uvicorn[standard]>=0.34,<1
 pydantic-settings>=2.7,<3
-stellar-sdk>=16,<17
+# Cliente NEAR (reemplaza a stellar-sdk). Trae `httpx` real como dependencia;
+# el backend sigue usando el fork `httpx2` (import aparte, sin conflicto).
+near-kit>=1.3,<2
 boto3>=1.34,<2
 python-multipart>=0.0.20
 pytest>=9,<10
@@ -10,4 +12,8 @@ sqlalchemy>=2.0,<3
 alembic>=1.13,<2
 psycopg[binary]>=3.2,<4
 google-auth>=2,<3
+# `google.auth.transport.requests` (login con Google) necesita `requests`.
+# Antes llegaba como dependencia transitiva de stellar-sdk; al quitar ese
+# paquete hay que declararlo, o el login revienta con ImportError.
+requests>=2,<3
 PyJWT>=2,<3

@@ -1,15 +1,16 @@
-"""Demostración end-to-end: hash → ancla en Stellar Testnet → verificación.
+"""Demostración end-to-end: hash → ancla en NEAR Testnet → verificación.
 
 Sirve de prueba de humo del flujo completo sin pasar por la API:
 
-    STELLAR_SECRET_KEY=... python -m scripts.anchor_demo
+    python -m scripts.anchor_demo
 
-Crea UNA transacción real en Testnet (memoriza 32 bytes con el SHA-256) y luego
-la consulta de vuelta a Horizon para comprobar que el memo coincide.
+Ancla UN hash real en el contrato KV (una transacción real en testnet) y luego
+lee el estado del contrato con `view get` para comprobar que devuelve la misma
+huella. Requiere `NEAR_ACCOUNT_ID`, `NEAR_PRIVATE_KEY` y `NEAR_CONTRACT_ID`.
 """
 
+from app.services.near import NearError, anchor_hash, verify_anchor
 from app.services.sha256 import hash_lote
-from app.services.stellar import StellarError, anchor_hash, verify_anchor
 
 
 def main():
@@ -38,25 +39,25 @@ def main():
     print(f"SHA-256 : {h}")
 
     try:
-        result = anchor_hash(datos["codigo"], h)
-    except StellarError as exc:
+        resultado = anchor_hash(datos["codigo"], h)
+    except NearError as exc:
         print(f"Error al anclar: {exc}")
         return 1
 
-    tx = result["tx_hash"]
-    print(f"Anclado : tx={tx} ledger={result['ledger']}")
+    print(f"Anclado : tx={resultado['tx_hash']} bloque={resultado['block']}")
 
     try:
-        v = verify_anchor(tx, h)
-    except StellarError as exc:
+        verificacion = verify_anchor(datos["codigo"], h)
+    except NearError as exc:
         print(f"Error al verificar: {exc}")
         return 1
 
-    if v["verified"]:
-        print(f"Verificación on-chain: VERIFICADO (ledger {v['ledger']})")
+    if verificacion["verified"]:
+        print("Verificación on-chain: VERIFICADO")
+        print(f"  contrato : {verificacion['hash_registrado']}")
         return 0
 
-    print(f"Verificación on-chain: NO VERIFICADO → {v}")
+    print(f"Verificación on-chain: NO VERIFICADO → {verificacion}")
     return 1
 
 

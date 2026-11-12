@@ -50,7 +50,8 @@ def asegurar_columnas_sqlite() -> None:
     ``Base.metadata.create_all`` crea tablas NUEVAS pero nunca modifica las ya
     existentes, y en desarrollo local no se corre Alembic. Sin este paso, un
     SQLite de antes de la autenticación carecería de ``lotes.usuario_id`` y el
-    registro de lotes fallaría con ``OperationalError``. En Postgres (Neon) el
+    registro de lotes fallaría con ``OperationalError``. Lo mismo aplica a las
+    columnas de NEAR en una base anterior a la migración. En Postgres (Neon) el
     esquema lo define Alembic, así que esto no aplica.
     """
     from sqlalchemy import inspect, text
@@ -59,5 +60,12 @@ def asegurar_columnas_sqlite() -> None:
         return
     with engine.begin() as conn:
         columnas = {c["name"] for c in inspect(conn).get_columns("lotes")}
-        if "usuario_id" not in columnas:
-            conn.execute(text("ALTER TABLE lotes ADD COLUMN usuario_id VARCHAR(36)"))
+        # (nombre, tipo SQL de SQLite) — el orden no importa.
+        faltantes = (
+            ("usuario_id", "VARCHAR(36)"),
+            ("near_tx_hash", "VARCHAR(64)"),
+            ("near_block", "INTEGER"),
+        )
+        for nombre, tipo in faltantes:
+            if nombre not in columnas:
+                conn.execute(text(f"ALTER TABLE lotes ADD COLUMN {nombre} {tipo}"))
