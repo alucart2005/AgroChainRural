@@ -1,15 +1,15 @@
 <div align="center">
 
-# 🌱 AgroTrace Rural — Entregable 4
+# 🌱 AgroChain Rural — Entregable 4
 
 ### Functional MVP · Respuestas a la rúbrica de cierre de semana
 
-![Proyecto](https://img.shields.io/badge/Proyecto-AgroTrace%20Rural-059669)
+![Proyecto](https://img.shields.io/badge/Proyecto-AgroChain%20Rural-059669)
 ![Entregable](https://img.shields.io/badge/Entregable-4%20—%20Functional%20MVP-0ea5e9)
 ![Sección](https://img.shields.io/badge/Sección-8-6366f1)
 ![Fecha](https://img.shields.io/badge/Fecha-17%20de%20octubre%20de%202026-64748b)
 
-**Documento:** `RespuestasEntregable4.md` · **Proyecto:** AgroTrace Rural · **Fecha:** 17 de octubre de 2026
+**Documento:** `RespuestasEntregable4.md` · **Proyecto:** AgroChain Rural · **Fecha:** 17 de octubre de 2026
 
 </div>
 
@@ -19,7 +19,7 @@
 
 | Campo | Detalle |
 |---|---|
-| **Proyecto** | AgroTrace Rural — trazabilidad verificable de lotes de la Finca Guarumo |
+| **Proyecto** | AgroChain Rural — trazabilidad verificable de lotes de la Finca Guarumo |
 | **Sección** | 8 — Entregable 4 (*Functional MVP*) |
 | **Fecha de entrega** | 17 de octubre de 2026 |
 | **Alcance del trabajo** | Implementación de las HU-01..HU-05, backend FastAPI + Cloudflare R2 + Stellar Testnet, despliegue en Render/Neon, endurecimiento del backend y corrección del modo demo |
@@ -120,6 +120,6 @@ La validación se documentará en `docs/` con un registro de consentimiento simp
 
 🌱 *Del campo al cliente, con trazabilidad verificable.*
 
-**AgroTrace Rural** · [https://frontend-2mx1.vercel.app](https://frontend-2mx1.vercel.app)
+**AgroChain Rural** · [https://frontend-2mx1.vercel.app](https://frontend-2mx1.vercel.app)
 
 </div>

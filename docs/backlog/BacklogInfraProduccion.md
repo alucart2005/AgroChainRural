@@ -1,4 +1,4 @@
-# 📋 Backlog: Infraestructura de producción — AgroTrace Rural
+# 📋 Backlog: Infraestructura de producción — AgroChain Rural
 
 > **Feature:** Datos, almacenamiento y despliegue de producción (Neon Postgres · Cloudflare R2 · Render · robustez) · **Continúa:** HU-01..HU-08
 > **Patrón:** `docs/semana2/KanbanBacklog.md` · Creado como GitHub Issues [#9](https://github.com/alucart2005/AgroTraceRural/issues/9), [#10](https://github.com/alucart2005/AgroTraceRural/issues/10), [#11](https://github.com/alucart2005/AgroTraceRural/issues/11), [#12](https://github.com/alucart2005/AgroTraceRural/issues/12) y [#13](https://github.com/alucart2005/AgroTraceRural/issues/13) (formato `docs/backlog/IssuesListos.md`)
@@ -56,7 +56,7 @@
   - **Cuando** se versiona el backend,
   - **Entonces** la URL vive en `.env.neon` (ignorado por git) y no en `.env`.
 
-[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -85,7 +85,7 @@
   - **Cuando** se registra `tamano` en `evidencias`,
   - **Entonces** es el tamaño del data URL comprimido que viaja — el mismo que entra al hash, no el del archivo original.
 
-[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -114,7 +114,7 @@
   - **Cuando** se eligió dónde correr el backend,
   - **Entonces** quedó en Render y la decisión quedó documentada en `AGENTS.md`.
 
-[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -143,7 +143,7 @@
   - **Cuando** navego por el sitio,
   - **Entonces** no aparece ningún aviso de demo.
 
-[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -176,7 +176,7 @@
   - **Cuando** se guarda el lote,
   - **Entonces** queda con `stellar_tx_hash` en `None` y el ancla se reintenta con `POST /api/lotes/{codigo}/anclar`.
 
-[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -191,7 +191,7 @@
 - [x] Hardening: códigos secuenciales sin colisión, validación estricta, limpieza de evidencias y bloqueo de archivos no procesables.
 - [x] Verificación: 68 tests con R2 y Stellar simulados, y `/api/health`, `/api/lotes` y `/api/verify` comprobados en producción.
 
-[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -230,7 +230,7 @@
   - **When** the backend is versioned,
   - **Then** the URL lives in `.env.neon` (gitignored) and not in `.env`.
 
-[⬆ Back to top](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Back to top](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -259,7 +259,7 @@
   - **When** `tamano` is recorded in `evidencias`,
   - **Then** it is the size of the compressed data URL that travels — the same one that enters the hash, not the original file's.
 
-[⬆ Back to top](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Back to top](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -288,7 +288,7 @@
   - **When** the backend's platform was chosen,
   - **Then** it stayed on Render and the decision is documented in `AGENTS.md`.
 
-[⬆ Back to top](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Back to top](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -317,7 +317,7 @@
   - **When** I browse the site,
   - **Then** no demo notice appears at all.
 
-[⬆ Back to top](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Back to top](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -350,7 +350,7 @@
   - **When** the batch is saved,
   - **Then** it keeps `stellar_tx_hash` as `None` and the anchor is retried with `POST /api/lotes/{codigo}/anclar`.
 
-[⬆ Back to top](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Back to top](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -365,7 +365,7 @@
 - [x] Hardening: collision-free sequential codes, strict validation, evidence cleanup and blocking of unprocessable files.
 - [x] Verification: 68 tests with R2 and Stellar mocked, plus `/api/health`, `/api/lotes` and `/api/verify` checked in production.
 
-[⬆ Back to top](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Back to top](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -404,7 +404,7 @@
   - **Quando** o backend é versionado,
   - **Então** a URL vive em `.env.neon` (ignorado pelo git) e não em `.env`.
 
-[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -433,7 +433,7 @@
   - **Quando** `tamano` é registrado em `evidencias`,
   - **Então** é o tamanho do data URL comprimido que viaja — o mesmo que entra no hash, não o do arquivo original.
 
-[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -462,7 +462,7 @@
   - **Quando** foi escolhido onde rodar o backend,
   - **Então** ficou no Render e a decisão está documentada no `AGENTS.md`.
 
-[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -491,7 +491,7 @@
   - **Quando** navego pelo site,
   - **Então** não aparece nenhum aviso de demo.
 
-[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -524,7 +524,7 @@
   - **Quando** o lote é salvo,
   - **Então** fica com `stellar_tx_hash` em `None` e a âncora é repetida com `POST /api/lotes/{codigo}/anclar`.
 
-[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrochain-rural)
 
 ---
 
@@ -539,4 +539,4 @@
 - [x] Robustez: códigos sequenciais sem colisão, validação estrita, limpeza de evidências e bloqueio de arquivos não processáveis.
 - [x] Verificação: 68 testes com R2 e Stellar simulados, mais `/api/health`, `/api/lotes` e `/api/verify` conferidos em produção.
 
-[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-infraestructura-de-producción--agrochain-rural)

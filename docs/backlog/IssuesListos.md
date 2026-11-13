@@ -25,7 +25,7 @@
 
 ### Escenario 1: Registro exitoso de lote con evidencia fotográfica
 
-- **Dado** que el productor ha iniciado sesión en la plataforma móvil de AgroTrace,
+- **Dado** que el productor ha iniciado sesión en la plataforma móvil de AgroChain,
 - **Cuando** diligencia el formulario con la fecha de recolección, selecciona la línea "Huevos Guarumo", ingresa la cantidad (ej. 10 cubetas) y adjunta una fotografía del galpón/cosecha,
 - **Entonces** el sistema debe crear el lote con un identificador único (ej. `HUE-2027-001`), guardar los datos en la base de datos y mostrar una confirmación exitosa en pantalla.
 
@@ -58,7 +58,7 @@
 
 ### Escenario 1: Lectura correcta de código QR existente
 
-- **Dado** que el consumidor tiene una cubeta de huevos con la etiqueta QR impresa de AgroTrace,
+- **Dado** que el consumidor tiene una cubeta de huevos con la etiqueta QR impresa de AgroChain,
 - **Cuando** escanea el código QR utilizando la cámara de su teléfono móvil,
 - **Entonces** el navegador web debe redirigir a la vista pública del lote (`/lote/HUE-2027-001`), desplegando el nombre de la finca "Guarumo", municipio "Cáceres", fecha de postura y la fotografía de evidencia capturada.
 
@@ -126,7 +126,7 @@
 
 - **Dado** que el usuario de empaque selecciona un lote activo recién clasificado en la plataforma,
 - **Cuando** presiona la opción "Generar Etiqueta QR",
-- **Entonces** el sistema genera una vista previa imprimible del código QR que contiene la URL directa del lote, acompañada del logo de AgroTrace Rural y la fecha de empaque.
+- **Entonces** el sistema genera una vista previa imprimible del código QR que contiene la URL directa del lote, acompañada del logo de AgroChain Rural y la fecha de empaque.
 ```
 
 ---

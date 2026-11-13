@@ -1,4 +1,4 @@
-# 📋 Backlog: Estabilidad del backend — AgroTrace Rural
+# 📋 Backlog: Estabilidad del backend — AgroChain Rural
 
 > **Feature:** Dependencias y compatibilidad (httpx2 · Pydantic v2 · FedCM) · **Ciclo:** `Version-0.02` (0.2.0) · **Continúa:** HU-06..HU-08
 > **Patrón:** `docs/semana2/KanbanBacklog.md` · Creado como GitHub Issues [#14](https://github.com/alucart2005/AgroTraceRural/issues/14) y [#15](https://github.com/alucart2005/AgroTraceRural/issues/15) (formato `docs/backlog/IssuesListos.md`)
@@ -52,7 +52,7 @@
   - **Cuando** se instala el backend en Render,
   - **Entonces** httpx2 queda fijado en `requirements.txt` y el build no depende de una versión que cambie sola.
 
-[⬆ Volver al inicio](#-backlog-estabilidad-del-backend--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-estabilidad-del-backend--agrochain-rural)
 
 ---
 
@@ -73,7 +73,7 @@
   - **Cuando** el backend lo verifica,
   - **Entonces** la sesión se crea exactamente igual que en HU-06, sin tocar la lógica de autenticación.
 
-[⬆ Volver al inicio](#-backlog-estabilidad-del-backend--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-estabilidad-del-backend--agrochain-rural)
 
 ---
 
@@ -84,7 +84,7 @@
 - [x] FedCM activado en el botón de Google Identity Services de `/login`.
 - [x] Verificación: `pytest -q` en verde, `npm run lint` + `npm run build`, y popup comprobado en producción sin el aviso COOP.
 
-[⬆ Volver al inicio](#-backlog-estabilidad-del-backend--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-estabilidad-del-backend--agrochain-rural)
 
 ---
 
@@ -119,7 +119,7 @@
   - **When** the backend installs on Render,
   - **Then** httpx2 is pinned in `requirements.txt` and the build doesn't depend on a version that shifts on its own.
 
-[⬆ Back to top](#-backlog-estabilidad-del-backend--agrotrace-rural)
+[⬆ Back to top](#-backlog-estabilidad-del-backend--agrochain-rural)
 
 ---
 
@@ -140,7 +140,7 @@
   - **When** the backend verifies it,
   - **Then** the session is created exactly as in HU-06, with no change to the authentication logic.
 
-[⬆ Back to top](#-backlog-estabilidad-del-backend--agrotrace-rural)
+[⬆ Back to top](#-backlog-estabilidad-del-backend--agrochain-rural)
 
 ---
 
@@ -151,7 +151,7 @@
 - [x] FedCM enabled on the Google Identity Services button in `/login`.
 - [x] Verification: `pytest -q` green, `npm run lint` + `npm run build`, and the popup checked in production without the COOP notice.
 
-[⬆ Back to top](#-backlog-estabilidad-del-backend--agrotrace-rural)
+[⬆ Back to top](#-backlog-estabilidad-del-backend--agrochain-rural)
 
 ---
 
@@ -186,7 +186,7 @@
   - **Quando** o backend é instalado no Render,
   - **Então** o httpx2 fica fixado no `requirements.txt` e o build não depende de uma versão que mude sozinha.
 
-[⬆ Voltar ao início](#-backlog-estabilidad-del-backend--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-estabilidad-del-backend--agrochain-rural)
 
 ---
 
@@ -207,7 +207,7 @@
   - **Quando** o backend o verifica,
   - **Então** a sessão é criada exatamente como na HU-06, sem tocar na lógica de autenticação.
 
-[⬆ Voltar ao início](#-backlog-estabilidad-del-backend--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-estabilidad-del-backend--agrochain-rural)
 
 ---
 
@@ -218,4 +218,4 @@
 - [x] FedCM ativado no botão do Google Identity Services de `/login`.
 - [x] Verificação: `pytest -q` verde, `npm run lint` + `npm run build`, e popup conferido em produção sem o aviso COOP.
 
-[⬆ Voltar ao início](#-backlog-estabilidad-del-backend--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-estabilidad-del-backend--agrochain-rural)

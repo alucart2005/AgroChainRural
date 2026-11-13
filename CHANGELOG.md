@@ -1,12 +1,22 @@
-# 📌 Changelog — AgroTrace Rural
+# 📌 Changelog — AgroChain Rural
 
-> Historial de versiones por rama (`Version-0.01`, `Version-0.02`) · Formato de commits: `feat:`, `fix:`, `docs:`, `chore:`
+> Historial de versiones por rama (`Version-0.01` … `Version-0.06`; el detalle de 0.03–0.05 vive en la app, Ayuda → Novedades) · Formato de commits: `feat:`, `fix:`, `docs:`, `chore:`
 
 > 🌐 **Idioma / Language:** [🇪🇸 Español](#-español) · [🇺🇸 English](#-english) · [🇧🇷 Português](#-português)
 
 ---
 
 ## 🇪🇸 Español
+
+### Versión 0.06 — 2026-11-11 · rama `Version-0.06`
+
+El ancla pasa de **Stellar Testnet** a un **contrato KV propio en NEAR Testnet**. Esta versión nace en el repositorio nuevo [`AgroChainRural`](https://github.com/alucart2005/AgroChainRural); el histórico 0.01–0.05 queda en [`AgroTraceRural`](https://github.com/alucart2005/AgroTraceRural).
+
+- **`feat(contract)`** Contrato KV en Rust (near-sdk 5.30): `set(codigo, hash)` — idempotente: reanclar con el mismo hash es un no-op y un hash distinto para el mismo lote se rechaza — y `get` de solo lectura. 7 tests; wasm versionado en `contract/res/agrochain_kv.wasm`.
+- **`feat(backend)`** `app/services/near.py` sustituye a `stellar.py`: el SHA-256 viaja como hex de 64 caracteres y la verificación lee el **estado** del contrato (`view get`), porque el RPC público solo retiene el detalle de transacciones ~36 h. Migración `0003_near` añade `near_tx_hash`/`near_block`; `stellar_*` queda como archivo histórico. `POST /api/verify` audita un hash suelto contra el contrato (con `X-API-Key`).
+- **`feat(scripts)`** `near_account` (faucet oficial), `desplegar_contrato` y `reanclar`; `stellar_account` se retira. `requests` pasa a declararse explícito en `requirements.txt` (antes llegaba vía `stellar-sdk`).
+- **`feat(frontend)`** `Lote.near_tx_hash`/`near_block`, `Verificacion.ledger` → `block`, enlace al explorador de NEAR y revisión de textos es/en/pt. El lote demo se re-siembra (v4) con la transacción NEAR real de `HUE-2026-008`.
+- La suite pasa a **84 tests** (backend) — `stellar-sdk` desinstalado — y el contrato suma 7 propios.
 
 ### Versión 0.02 — 2026-11-05 · rama `Version-0.02`
 
@@ -23,7 +33,7 @@ Mantenimiento y sincronización de la plataforma.
 Primera entrega documental cerrada.
 
 - **`docs`** El enlace del video demo en `README.md` se actualiza a `https://www.youtube.com/watch?v=stVQCivrmCg`.
-- **`docs`** `docs/semana1/ProblemBrief.md` se renombra de «Agro Cassis» a «AgroTrace Rural» y se añade su PDF.
+- **`docs`** `docs/semana1/ProblemBrief.md` se renombra de «Agro Cassis» a «AgroChain Rural» y se añade su PDF.
 
 ### Base `main` — HU-01..HU-08 entregadas (2026-10-30, `aec1a36`)
 
@@ -34,6 +44,16 @@ Primera entrega documental cerrada.
 ---
 
 ## 🇺🇸 English
+
+### Version 0.06 — 2026-11-11 · branch `Version-0.06`
+
+The anchor moves from **Stellar Testnet** to an **own KV contract on NEAR Testnet**. This version is born in the new repo [`AgroChainRural`](https://github.com/alucart2005/AgroChainRural); history 0.01–0.05 stays in [`AgroTraceRural`](https://github.com/alucart2005/AgroTraceRural).
+
+- **`feat(contract)`** KV contract in Rust (near-sdk 5.30): `set(codigo, hash)` — idempotent: re-anchoring the same hash is a no-op and a different hash for the same batch is rejected — and the read-only `get`. 7 tests; wasm versioned at `contract/res/agrochain_kv.wasm`.
+- **`feat(backend)`** `app/services/near.py` replaces `stellar.py`: the SHA-256 travels as 64 hex characters and verification reads the contract **state** (`view get`), because the public RPC keeps transaction detail for only ~36 h. Migration `0003_near` adds `near_tx_hash`/`near_block`; `stellar_*` remains as a historical archive. `POST /api/verify` audits a loose hash against the contract (with `X-API-Key`).
+- **`feat(scripts)`** `near_account` (official faucet), `desplegar_contrato` and `reanclar`; `stellar_account` removed. `requests` becomes explicitly declared in `requirements.txt` (it used to arrive via `stellar-sdk`).
+- **`feat(frontend)`** `Lote.near_tx_hash`/`near_block`, `Verificacion.ledger` → `block`, link to the NEAR explorer and copy review in es/en/pt. The demo batch is reseeded (v4) with the real NEAR transaction of `HUE-2026-008`.
+- The suite goes up to **84 tests** (backend) — `stellar-sdk` uninstalled — plus 7 in the contract.
 
 ### Version 0.02 — 2026-11-05 · branch `Version-0.02`
 
@@ -50,7 +70,7 @@ Platform maintenance and synchronization.
 First closed documentation delivery.
 
 - **`docs`** Demo video link in `README.md` updated to `https://www.youtube.com/watch?v=stVQCivrmCg`.
-- **`docs`** `docs/semana1/ProblemBrief.md` renamed from «Agro Cassis» to «AgroTrace Rural», with its PDF added.
+- **`docs`** `docs/semana1/ProblemBrief.md` renamed from «Agro Cassis» to «AgroChain Rural», with its PDF added.
 
 ### `main` baseline — HU-01..HU-08 delivered (2026-10-30, `aec1a36`)
 
@@ -61,6 +81,16 @@ First closed documentation delivery.
 ---
 
 ## 🇧🇷 Português
+
+### Versão 0.06 — 2026-11-11 · branch `Version-0.06`
+
+A âncora passa da **Stellar Testnet** para um **contrato KV próprio na NEAR Testnet**. Esta versão nasce no repositório novo [`AgroChainRural`](https://github.com/alucart2005/AgroChainRural); o histórico 0.01–0.05 fica no [`AgroTraceRural`](https://github.com/alucart2005/AgroTraceRural).
+
+- **`feat(contract)`** Contrato KV em Rust (near-sdk 5.30): `set(codigo, hash)` — idempotente: reancorar o mesmo hash é um no-op e um hash diferente para o mesmo lote é rejeitado — e o `get` de leitura. 7 testes; wasm versionado em `contract/res/agrochain_kv.wasm`.
+- **`feat(backend)`** `app/services/near.py` substitui `stellar.py`: o SHA-256 viaja como 64 caracteres hex e a verificação lê o **estado** do contrato (`view get`), porque o RPC público guarda o detalhe das transações por apenas ~36 h. A migração `0003_near` adiciona `near_tx_hash`/`near_block`; `stellar_*` fica como arquivo histórico. `POST /api/verify` audita um hash avulso contra o contrato (com `X-API-Key`).
+- **`feat(scripts)`** `near_account` (faucet oficial), `desplegar_contrato` e `reanclar`; `stellar_account` sai. `requests` passa a ser declarado explicitamente em `requirements.txt` (antes vinha via `stellar-sdk`).
+- **`feat(frontend)`** `Lote.near_tx_hash`/`near_block`, `Verificacion.ledger` → `block`, link para o explorador da NEAR e revisão de textos es/en/pt. O lote demo é refeito (v4) com a transação NEAR real de `HUE-2026-008`.
+- A suíte sobe para **84 testes** (backend) — `stellar-sdk` desinstalado — e o contrato soma 7 próprios.
 
 ### Versão 0.02 — 2026-11-05 · branch `Version-0.02`
 
@@ -77,7 +107,7 @@ Manutenção e sincronização da plataforma.
 Primeira entrega documental encerrada.
 
 - **`docs`** O link do vídeo demo no `README.md` foi atualizado para `https://www.youtube.com/watch?v=stVQCivrmCg`.
-- **`docs`** `docs/semana1/ProblemBrief.md` renomeado de «Agro Cassis» para «AgroTrace Rural», com o seu PDF adicionado.
+- **`docs`** `docs/semana1/ProblemBrief.md` renomeado de «Agro Cassis» para «AgroChain Rural», com o seu PDF adicionado.
 
 ### Base `main` — HU-01..HU-08 entregues (2026-10-30, `aec1a36`)
 

@@ -1,8 +1,8 @@
-# ⚓ Contratos inteligentes en Stellar: ventajas del ecosistema
+# ⚓ Contratos inteligentes en NEAR: por qué NEAR y cómo funciona el nuestro
 
-> **Proyecto:** AgroTrace Rural · **Tema:** por qué usar las herramientas del ecosistema Stellar para contratos (Soroban / Stellar Smart Contracts)
+> **Proyecto:** AgroChain Rural · **Tema:** el contrato KV de AgroChain (`contract/`) y por qué el ecosistema NEAR encaja con un piloto rural
 >
-> 🌐 **¡App del MVP en línea!** [https://frontend-2mx1.vercel.app](https://frontend-2mx1.vercel.app)
+> 🌐 **Historia:** el MVP original anclaba sin contrato (Memo Hash en Stellar); la versión 0.06 pasa a este contrato KV — ver [`docs/migracion-near.md`](../migracion-near.md).
 
 > 🌐 **Idioma / Language:** [🇪🇸 Español](#-español) · [🇺🇸 English](#-english) · [🇧🇷 Português](#-português)
 
@@ -10,190 +10,229 @@
 
 ## 🇪🇸 Español
 
-📑 **Contenido:** [🧩 1. Qué ofrece](#-1-qué-ofrece-el-ecosistema-stellar) · [✅ 2. Ventajas](#-2-ventajas-de-usar-el-ecosistema) · [🥚 3. Caso AgroTrace](#-3-caso-agrotrace-rural) · [🚀 4. Escalación](#-4-ruta-de-escalación)
+📑 **Contenido:** [🧩 1. Qué ofrece](#-1-qué-ofrece-el-ecosistema-near) · [✅ 2. Ventajas](#-2-ventajas-de-near-para-agrochain) · [🥚 3. El contrato de AgroChain](#-3-el-contrato-de-agrochain-rural) · [🚀 4. Escalación](#-4-ruta-de-escalación)
 
 ---
 
-### 🧩 1. Qué ofrece el ecosistema Stellar
+### 🧩 1. Qué ofrece el ecosistema NEAR
 
-Los **Stellar Smart Contracts (antes Soroban)** son la plataforma de contratos inteligentes integrada en la propia red Stellar — no son una cadena nueva. Un contrato es un programa pequeño escrito en **Rust** y compilado a **WebAssembly (Wasm)**. El ecosistema entrega herramientas oficiales listas para usar:
+NEAR ejecuta contratos inteligentes escritos en **Rust** (o AS/JS) y compilados a **WebAssembly (Wasm)**, sobre cuentas con nombre legible (no direcciones opacas). El ecosistema entrega herramientas oficiales listas para usar:
 
 | Herramienta | Para qué sirve |
 | :--- | :--- |
-| **Soroban SDK (Rust)** | Escribir, probar y depurar contratos; entorno local idéntico al on-chain |
-| **Stellar CLI (`stellar`)** | `stellar contract build/invoke/deploy`, red local, cuentas Testnet |
-| **Soroban RPC** | Invocar contratos, simular transacciones y leer eventos desde apps |
-| **Local Network / Sandbox** | Red local para desarrollo sin gastar en Testnet/Mainnet |
-| **stellar-sdk (JS/Python)** | Conectar tu backend o frontend (FastAPI / Next.js) a la red |
-| **Freighter** | Billetera navegador para firmar operaciones de contrato |
+| **near-sdk (Rust)** | Escribir, probar y depurar contratos; macros `#[near]` |
+| **cargo + rustup** | Build y tests unitarios con el mismo flujo de Rust (`wasm32-unknown-unknown`) |
+| **JSON-RPC** | Invocar métodos (`query` / `call_function`), leer estado y enviar transacciones |
+| **near-kit (Python)** | Cliente de alto nivel con el que el backend FastAPI firma `set` y lee `get` |
+| **Faucet de Testnet** | Crea y fondea cuentas de prueba (10 NEAR) mediante `helper.nearprotocol.com` |
+| **Explorador** | `explorer.testnet.near.org`: transacciones, contrato y estado legible |
 
 ---
 
-### ✅ 2. Ventajas de usar el ecosistema
+### ✅ 2. Ventajas de NEAR para AgroChain
 
-1. **Costos bajos y predecibles.** El modelo de recursos cobra por CPU, lecturas/escrituras de ledger y bytes — con límites fijados por protocolo. `simulateTransaction` devuelve el consumo exacto *antes* de firmar.
-2. **Finalidad rápida (~5 segundos).** Ideal para el punto de venta rural: el consumidor ve el resultado casi de inmediato.
-3. **Seguridad por diseño (Rust + Wasm).** Rust elimina clases enteras de bugs (memoria, hilos) antes de compilar; Wasm acota lo que un contrato puede ejecutar.
-4. **Herramientas oficiales y testing local.** SDK con modo de prueba local idéntico al host on-chain: unit tests y fuzzing sin gastar XLM.
-5. **Modelo de almacenamiento con rent.** Datos persistentes/temporales con TTL y precios dinámicos: evita el "state bloat" que encarece otras redes.
-6. **Interoperabilidad nativa.** Los contratos ven las cuentas Stellar y los activos nativos (USDC, por ejemplo) vía Stellar Asset Contract — reutilizas billeteras, anchors y DEX existentes.
-7. **Bajo consumo energético.** Consensus Protocol de Stellar (~5 s, ~150 TPS en vivo) no usa proof-of-work.
-8. **Identidad flexible.** Firmas passkey (secp256r1) permiten autenticación biométrica desde el celular.
+1. **Estado persistente, no solo transacciones.** Un contrato NEAR tiene *storage* propio: `view get` responde sin depender del histórico del RPC (que retiene el detalle de transacciones ~36 h). Para una huella que debe verificarse meses después, es la diferencia clave.
+2. **Finalidad rápida (1–3 s).** Ideal para el punto de venta rural: el productor ancla al registrar y el consumidor verifica al escanear.
+3. **Costos bajos y predecibles.** Anclar cuesta ≈0,001 NEAR de *gas* + *storage staking* (~100 bytes por lote); el plan de la cuenta del contrato (faucet) lo cubre de sobra en un piloto.
+4. **Seguridad por diseño (Rust + Wasm).** Rust elimina clases enteras de bugs (memoria, hilos) antes de compilar; Wasm acota lo que un contrato puede ejecutar.
+5. **Cuentas con nombre.** `agrochainrural.testnet` es legible y verificable en el explorador: el piloto puede *mostrar* su contrato a un auditor sin explicar direcciones.
+6. **Tests sin red.** Los 7 tests del contrato corren con `cargo test` en segundos, sin tocar Testnet ni gastar NEAR.
+7. **Bajo consumo energético.** NEAR usa PoS con finalidad rápida; sin proof-of-work.
 
 ---
 
-### 🥚 3. Caso AgroTrace Rural
+### 🥚 3. El contrato de AgroChain Rural
 
-**Opción de contratos (A o B):**
+El contrato vive en `contract/src/lib.rs` (near-sdk 5.30, edition 2024) y su artefacto desplegable está versionado en `contract/res/agrochain_kv.wasm`. Es deliberadamente pequeño — dos métodos:
 
-| Opción | Qué es | Estado |
-| :--- | :--- | :--- |
-| **A** | Contratos inteligentes (Soroban) | Postergada |
-| **B** | Transacción clásica + Memo Hash (32 bytes) | ✅ **Elegida para el MVP** |
+```rust
+pub struct AgroChainKv {
+    /// codigo_de_lote → hash SHA-256 en hex.
+    lotes: LookupMap<String, String>,
+}
 
-**Hoy el MVP usa la ruta mínima correcta (Opción B):** *transacción clásica + Memo Hash (32 bytes)* con `stellar-sdk`. No necesita contrato. **Cuándo sí conviene un contrato (Opción A):**
+#[near]
+impl AgroChainKv {
+    /// Ancla el hash de un lote. Idempotente y no payable.
+    pub fn set(&mut self, codigo: String, hash: String) { /* ... */ }
 
-- Reglas de negocio automáticas (ej.: un lote no puede recibir más eventos tras su despacho).
-- Pagos o regalías automáticas entre productor y distribuidor.
-- Certificados revocables / estados on-chain (activo, agotado, retirado).
-- Tokens de fidelización o representación de cubetas (Stellar Asset Contract).
+    /// Devuelve el hash anclado para un código, o `None` si aún no existe.
+    pub fn get(&self, codigo: String) -> Option<String> { /* ... */ }
+}
+```
 
-La misma cuenta, las mismas claves y el mismo `stellar-sdk` sirven para ambas rutas: migrar de memo a contrato es evolutivo, no un reinicio.
+**Decisiones de diseño:**
+
+| Decisión | Por qué |
+| :--- | :--- |
+| Hash como **hex de 64 caracteres** (no `[u8; 32]`) | El `view get` devuelve exactamente el string que el backend ya compara; la paridad `sha256.py` ↔ `hash.ts` no cambia |
+| `set` **idempotente** (mismo hash → no-op) | Los reintentos del backend son seguros; reanclar no rompe nada |
+| `set` **estricto** (hash distinto → panic) | Un lote no puede cambiar de huella: esa es la prueba de integridad |
+| `set` **no payable** | El contrato no maneja dinero; el *storage staking* lo cubre el saldo de la cuenta del contrato |
+| `LookupMap` (no `UnorderedMap`) | Solo se consulta por clave exacta; el prefijo de storage es más barato |
+
+Los 7 tests (`cargo test --release`) cubren: guardar/leer, código desconocido → `None`, idempotencia, rechazo de hash mal formado, código vacío, hash distinto para el mismo código y aislamiento entre lotes.
 
 ---
 
 ### 🚀 4. Ruta de escalación
 
-1. **MVP (hoy):** hash en Memo Hash — costo por lote ≈ 0.00001 XLM, cero mantenimiento.
-2. **Etapa 2:** contrato `traceability` con función `anchor(batch_id, hash)` y eventos `Anchored` indexables por Horizon/Soroban RPC.
-3. **Etapa 3:** activos Stellar por línea productiva (HUvos Guarumo como token) + pagos programados.
+1. **Hoy (v0.06):** contrato KV `codigo → hash` — una huella por lote, verificación por estado.
+2. **Etapa 2:** eventos de la línea de tiempo (cosecha → clasificación → empaque → despacho) como entradas ancladas por índice, sin tocar el hash del lote.
+3. **Etapa 3:** representación de cubetas/lotes con tokens (NEAR FT/NFT) y pagos programados al productor.
 
-[⬆ Volver al inicio](#-contratos-inteligentes-en-stellar-ventajas-del-ecosistema)
+[⬆ Volver al inicio](#-contratos-inteligentes-en-near-por-qué-near-y-cómo-funciona-el-nuestro)
 
 ---
 
 ## 🇺🇸 English
 
-📑 **Contents:** [🧩 1. What the ecosystem offers](#-1-what-the-stellar-ecosystem-offers) · [✅ 2. Advantages](#-2-advantages-of-using-the-ecosystem) · [🥚 3. AgroTrace case](#-3-agrotrace-rural-case) · [🚀 4. Scaling path](#-4-scaling-path)
+📑 **Contents:** [🧩 1. What the ecosystem offers](#-1-what-the-near-ecosystem-offers) · [✅ 2. Advantages](#-2-advantages-of-near-for-agrochain) · [🥚 3. AgroChain's contract](#-3-agrochain-rurals-contract) · [🚀 4. Scaling path](#-4-scaling-path)
 
 ---
 
-### 🧩 1. What the Stellar ecosystem offers
+### 🧩 1. What the NEAR ecosystem offers
 
-**Stellar Smart Contracts (formerly Soroban)** are the smart contract platform built into the Stellar network itself — not a separate chain. A contract is a small program written in **Rust** and compiled to **WebAssembly (Wasm)**. The ecosystem ships ready-to-use official tooling:
+NEAR runs smart contracts written in **Rust** (or AS/JS) and compiled to **WebAssembly (Wasm)**, on human-readable named accounts. The ecosystem ships ready-to-use official tooling:
 
 | Tool | What it is for |
 | :--- | :--- |
-| **Soroban SDK (Rust)** | Write, test and debug contracts; a local environment identical to on-chain |
-| **Stellar CLI (`stellar`)** | `stellar contract build/invoke/deploy`, local network, Testnet accounts |
-| **Soroban RPC** | Invoke contracts, simulate transactions and read events from apps |
-| **Local Network / Sandbox** | Local network for development without spending Testnet/Mainnet funds |
-| **stellar-sdk (JS/Python)** | Connect your backend or frontend (FastAPI / Next.js) to the network |
-| **Freighter** | Browser wallet to sign contract operations |
+| **near-sdk (Rust)** | Write, test and debug contracts; `#[near]` macros |
+| **cargo + rustup** | Build and unit tests with the regular Rust flow (`wasm32-unknown-unknown`) |
+| **JSON-RPC** | Invoke methods (`query` / `call_function`), read state and send transactions |
+| **near-kit (Python)** | High-level client the FastAPI backend uses to sign `set` and read `get` |
+| **Testnet faucet** | Creates and funds test accounts (10 NEAR) via `helper.nearprotocol.com` |
+| **Explorer** | `explorer.testnet.near.org`: transactions, contract and readable state |
 
 ---
 
-### ✅ 2. Advantages of using the ecosystem
+### ✅ 2. Advantages of NEAR for AgroChain
 
-1. **Low, predictable costs.** The resource model charges for CPU, ledger reads/writes and bytes — with protocol-fixed limits. `simulateTransaction` returns exact consumption *before* you sign.
-2. **Fast finality (~5 seconds).** Ideal at the rural point of sale: the consumer sees the result almost immediately.
-3. **Secure by design (Rust + Wasm).** Rust eliminates entire bug classes (memory, threads) before compiling; Wasm constrains what a contract can execute.
-4. **Official tooling and local testing.** SDK with a local test mode identical to the on-chain host: unit tests and fuzzing without spending XLM.
-5. **Storage rent model.** Persistent/temporary data with TTL and dynamic pricing: prevents the "state bloat" that makes other networks expensive.
-6. **Native interoperability.** Contracts see Stellar accounts and native assets (e.g. USDC) through the Stellar Asset Contract — you reuse existing wallets, anchors and DEX.
-7. **Low energy use.** Stellar's Consensus Protocol (~5 s, ~150 live TPS) uses no proof-of-work.
-8. **Flexible identity.** Passkey signatures (secp256r1) enable biometric authentication from a phone.
+1. **Persistent state, not just transactions.** A NEAR contract has its own *storage*: `view get` answers without depending on the RPC history (which keeps transaction detail for only ~36 h). For a fingerprint that must be verifiable months later, that is the key difference.
+2. **Fast finality (1–3 s).** Ideal at the rural point of sale: the producer anchors when registering and the consumer verifies when scanning.
+3. **Low, predictable costs.** Anchoring costs ≈0.001 NEAR of *gas* + storage staking (~100 bytes per batch); the contract account's faucet funding easily covers a pilot.
+4. **Secure by design (Rust + Wasm).** Rust eliminates entire bug classes (memory, threads) before compiling; Wasm constrains what a contract can execute.
+5. **Named accounts.** `agrochainrural.testnet` is readable and verifiable in the explorer: the pilot can *show* its contract to an auditor without explaining hex addresses.
+6. **Networkless tests.** The contract's 7 tests run with `cargo test` in seconds, without touching Testnet or spending NEAR.
+7. **Low energy use.** NEAR is PoS with fast finality; no proof-of-work.
 
 ---
 
-### 🥚 3. AgroTrace Rural case
+### 🥚 3. AgroChain Rural's contract
 
-**Contract option (A or B):**
+The contract lives in `contract/src/lib.rs` (near-sdk 5.30, edition 2024) and its deployable artifact is versioned at `contract/res/agrochain_kv.wasm`. It is deliberately small — two methods:
 
-| Option | What it is | Status |
-| :--- | :--- | :--- |
-| **A** | Smart contracts (Soroban) | Postponed |
-| **B** | Classic transaction + Memo Hash (32 bytes) | ✅ **Chosen for the MVP** |
+```rust
+pub struct AgroChainKv {
+    /// batch_code → SHA-256 hash in hex.
+    lotes: LookupMap<String, String>,
+}
 
-**Today the MVP uses the correct minimal path (Option B):** *classic transaction + Memo Hash (32 bytes)* with `stellar-sdk`. No contract needed. **When a contract does make sense (Option A):**
+#[near]
+impl AgroChainKv {
+    /// Anchors a batch's hash. Idempotent and not payable.
+    pub fn set(&mut self, codigo: String, hash: String) { /* ... */ }
 
-- Automatic business rules (e.g. a batch cannot receive more events after dispatch).
-- Automatic payments or royalties between producer and distributor.
-- Revocable certificates / on-chain states (active, sold out, recalled).
-- Loyalty tokens or representation of crates (Stellar Asset Contract).
+    /// Returns the anchored hash for a code, or `None` if it does not exist yet.
+    pub fn get(&self, codigo: String) -> Option<String> { /* ... */ }
+}
+```
 
-The same account, keys and `stellar-sdk` serve both paths: moving from memo to contract is an evolution, not a restart.
+**Design decisions:**
+
+| Decision | Why |
+| :--- | :--- |
+| Hash as **64-char hex** (not `[u8; 32]`) | `view get` returns exactly the string the backend compares; the `sha256.py` ↔ `hash.ts` parity is untouched |
+| `set` **idempotent** (same hash → no-op) | Backend retries are safe; re-anchoring breaks nothing |
+| `set` **strict** (different hash → panic) | A batch cannot change its fingerprint: that is the integrity proof |
+| `set` **not payable** | The contract handles no money; storage staking is covered by the contract account's balance |
+| `LookupMap` (not `UnorderedMap`) | Only exact-key lookups are needed; the storage prefix is cheaper |
+
+The 7 tests (`cargo test --release`) cover: store/read, unknown code → `None`, idempotency, rejection of a malformed hash, empty code, different hash for the same code and isolation between batches.
 
 ---
 
 ### 🚀 4. Scaling path
 
-1. **MVP (today):** hash in Memo Hash — cost per batch ≈ 0.00001 XLM, zero maintenance.
-2. **Stage 2:** a `traceability` contract with an `anchor(batch_id, hash)` function and indexable `Anchored` events via Horizon/Soroban RPC.
-3. **Stage 3:** Stellar assets per production line (Guarumo eggs as a token) + scheduled payments.
+1. **Today (v0.06):** KV contract `codigo → hash` — one fingerprint per batch, state-based verification.
+2. **Stage 2:** timeline events (harvest → classification → packing → dispatch) as index-anchored entries, without touching the batch hash.
+3. **Stage 3:** token representation of crates/batches (NEAR FT/NFT) and scheduled payments to the producer.
 
-[⬆ Back to top](#-contratos-inteligentes-en-stellar-ventajas-del-ecosistema)
+[⬆ Back to top](#-contratos-inteligentes-en-near-por-qué-near-y-cómo-funciona-el-nuestro)
 
 ---
 
 ## 🇧🇷 Português
 
-📑 **Conteúdo:** [🧩 1. O que o ecossistema oferece](#-1-o-que-o-ecossistema-stellar-oferece) · [✅ 2. Vantagens](#-2-vantagens-de-usar-o-ecossistema) · [🥚 3. Caso AgroTrace](#-3-caso-agrotrace-rural) · [🚀 4. Rota de escala](#-4-rota-de-escala)
+📑 **Conteúdo:** [🧩 1. O que o ecossistema oferece](#-1-o-que-o-ecossistema-near-oferece) · [✅ 2. Vantagens](#-2-vantagens-da-near-para-o-agrochain) · [🥚 3. O contrato do AgroChain](#-3-o-contrato-do-agrochain-rural) · [🚀 4. Rota de escala](#-4-rota-de-escala)
 
 ---
 
-### 🧩 1. O que o ecossistema Stellar oferece
+### 🧩 1. O que o ecossistema NEAR oferece
 
-Os **Stellar Smart Contracts (antes Soroban)** são a plataforma de contratos inteligentes integrada na própria rede Stellar — não são uma cadeia nova. Um contrato é um programa pequeno escrito em **Rust** e compilado para **WebAssembly (Wasm)**. O ecossistema entrega ferramentas oficiais prontas:
+A NEAR executa contratos inteligentes escritos em **Rust** (ou AS/JS) e compilados para **WebAssembly (Wasm)**, sobre contas com nome legível. O ecossistema entrega ferramentas oficiais prontas:
 
 | Ferramenta | Para que serve |
 | :--- | :--- |
-| **Soroban SDK (Rust)** | Escrever, testar e depurar contratos; ambiente local idêntico ao on-chain |
-| **Stellar CLI (`stellar`)** | `stellar contract build/invoke/deploy`, rede local, contas Testnet |
-| **Soroban RPC** | Invocar contratos, simular transações e ler eventos dos apps |
-| **Local Network / Sandbox** | Rede local para desenvolver sem gastar em Testnet/Mainnet |
-| **stellar-sdk (JS/Python)** | Conectar o backend ou frontend (FastAPI / Next.js) à rede |
-| **Freighter** | Carteira de navegador para assinar operações de contrato |
+| **near-sdk (Rust)** | Escrever, testar e depurar contratos; macros `#[near]` |
+| **cargo + rustup** | Build e testes unitários com o mesmo fluxo do Rust (`wasm32-unknown-unknown`) |
+| **JSON-RPC** | Invocar métodos (`query` / `call_function`), ler estado e enviar transações |
+| **near-kit (Python)** | Cliente de alto nível com que o backend FastAPI assina `set` e lê `get` |
+| **Faucet da Testnet** | Cria e financia contas de teste (10 NEAR) via `helper.nearprotocol.com` |
+| **Explorador** | `explorer.testnet.near.org`: transações, contrato e estado legível |
 
 ---
 
-### ✅ 2. Vantagens de usar o ecossistema
+### ✅ 2. Vantagens da NEAR para o AgroChain
 
-1. **Custos baixos e previsíveis.** O modelo de recursos cobra por CPU, leituras/escritas de ledger e bytes — com limites fixados pelo protocolo. `simulateTransaction` retorna o consumo exato *antes* de assinar.
-2. **Finalidade rápida (~5 segundos).** Ideal no ponto de venda rural: o consumidor vê o resultado quase na hora.
-3. **Segurança por projeto (Rust + Wasm).** Rust elimina classes inteiras de bugs (memória, threads) antes de compilar; Wasm restringe o que um contrato pode executar.
-4. **Ferramentas oficiais e testes locais.** SDK com modo de teste local idêntico ao host on-chain: unit tests e fuzzing sem gastar XLM.
-5. **Modelo de armazenamento com rent.** Dados persistentes/temporários com TTL e preços dinâmicos: evita o "state bloat" que encarece outras redes.
-6. **Interoperabilidade nativa.** Contratos veem contas Stellar e ativos nativos (ex.: USDC) via Stellar Asset Contract — reutiliza carteiras, anchors e DEX existentes.
-7. **Baixo consumo energético.** O Consensus Protocol da Stellar (~5 s, ~150 TPS ao vivo) não usa proof-of-work.
-8. **Identidade flexível.** Assinaturas passkey (secp256r1) permitem autenticação biométrica pelo celular.
+1. **Estado persistente, não só transações.** Um contrato NEAR tem *storage* próprio: `view get` responde sem depender do histórico do RPC (que guarda o detalhe das transações por ~36 h). Para uma impressão que precisa ser verificável meses depois, essa é a diferença-chave.
+2. **Finalidade rápida (1–3 s).** Ideal no ponto de venda rural: o produtor ancora ao registrar e o consumidor verifica ao escanear.
+3. **Custos baixos e previsíveis.** Ancorar custa ≈0,001 NEAR de *gas* + *storage staking* (~100 bytes por lote); o saldo da conta do contrato (faucet) cobre com sobra um piloto.
+4. **Segurança por projeto (Rust + Wasm).** Rust elimina classes inteiras de bugs (memória, threads) antes de compilar; Wasm restringe o que um contrato pode executar.
+5. **Contas com nome.** `agrochainrural.testnet` é legível e verificável no explorador: o piloto pode *mostrar* o seu contrato a um auditor sem explicar endereços hex.
+6. **Testes sem rede.** Os 7 testes do contrato rodam com `cargo test` em segundos, sem tocar a Testnet nem gastar NEAR.
+7. **Baixo consumo energético.** A NEAR é PoS com finalidade rápida; sem proof-of-work.
 
 ---
 
-### 🥚 3. Caso AgroTrace Rural
+### 🥚 3. O contrato do AgroChain Rural
 
-**Opção de contratos (A ou B):**
+O contrato vive em `contract/src/lib.rs` (near-sdk 5.30, edition 2024) e o artefato implantável está versionado em `contract/res/agrochain_kv.wasm`. É deliberadamente pequeno — dois métodos:
 
-| Opção | O que é | Status |
-| :--- | :--- | :--- |
-| **A** | Contratos inteligentes (Soroban) | Adiada |
-| **B** | Transação clássica + Memo Hash (32 bytes) | ✅ **Escolhida para o MVP** |
+```rust
+pub struct AgroChainKv {
+    /// codigo_do_lote → hash SHA-256 em hex.
+    lotes: LookupMap<String, String>,
+}
 
-**Hoje o MVP usa a rota mínima correta (Opção B):** *transação clássica + Memo Hash (32 bytes)* com `stellar-sdk`. Não precisa de contrato. **Quando um contrato faz sentido (Opção A):**
+#[near]
+impl AgroChainKv {
+    /// Ancora o hash de um lote. Idempotente e não payable.
+    pub fn set(&mut self, codigo: String, hash: String) { /* ... */ }
 
-- Regras de negócio automáticas (ex.: um lote não pode receber mais eventos após o despacho).
-- Pagamentos ou royalties automáticos entre produtor e distribuidor.
-- Certificados revogáveis / estados on-chain (ativo, esgotado, recolhido).
-- Tokens de fidelização ou representação de caixas (Stellar Asset Contract).
+    /// Devolve o hash ancorado para um código, ou `None` se ainda não existe.
+    pub fn get(&self, codigo: String) -> Option<String> { /* ... */ }
+}
+```
 
-A mesma conta, as mesmas chaves e o mesmo `stellar-sdk` servem para ambos os caminhos: migrar de memo para contrato é evolução, não reinício.
+**Decisões de design:**
+
+| Decisão | Por quê |
+| :--- | :--- |
+| Hash como **hex de 64 caracteres** (não `[u8; 32]`) | O `view get` devolve exatamente o string que o backend compara; a paridade `sha256.py` ↔ `hash.ts` não muda |
+| `set` **idempotente** (mesmo hash → no-op) | Os retries do backend são seguros; reancorar não quebra nada |
+| `set` **estrito** (hash diferente → panic) | Um lote não pode trocar de impressão: essa é a prova de integridade |
+| `set` **não payable** | O contrato não mexe com dinheiro; o *storage staking* é coberto pelo saldo da conta do contrato |
+| `LookupMap` (não `UnorderedMap`) | Só se consulta por chave exata; o prefixo de storage é mais barato |
+
+Os 7 testes (`cargo test --release`) cobrem: gravar/ler, código desconhecido → `None`, idempotência, rejeição de hash malformado, código vazio, hash diferente para o mesmo código e isolamento entre lotes.
 
 ---
 
 ### 🚀 4. Rota de escala
 
-1. **MVP (hoje):** hash em Memo Hash — custo por lote ≈ 0.00001 XLM, zero manutenção.
-2. **Etapa 2:** contrato `traceability` com função `anchor(batch_id, hash)` e eventos `Anchored` indexáveis via Horizon/Soroban RPC.
-3. **Etapa 3:** ativos Stellar por linha produtiva (ovos Guarumo como token) + pagamentos programados.
+1. **Hoje (v0.06):** contrato KV `codigo → hash` — uma impressão por lote, verificação por estado.
+2. **Etapa 2:** eventos da linha do tempo (colheita → classificação → embalagem → despacho) como entradas ancoradas por índice, sem tocar o hash do lote.
+3. **Etapa 3:** representação de caixas/lotes com tokens (NEAR FT/NFT) e pagamentos programados ao produtor.
 
-[⬆ Voltar ao topo](#-contratos-inteligentes-en-stellar-ventajas-del-ecosistema)
+[⬆ Voltar ao topo](#-contratos-inteligentes-en-near-por-qué-near-y-cómo-funciona-el-nuestro)

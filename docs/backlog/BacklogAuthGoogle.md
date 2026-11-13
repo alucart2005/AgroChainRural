@@ -1,4 +1,4 @@
-# 📋 Backlog: Autenticación con Google — AgroTrace Rural
+# 📋 Backlog: Autenticación con Google — AgroChain Rural
 
 > **Feature:** Ingreso de productores con Google + registro de lotes autenticado · **Continúa:** HU-01, HU-05
 > **Patrón:** `docs/semana2/KanbanBacklog.md` · Creado como GitHub Issues [#6](https://github.com/alucart2005/AgroTraceRural/issues/6), [#7](https://github.com/alucart2005/AgroTraceRural/issues/7) y [#8](https://github.com/alucart2005/AgroTraceRural/issues/8) (formato `docs/backlog/IssuesListos.md`)
@@ -46,7 +46,7 @@
   - **Cuando** pulsa "Salir" en la navegación,
   - **Entonces** se elimina el token del navegador y vuelve a la página pública.
 
-[⬆ Volver al inicio](#-backlog-autenticación-con-google--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-autenticación-con-google--agrochain-rural)
 
 ---
 
@@ -75,7 +75,7 @@
   - **Cuando** vuelve a iniciar sesión con Google,
   - **Entonces** no se le vuelve a solicitar ningún dato.
 
-[⬆ Volver al inicio](#-backlog-autenticación-con-google--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-autenticación-con-google--agrochain-rural)
 
 ---
 
@@ -83,7 +83,7 @@
 
 > 🔴 **Imprescindible (Must Have)** · 👤 **Rol:** Pequeño Productor Agrícola · 🔄 **Evolución de HU-01**
 
-> **Como** responsable de AgroTrace, **quiero** que el registro de lotes exija la sesión del productor y quede vinculado a su identidad, **para** que nadie anónimo pueda crear lotes y cada lote tenga un responsable claro.
+> **Como** responsable de AgroChain, **quiero** que el registro de lotes exija la sesión del productor y quede vinculado a su identidad, **para** que nadie anónimo pueda crear lotes y cada lote tenga un responsable claro.
 
 #### 🧪 Criterios de aceptación (HU-08) — Dado / Cuando / Entonces
 
@@ -104,7 +104,7 @@
   - **Cuando** consulta la ficha pública y verifica la integridad on-chain,
   - **Entonces** sigue funcionando sin credenciales y el **hash canónico de 8 campos permanece intacto** (el `usuario_id` queda fuera del hash).
 
-[⬆ Volver al inicio](#-backlog-autenticación-con-google--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-autenticación-con-google--agrochain-rural)
 
 ---
 
@@ -176,7 +176,7 @@
   - **When** they click "Sign out" in the navigation,
   - **Then** the browser token is removed and they return to the public page.
 
-[⬆ Back to top](#-backlog-autentication-with-google--agrotrace-rural)
+[⬆ Back to top](#-backlog-autentication-with-google--agrochain-rural)
 
 ---
 
@@ -205,7 +205,7 @@
   - **When** they sign in with Google again,
   - **Then** no data is requested again.
 
-[⬆ Back to top](#-backlog-autentication-with-google--agrotrace-rural)
+[⬆ Back to top](#-backlog-autentication-with-google--agrochain-rural)
 
 ---
 
@@ -213,7 +213,7 @@
 
 > 🔴 **Must Have** · 👤 **Role:** Smallholder Farmer · 🔄 **Evolution of HU-01**
 
-> **As an** AgroTrace owner, **I want** batch registration to require the farmer's session and be linked to their identity, **so that** no anonymous party can create batches and every batch has a clear owner.
+> **As an** AgroChain owner, **I want** batch registration to require the farmer's session and be linked to their identity, **so that** no anonymous party can create batches and every batch has a clear owner.
 
 #### 🧪 Acceptance criteria (HU-08) — Given / When / Then
 
@@ -234,7 +234,7 @@
   - **When** they view the public page and run the on-chain integrity check,
   - **Then** it still works without credentials and the **8-field canonical hash remains intact** (`usuario_id` stays out of the hash).
 
-[⬆ Back to top](#-backlog-autentication-with-google--agrotrace-rural)
+[⬆ Back to top](#-backlog-autentication-with-google--agrochain-rural)
 
 ---
 
@@ -306,7 +306,7 @@
   - **Quando** clica em "Sair" na navegação,
   - **Então** o token é removido do navegador e ele volta à página pública.
 
-[⬆ Voltar ao topo](#-backlog-autenticação-com-google--agrotrace-rural)
+[⬆ Voltar ao topo](#-backlog-autenticação-com-google--agrochain-rural)
 
 ---
 
@@ -335,7 +335,7 @@
   - **Quando** entra novamente com o Google,
   - **Então** nenhum dado é solicitado de novo.
 
-[⬆ Voltar ao topo](#-backlog-autenticação-com-google--agrotrace-rural)
+[⬆ Voltar ao topo](#-backlog-autenticação-com-google--agrochain-rural)
 
 ---
 
@@ -343,7 +343,7 @@
 
 > 🔴 **Imprescindível (Must Have)** · 👤 **Papel:** Pequeno Produtor Agrícola · 🔄 **Evolução da HU-01**
 
-> **Como** responsável pela AgroTrace, **quero** que o registro de lotes exija a sessão do produtor e fique vinculada à sua identidade, **para** que ninguém anônimo crie lotes e cada lote tenha um responsável claro.
+> **Como** responsável pela AgroChain, **quero** que o registro de lotes exija a sessão do produtor e fique vinculada à sua identidade, **para** que ninguém anônimo crie lotes e cada lote tenha um responsável claro.
 
 #### 🧪 Critérios de aceitação (HU-08) — Dado / Quando / Então
 
@@ -364,7 +364,7 @@
   - **Quando** consulta a ficha pública e verifica a integridade on-chain,
   - **Então** continua funcionando sem credenciais e o **hash canônico de 8 campos permanece intacto** (o `usuario_id` fica fora do hash).
 
-[⬆ Voltar ao topo](#-backlog-autenticação-com-google--agrotrace-rural)
+[⬆ Voltar ao topo](#-backlog-autenticação-com-google--agrochain-rural)
 
 ---
 

@@ -38,7 +38,7 @@ Se plantea como hipótesis que blockchain podría aportar valor porque permite q
 
 ### 📝 Resumen
 
-> **El problema que identifica AgroTrace Guarumo, es la dificultad que tienen los consumidores para conocer y verificar el origen de los productos agrícolas. Actualmente, esta información se maneja mediante registros, documentos, fotografías y comunicación directa, lo que puede generar costos, pérdida de información y poca confianza.   
+> **El problema que identifica AgroChain Guarumo, es la dificultad que tienen los consumidores para conocer y verificar el origen de los productos agrícolas. Actualmente, esta información se maneja mediante registros, documentos, fotografías y comunicación directa, lo que puede generar costos, pérdida de información y poca confianza.   
 > Como hipótesis, el proyecto plantea que blockchain podría aportar valor al permitir mantener un registro verificable y con un historial difícil de modificar, facilitando la trazabilidad desde la producción hasta el consumidor.**
 
 [⬆ Volver al inicio](#propuesta-individual)
@@ -79,7 +79,7 @@ It is proposed as a hypothesis that blockchain could add value because it allows
 
 ### 📝 Summary
 
-> **The problem identified by AgroTrace Guarumo is the difficulty consumers have in knowing and verifying the origin of agricultural products. Currently, this information is handled through records, documents, photographs, and direct communication, which can lead to costs, information loss, and low trust.   
+> **The problem identified by AgroChain Guarumo is the difficulty consumers have in knowing and verifying the origin of agricultural products. Currently, this information is handled through records, documents, photographs, and direct communication, which can lead to costs, information loss, and low trust.   
 > As a hypothesis, the project proposes that blockchain could add value by enabling a verifiable record with a history that is hard to modify, facilitating traceability from production to the consumer.**
 
 [⬆ Back to top](#propuesta-individual)
@@ -120,7 +120,7 @@ Coloca-se como hipótese que a blockchain poderia agregar valor porque permite q
 
 ### 📝 Resumo
 
-> **O problema identificado pela AgroTrace Guarumo é a dificuldade que os consumidores têm em conhecer e verificar a origem dos produtos agrícolas. Atualmente, essas informações são tratadas por meio de registros, documentos, fotografias e comunicação direta, o que pode gerar custos, perda de informações e baixa confiança.   
+> **O problema identificado pela AgroChain Guarumo é a dificuldade que os consumidores têm em conhecer e verificar a origem dos produtos agrícolas. Atualmente, essas informações são tratadas por meio de registros, documentos, fotografias e comunicação direta, o que pode gerar custos, perda de informações e baixa confiança.   
 > Como hipótese, o projeto propõe que a blockchain poderia agregar valor ao permitir manter um registro verificável e com um histórico difícil de modificar, facilitando a rastreabilidade da produção até o consumidor.**
 
 [⬆ Voltar ao início](#propuesta-individual)

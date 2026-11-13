@@ -1,6 +1,6 @@
 # Historias de usuario individuales
 
-> **Proyecto:** AgroTrace Rural · **Semana:** 2 · **Autor:** Napoleon de Jesus Anaya Romero · **GitHub:** [@alucart2005](https://github.com/alucart2005)
+> **Proyecto:** AgroChain Rural · **Semana:** 2 · **Autor:** Napoleon de Jesus Anaya Romero · **GitHub:** [@alucart2005](https://github.com/alucart2005)
 
 > 🌐 **Idioma / Language:** [🇪🇸 Español](#-español) · [🇺🇸 English](#-english) · [🇧🇷 Português](#-português)
 
@@ -42,7 +42,7 @@
 
 #### ¿Por qué la Historia 1 es la más importante?
 
-El propósito central del producto (**AgroTrace Rural**) es resolver la desconfianza e incertidumbre sobre el origen de los productos agrícolas. Si el productor no realiza la captura inicial del lote (fecha, fotos, tipo de producto), **no existe ningún dato que procesar, no hay código QR que generar, ni huella de integridad que anclar**. Es el paso cero e imprescindible de toda la cadena de valor: sin la entrada del productor, el resto del sistema carece de contenido.
+El propósito central del producto (**AgroChain Rural**) es resolver la desconfianza e incertidumbre sobre el origen de los productos agrícolas. Si el productor no realiza la captura inicial del lote (fecha, fotos, tipo de producto), **no existe ningún dato que procesar, no hay código QR que generar, ni huella de integridad que anclar**. Es el paso cero e imprescindible de toda la cadena de valor: sin la entrada del productor, el resto del sistema carece de contenido.
 
 #### Criterio de priorización metodológico:
 
@@ -90,7 +90,7 @@ El propósito central del producto (**AgroTrace Rural**) es resolver la desconfi
 
 #### Why is Story 1 the most important?
 
-The core purpose of the product (**AgroTrace Rural**) is to resolve the distrust and uncertainty about the origin of agricultural products. If the producer does not capture the initial batch data (date, photos, product type), **there is no data to process, no QR code to generate, and no integrity fingerprint to anchor**. It is the zero step, indispensable to the entire value chain: without the producer's input, the rest of the system has no content.
+The core purpose of the product (**AgroChain Rural**) is to resolve the distrust and uncertainty about the origin of agricultural products. If the producer does not capture the initial batch data (date, photos, product type), **there is no data to process, no QR code to generate, and no integrity fingerprint to anchor**. It is the zero step, indispensable to the entire value chain: without the producer's input, the rest of the system has no content.
 
 #### Methodological prioritization criteria:
 
@@ -138,7 +138,7 @@ The core purpose of the product (**AgroTrace Rural**) is to resolve the distrust
 
 #### Por que a História 1 é a mais importante?
 
-O propósito central do produto (**AgroTrace Rural**) é resolver a desconfiança e a incerteza sobre a origem dos produtos agrícolas. Se o produtor não realizar a captura inicial do lote (data, fotos, tipo de produto), **não existe nenhum dado para processar, não há código QR para gerar, nem impressão digital de integridade para ancorar**. É o passo zero e imprescindível de toda a cadeia de valor: sem a entrada do produtor, o resto do sistema carece de conteúdo.
+O propósito central do produto (**AgroChain Rural**) é resolver a desconfiança e a incerteza sobre a origem dos produtos agrícolas. Se o produtor não realizar a captura inicial do lote (data, fotos, tipo de produto), **não existe nenhum dado para processar, não há código QR para gerar, nem impressão digital de integridade para ancorar**. É o passo zero e imprescindível de toda a cadeia de valor: sem a entrada do produtor, o resto do sistema carece de conteúdo.
 
 #### Critério de priorização metodológica:
 

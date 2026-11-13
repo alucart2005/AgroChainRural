@@ -1,10 +1,11 @@
 # AGENTS.md
 
-AgroTrace Rural: trazabilidad de lotes de huevos de Finca Guarumo con SHA-256
-anclado en Stellar Testnet y QR por cubeta. Dos apps independientes sin gestor
-de paquetes común: `frontend/` (Next.js 14, App Router) y `backend/` (FastAPI +
-SQLAlchemy). UI y términos de dominio en español (Colombia): *lote, cubeta,
-finca*. Ejecuta los comandos dentro del subdirectorio correspondiente.
+AgroChain Rural: trazabilidad de lotes de huevos de Finca Guarumo con SHA-256
+anclado en un contrato KV de NEAR Testnet y QR por cubeta. Dos apps
+independientes sin gestor de paquetes común: `frontend/` (Next.js 14, App
+Router), `backend/` (FastAPI + SQLAlchemy) y el contrato Rust en `contract/`.
+UI y términos de dominio en español (Colombia): *lote, cubeta, finca*. Ejecuta
+los comandos dentro del subdirectorio correspondiente.
 
 ## Comandos
 
@@ -17,17 +18,24 @@ Frontend (`frontend/`):
 
 Backend (`backend/`, ejecutar desde ahí para que resuelvan los imports `app.*`):
 - Setup: `python -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`
-- `.venv/bin/python -m pytest -q` — **68 tests**, todos con R2 y Stellar simulados (sin red, sin BD; el ID token de Google se simula)
+- `.venv/bin/python -m pytest -q` — **84 tests**, todos con R2 y NEAR simulados (sin red, sin BD; el ID token de Google se simula)
 - `uvicorn app.main:app --reload` — API en :8000
 - `alembic upgrade head` — migra la base configurada en `DATABASE_URL`
-- `python -m scripts.anchor_demo` — ancla y verifica de verdad en Testnet (necesita `STELLAR_SECRET_KEY`; crea una transacción real)
+- `python -m scripts.near_account create <cuenta.testnet>|show` — crea la cuenta con el faucet (imprime las líneas para `.env`) o la inspecciona
+- `python -m scripts.desplegar_contrato` — despliega `contract/res/agrochain_kv.wasm` en `NEAR_CONTRACT_ID`
+- `python -m scripts.anchor_demo` — ancla y verifica de verdad en Testnet (necesita las `NEAR_*`; crea una transacción real)
+- `python -m scripts.reanclar [--listar]` — ancla los lotes que quedaron sin anclar
 - `python -m scripts.migrar_sqlite_a_neon` — copia lotes del SQLite local a Neon y revalida los hashes
-- `python -m scripts.stellar_account create|show`
-- Requiere Python ≥3.10 (PEP 604 `X | None`); el Dockerfile usa 3.11.
+- Requiere Python ≥3.11 (`near-kit` lo exige; el Dockerfile ya usa 3.11).
+
+Contrato (`contract/`, requiere `rustup` con `wasm32-unknown-unknown`):
+- `cargo test --release` — tests unitarios (sin red; usa la feature `unit-testing`)
+- `cargo build --release --target wasm32-unknown-unknown` — genera el wasm
+- El artefacto desplegable se versiona en `contract/res/agrochain_kv.wasm`; `target/` está en `.gitignore`.
 
 ## Base de datos
 
-SQLAlchemy 2 + Alembic. **Producción: Neon Postgres** (proyecto `agrotrace`,
+SQLAlchemy 2 + Alembic. **Producción: Neon Postgres** (proyecto NEON,
 región `aws-us-west-2`). **Desarrollo local: SQLite** (`agrotrace_local.db`,
 ignorado por git) cuando `DATABASE_URL` está vacía — ver `app/db.py`.
 
@@ -46,9 +54,12 @@ endpoint **pooler** de Neon, no el directo.
 Modelos (`app/models/lote.py`): `Lote` (codigo único `HUE-YYYY-NNN`,
 fecha_cosecha, fecha_postura, linea_productiva, cantidad, unidad, finca,
 municipio, `fotos` JSON con URLs de R2, `evidencias` JSON `[{nombre,tamano}]`,
-hash_sha256, stellar_tx_hash, stellar_ledger, `usuario_id` FK **nullable**
-(fuera del hash), created_at) y `Evento`
+hash_sha256, `near_tx_hash`/`near_block` (el ancla en NEAR), `usuario_id` FK
+**nullable** (fuera del hash), created_at) y `Evento`
 (tipo/fecha/descripcion, clave foránea a lote con `ON DELETE CASCADE`).
+Las columnas `stellar_tx_hash`/`stellar_ledger` siguen en el modelo como
+**archivo**: los lotes del piloto conservan su ancla original y no se leen ni
+se escriben. Migración `0003_near` añade las dos columnas `near_*`.
 
 Modelo `Usuario` (`app/models/usuario.py`, HU-06/HU-07): `google_sub` único,
 email, nombre, foto_url y los 5 datos del primer ingreso (cedula, telefono,
@@ -58,9 +69,16 @@ constraints).
 
 `lifespan` ejecuta `Base.metadata.create_all` y luego
 `asegurar_columnas_sqlite()` (agrega a un SQLite ya existente las columnas que
-`create_all` no añade a tablas viejas, p. ej. `lotes.usuario_id`); en Render las
-tablas las define Alembic (`alembic upgrade head` en el CMD del Dockerfile) antes
-de arrancar, así que `create_all` queda sin efecto.
+`create_all` no añade a tablas viejas, p. ej. `lotes.usuario_id` y las
+`lotes.near_*`); en Render las tablas las define Alembic (`alembic upgrade
+head` en el CMD del Dockerfile) antes de arrancar, así que `create_all` queda
+sin efecto.
+
+> Ojo con el SQLite local: si la app ya creó `usuarios` con `create_all` pero
+> `alembic_version` sigue en `0001_initial`, `alembic upgrade head` falla con
+> `table usuarios already exists` (el `0002` intenta crearla de nuevo). Eso es
+> preexistente y no afecta a producción; para migrar una base limpia usa un
+> archivo recién creado.
 
 ## API (`app/api/`)
 
@@ -78,7 +96,7 @@ de arrancar, así que `create_all` queda sin efecto.
 | `POST` | `/api/lotes/{codigo}/eventos` | `X-API-Key` | HU-05 |
 | `POST` | `/api/lotes/{codigo}/anclar` | `X-API-Key` | reintento de ancla |
 | `GET` | `/api/verify/{codigo}` | — | HU-03 |
-| `POST` | `/api/verify` | `X-API-Key` | auditoría de una tx suelta |
+| `POST` | `/api/verify` | `X-API-Key` | auditoría de un ancla del contrato |
 
 Dos mecanismos (`app/api/deps.py`): `require_productor` valida el **JWT** que
 emite `POST /api/auth/google` (flujo Google Identity Services + `google-auth`) y
@@ -89,6 +107,10 @@ ya NO abre el registro de lotes. Las lecturas quedan abiertas para que el QR
 funcione sin credenciales; si `API_KEY` está vacía, esos endpoints internos
 quedan abiertos (desarrollo local).
 
+`POST /api/verify` recibe `codigo` + `hash_hex` y dispara una consulta al
+contrato: sin `X-API-Key` sería un proxy abierto y gratuito a la red de NEAR.
+La ruta pública del consumidor sigue siendo `GET /api/verify/{codigo}`.
+
 El QR **no** tiene endpoint propio: la etiqueta se genera en el navegador con
 `qrcode.react` en `/lote/[id]/etiqueta` (HU-04).
 
@@ -98,7 +120,7 @@ El QR **no** tiene endpoint propio: la etiqueta se genera en el navegador con
 SHA-256. El payload canónico son **exactamente 8 campos** (`CAMPOS_LOTE`):
 `codigo`, `fecha_cosecha`, `linea_productiva`, `cantidad`, `unidad`, `finca`,
 `municipio`, `evidencias`. `fecha_postura`, `fotos` (URLs de R2), hashes y
-transacción quedan FUERA a propósito.
+el ancla quedan FUERA a propósito.
 
 `tests/test_sha256.py` fija vectores calculados con el código real del navegador;
 si ese test falla, la verificación HU-03 se rompe en producción. **Cambiar un
@@ -107,18 +129,31 @@ lado obliga a recalcular los vectores con el otro.**
 `tamano` en `evidencias` es el tamaño del data URL comprimido que envía el
 cliente, no el del archivo original: es lo que viaja en el hash.
 
-## Stellar (`app/services/stellar.py`)
+## NEAR (`app/services/near.py` + `contract/`)
 
-Solo los 32 bytes del SHA-256 viajan on-chain, como **Memo Hash** de un pago de
-1 XLM a la misma cuenta. `anchor_hash` paga Friendbot si la cuenta no existe y
-reintenta 3 veces ante `tx_too_late`/`tx_bad_seq`. `verify_anchor` decodifica el
-memo (Horizon lo devuelve en base64) y lo compara; captura `NotFoundError` y
-`BadRequestError` como `StellarError`, nunca como 500.
+El SHA-256 de cada lote se guarda como **hex de 64 caracteres** en un contrato
+KV propio (`contract/res/agrochain_kv.wasm`, cuenta `NEAR_CONTRACT_ID`): mapa
+`codigo → hash`. `set` es **no payable** (el *storage staking* lo cubre el
+saldo de la cuenta del contrato) e **idempotente**: mismo hash → no-op, otro
+hash para el mismo código → panic. `verify_anchor` lee con `view get`.
 
-El ancla **no bloquea la existencia del registro**: si Horizon falla, el lote
-queda guardado con `stellar_tx_hash = None` y se reintenta con
-`POST /api/lotes/{codigo}/anclar`. Ten en cuenta que la llamada a Horizon sí
-sincroniza dentro del handler de `POST /api/lotes`.
+**Por qué el estado y no la transacción:** el RPC público de NEAR solo
+conserva el detalle de las transacciones ~36 horas. Si la verificación
+dependiera de buscar la transacción, un lote anclado la semana pasada quedaría
+inverificable; el estado del contrato no caduca. Por eso la verificación HU-03
+hace una triangulación de tres valores: el hash calculado en el navegador, el
+guardado en la base y el devuelto por el contrato.
+
+`anchor_hash` reintenta 3 veces ante fallos transitorios del RPC; un **panic
+del contrato no se reintenta** (no hay nada que arreglar). El bloque que
+incluyó la transacción es un dato presentacional: si no se resuelve se guarda
+`None` y el ancla sigue siendo válida.
+
+El ancla **no bloquea la existencia del registro**: si el RPC falla, el lote
+queda guardado con `near_tx_hash = None` y se reintenta con
+`POST /api/lotes/{codigo}/anclar` o con `python -m scripts.reanclar`.
+Ten en cuenta que la llamada al RPC sí sincroniza dentro del handler de
+`POST /api/lotes`.
 
 ## Frontend
 
@@ -146,13 +181,23 @@ almacén local, para que un QR falso no parezca auténtico.
 
 ## Variables de entorno
 
-`backend/.env` (gitignored; plantilla `backend/.env.example`): `STELLAR_NETWORK`,
-`HORIZON_URL`, `STELLAR_PUBLIC_KEY`, `STELLAR_SECRET_KEY`, `FRONTEND_URL`
-(CORS), `R2_*`, `API_KEY`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`,
-`AUTH_SECRET` (secreto con el que se firman los JWT: `openssl rand -hex 32`;
-vacío → el login responde 503), y `DATABASE_URL` **vacío** para que el desarrollo
-local use SQLite. `backend/.env.neon` guarda la URL de producción (también
-gitignored); ver la sección de base de datos.
+`backend/.env` (gitignored; plantilla `backend/.env.example`): `NEAR_NETWORK`,
+`NEAR_RPC_URL`, `NEAR_ACCOUNT_ID`, `NEAR_PRIVATE_KEY`, `NEAR_CONTRACT_ID`,
+`FRONTEND_URL` (CORS), `R2_*`, `API_KEY`, `GOOGLE_CLIENT_ID`,
+`GOOGLE_CLIENT_SECRET`, `AUTH_SECRET` (secreto con el que se firman los JWT:
+`openssl rand -hex 32`; vacío → el login responde 503), y `DATABASE_URL`
+**vacío** para que el desarrollo local use SQLite. `backend/.env.neon` guarda
+la URL de producción (también gitignored); ver la sección de base de datos.
+
+`Settings` usa `extra="ignore"`, así que un `.env` heredado de la época de
+Stellar (`STELLAR_*`, `HORIZON_URL`) convive sin tumbar el arranque mientras
+se renombra. La clave `NEAR_PRIVATE_KEY` es la de `NEAR_ACCOUNT_ID` (ed25519,
+con su prefijo) y **solo** vive en `.env` y en el panel de Render: jamás se
+sube al repositorio.
+
+Las cuentas de testnet se crean con
+`python -m scripts.near_account create <cuenta.testnet>` (faucet oficial,
+10 NEAR) e imprime las dos líneas para pegar en `.env`.
 
 `frontend/.env.local` (plantilla `frontend/.env.example`): `NEXT_PUBLIC_API_URL`,
 `NEXT_PUBLIC_API_KEY`, `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_GOOGLE_CLIENT_ID`
@@ -170,9 +215,16 @@ navegador: `NEXT_PUBLIC_API_KEY` es **pública**, no un secreto.
 
 ## Despliegue
 
+> **Este repositorio (`AgroChainRural`) todavía no tiene infraestructura
+> propia.** Los servicios de abajo siguen apuntando al repo original
+> `AgroTraceRural` (que conserva la versión con anclaje en Stellar) y **no se
+> tocan**: Render solo despliega desde `main` de ese repo, así que hacer push
+> aquí no dispara ningún deploy. Provisionar Neon/Render/Vercel nuevos para
+> este repositorio es un paso pendiente.
+
 - **Backend → Render** (Web Service + Docker, `render.yaml`). NO Vercel: las
   funciones de Vercel se cortan a los 10 s y su filesystem es efímero.
-  Servicio `agrotrace-backend-z3q1` (`srv-db9d6r67bikc73fjqe80`), región
+  Servicio actual `agrotrace-backend-z3q1` (`srv-db9d6r67bikc73fjqe80`), región
   Oregon, plan free → `https://agrotrace-backend-z3q1.onrender.com`.
   Render despliega desde `main`; el CMD del Dockerfile migra antes de servir.
   `backend/.env.rendered` (gitignored) guarda el service id y el `API_KEY`
@@ -180,11 +232,16 @@ navegador: `NEXT_PUBLIC_API_KEY` es **pública**, no un secreto.
 - **Frontend → Vercel**, proyecto `frontend-2mx1`, Root Directory `frontend`.
   Variables de producción: `NEXT_PUBLIC_API_URL` (la de Render, **sin** sufijo
   `/api`) y `NEXT_PUBLIC_API_KEY`. Cambiarlas obliga a **redeploy**: Next
-  las inlina en el bundle durante el build.
+  las inlina en el bundle durante el build. **Este repositorio no cambia
+  `NEXT_PUBLIC_*`: el frontend no habla con la cadena**, solo con el backend.
 - El frontend llama al backend **directamente** con `NEXT_PUBLIC_API_URL` y el
   backend permite el origen con `FRONTEND_URL`. **No hay `vercel.json`**: Vercel
   no interpola variables de entorno dentro de ese fichero, así que un rewrite
   con `${BACKEND_URL}` nunca funcionó y solo duplicaba la URL en dos sitios.
+- **Cuenta y contrato de NEAR:** `render.yaml` declara `NEAR_NETWORK`,
+  `NEAR_RPC_URL`, `NEAR_ACCOUNT_ID`, `NEAR_PRIVATE_KEY` y `NEAR_CONTRACT_ID`
+  con `sync: false` (se completan en el panel). La clave secreta nunca viaja
+  al repositorio.
 
 ## Convenciones
 

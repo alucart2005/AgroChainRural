@@ -1,6 +1,6 @@
-# Product Blueprint: AgroTrace Rural
+# Product Blueprint: AgroChain Rural
 
-> **Nombre del proyecto:** AgroTrace Rural · **Repositorio (enlace obligatorio):** [AgroTrace Rural GitHub Repository](https://github.com/agrocassis-BAF/ProyectoBase#-agro-cassis)
+> **Nombre del proyecto:** AgroChain Rural · **Repositorio (enlace obligatorio):** [AgroChain Rural GitHub Repository](https://github.com/agrocassis-BAF/ProyectoBase#-agro-cassis)
 
 > 🌐 **Idioma / Language:** [🇪🇸 Español](#-español) · [🇺🇸 English](#-english) · [🇧🇷 Português](#-português)
 
@@ -37,22 +37,22 @@ Consumidor final de productos agrícolas en Cáceres, Bajo Cauca y Medellín que
 El consumidor obtiene **certeza absoluta sobre la procedencia, fecha de recolección y frescura** del alimento mediante un simple escaneo de código QR en su celular. El pequeño productor obtiene un **mecanismo de certificación de origen inmutable** que elimina la opacidad de la cadena de intermediarios y le permite comercializar directamente a un precio justo.
 
 **Por qué elegiría esta solución:**
-A diferencia de los sellos de calidad tradicionales que resultan costosos e inalcanzables para pequeños productores rurales, AgroTrace Rural proporciona un "pasaporte digital" transparente respaldado por evidencia multimedia (fotografías de la producción) y verificación de integridad mediante huellas criptográficas SHA-256 ancladas en la red Stellar.
+A diferencia de los sellos de calidad tradicionales que resultan costosos e inalcanzables para pequeños productores rurales, AgroChain Rural proporciona un "pasaporte digital" transparente respaldado por evidencia multimedia (fotografías de la producción) y verificación de integridad mediante huellas criptográficas SHA-256 ancladas en la red Stellar.
 
 **En qué se diferencia de cómo lo resuelve hoy:**
-Actualmente, la trazabilidad se maneja mediante registros en cuadernos, facturas físicas, fotos dispersas en WhatsApp y declaraciones verbales no verificables. AgroTrace Rural unifica la captura de datos en una plataforma ágil, vincula el empaque físico mediante códigos QR y garantiza mediante blockchain que los registros históricos no puedan ser manipulados ni falsificados con posterioridad.
+Actualmente, la trazabilidad se maneja mediante registros en cuadernos, facturas físicas, fotos dispersas en WhatsApp y declaraciones verbales no verificables. AgroChain Rural unifica la captura de datos en una plataforma ágil, vincula el empaque físico mediante códigos QR y garantiza mediante blockchain que los registros históricos no puedan ser manipulados ni falsificados con posterioridad.
 
 ---
 
 ### 🔁 3. Flujo de usuario
 
-Secuencia de navegación del usuario por la plataforma AgroTrace Rural de principio a fin:
+Secuencia de navegación del usuario por la plataforma AgroChain Rural de principio a fin:
 
 | Paso | Rol | Qué hace | Punto de interacción |
 | :---: | :--- | :--- | :--- |
 | **1** | Productor Agrícola | Ingresa al formulario de la aplicación móvil/web, selecciona el lote (ej. Cubeta de huevos HUE-2027-001), ingresa fecha/cantidad y adjunta fotografía de evidencia de la recolección. | Formulario web en dispositivo móvil (conectado vía Starlink en Finca Guarumo). |
 | **2** | Sistema / Backend | Procesa la información del lote, guarda los datos operativos en PostgreSQL, calcula el hash criptográfico SHA-256 de los datos/evidencias y ancla la huella en Stellar Testnet. | Servidor FastAPI + Script de integración Stellar SDK. |
-| **3** | Empacador / Despacho | Genera e imprime la etiqueta con el código QR único asociado al lote `HUE-2027-001` y la adhiere al empaque (cubeta de huevos). | Módulo de impresión/generación QR en la web de AgroTrace. |
+| **3** | Empacador / Despacho | Genera e imprime la etiqueta con el código QR único asociado al lote `HUE-2027-001` y la adhiere al empaque (cubeta de huevos). | Módulo de impresión/generación QR en la web de AgroChain. |
 | **4** | Consumidor Final | Escanea el código QR de la cubeta de huevos utilizando la cámara de su teléfono inteligente en el punto de venta o al recibir su domicilio. | Aplicación de cámara estándar del teléfono móvil del cliente. |
 | **5** | Consumidor Final | Visualiza la página pública del lote con la información de origen, fecha de postura, fotos de la finca Guarumo y el indicador de verificación de integridad on-chain. | Interfaz pública Web de consulta (`https://agrotrace.example/lote/HUE-2027-001`). |
 
@@ -77,9 +77,9 @@ Concentrar el MVP en las cubetas de huevos permite probar la hipótesis central 
 
 ### 🖼️ 5. Lean Canvas
 
-Lienzo de una página con el modelo de negocio simplificado de AgroTrace Rural:
+Lienzo de una página con el modelo de negocio simplificado de AgroChain Rural:
 
-**Enlace al Lean Canvas (obligatorio):** [Lean Canvas AgroTrace Rural](https://github.com/users/alucart2005/projects/16)
+**Enlace al Lean Canvas (obligatorio):** [Lean Canvas AgroChain Rural](https://github.com/users/alucart2005/projects/16)
 
 ---
 
@@ -87,13 +87,13 @@ Lienzo de una página con el modelo de negocio simplificado de AgroTrace Rural:
 
 El trabajo del equipo se gestiona mediante el tablero ágil de GitHub Projects, donde se estructuran las tareas priorizadas y sus criterios de aceptación en formato Gherkin (Dado / Cuando / Entonces).
 
-**Enlace al tablero (obligatorio):** [Tablero Kanban en GitHub Projects — AgroTrace Rural](https://github.com/users/alucart2005/projects/1)
+**Enlace al tablero (obligatorio):** [Tablero Kanban en GitHub Projects — AgroChain Rural](https://github.com/users/alucart2005/projects/1)
 
 ---
 
 ### 🏗️ 7. Arquitectura inicial
 
-La arquitectura de AgroTrace Rural adopta un enfoque híbrido pragmático que combina una infraestructura tradicional para la operación eficiente con la red Stellar como notario de integridad.
+La arquitectura de AgroChain Rural adopta un enfoque híbrido pragmático que combina una infraestructura tradicional para la operación eficiente con la red Stellar como notario de integridad.
 
 ```text
                                 FINCA GUARUMO
@@ -105,7 +105,7 @@ La arquitectura de AgroTrace Rural adopta un enfoque híbrido pragmático que co
                           |                       |
                           +-----------+-----------+
                                       |
-                                 AgroTrace
+                                 AgroChain
                                       |
                    +------------------+------------------+
                    |                                     |
@@ -142,9 +142,9 @@ Stellar fue seleccionada por sus bajos costos de transacción, altísima velocid
 2. **Memo Text / Hash en Transacciones:** Para adjuntar la huella criptográfica SHA-256 (32 bytes) del lote directamente en el campo de datos de la transacción en Stellar Testnet.
 
 **Criterio de Pertinencia:**
-El uso de la blockchain en AgroTrace Rural se justifica estrictamente bajo el criterio de **integridad y auditoría compartida por partes que no se confían totalmente** (productor, consumidor, autoridad sanitaria). La plataforma cumple con la regla de oro: **ningún archivo pesado (fotos/videos) se almacena en la blockchain**. Stellar actúa únicamente como un **notario digital descentralizado** que permite comprobar de manera independiente que los registros presentados en la web no han sido alterados tras su creación inicial.
+El uso de la blockchain en AgroChain Rural se justifica estrictamente bajo el criterio de **integridad y auditoría compartida por partes que no se confían totalmente** (productor, consumidor, autoridad sanitaria). La plataforma cumple con la regla de oro: **ningún archivo pesado (fotos/videos) se almacena en la blockchain**. Stellar actúa únicamente como un **notario digital descentralizado** que permite comprobar de manera independiente que los registros presentados en la web no han sido alterados tras su creación inicial.
 
-[⬆ Volver al inicio](#product-blueprint-agrotrace-rural)
+[⬆ Volver al inicio](#product-blueprint-agrochain-rural)
 
 ---
 
@@ -179,22 +179,22 @@ End consumer of agricultural products in Cáceres, Bajo Cauca and Medellín look
 The consumer gets **absolute certainty about the origin, harvest date and freshness** of the food through a simple QR scan on their phone. The small farmer gets an **immutable origin certification mechanism** that removes the opacity of the intermediary chain and lets them sell directly at a fair price.
 
 **Why they would choose this solution:**
-Unlike traditional quality seals that are costly and out of reach for small rural producers, AgroTrace Rural provides a transparent "digital passport" backed by multimedia evidence (production photos) and integrity verification through SHA-256 cryptographic fingerprints anchored on the Stellar network.
+Unlike traditional quality seals that are costly and out of reach for small rural producers, AgroChain Rural provides a transparent "digital passport" backed by multimedia evidence (production photos) and integrity verification through SHA-256 cryptographic fingerprints anchored on the Stellar network.
 
 **How it differs from today's solution:**
-Today, traceability is handled with notebook records, physical invoices, photos scattered across WhatsApp and unverifiable verbal statements. AgroTrace Rural unifies data capture in an agile platform, links the physical packaging through QR codes and uses blockchain to guarantee that historical records cannot be manipulated or falsified afterwards.
+Today, traceability is handled with notebook records, physical invoices, photos scattered across WhatsApp and unverifiable verbal statements. AgroChain Rural unifies data capture in an agile platform, links the physical packaging through QR codes and uses blockchain to guarantee that historical records cannot be manipulated or falsified afterwards.
 
 ---
 
 ### 🔁 3. User flow
 
-End-to-end navigation sequence of the user through the AgroTrace Rural platform:
+End-to-end navigation sequence of the user through the AgroChain Rural platform:
 
 | Step | Role | What they do | Interaction point |
 | :---: | :--- | :--- | :--- |
 | **1** | Farmer | Opens the mobile/web app form, selects the batch (e.g. egg crate HUE-2027-001), enters date/quantity and attaches a photo as harvest evidence. | Web form on a mobile device (connected via Starlink at Finca Guarumo). |
 | **2** | System / Backend | Processes the batch information, stores operational data in PostgreSQL, computes the SHA-256 cryptographic hash of the data/evidence and anchors the fingerprint on Stellar Testnet. | FastAPI server + Stellar SDK integration script. |
-| **3** | Packer / Dispatch | Generates and prints the label with the unique QR code tied to batch `HUE-2027-001` and attaches it to the package (egg crate). | QR print/generation module on the AgroTrace web app. |
+| **3** | Packer / Dispatch | Generates and prints the label with the unique QR code tied to batch `HUE-2027-001` and attaches it to the package (egg crate). | QR print/generation module on the AgroChain web app. |
 | **4** | End Consumer | Scans the QR code on the egg crate using their smartphone camera at the point of sale or when receiving delivery. | The customer's standard phone camera app. |
 | **5** | End Consumer | Views the public batch page with origin information, laying date, photos of Finca Guarumo and the on-chain integrity verification indicator. | Public web consultation interface (`https://agrotrace.example/lote/HUE-2027-001`). |
 
@@ -219,9 +219,9 @@ Focusing the MVP on egg crates lets us test the core business hypothesis —that
 
 ### 🖼️ 5. Lean Canvas (one-page model)
 
-One-page canvas with the simplified business model of AgroTrace Rural:
+One-page canvas with the simplified business model of AgroChain Rural:
 
-**Lean Canvas link (required):** [Lean Canvas AgroTrace Rural](https://github.com/users/alucart2005/projects/16)
+**Lean Canvas link (required):** [Lean Canvas AgroChain Rural](https://github.com/users/alucart2005/projects/16)
 
 ---
 
@@ -229,13 +229,13 @@ One-page canvas with the simplified business model of AgroTrace Rural:
 
 Team work is managed through the agile GitHub Projects board, where prioritized tasks and their acceptance criteria are structured in Gherkin format (Given / When / Then).
 
-**Board link (required):** [Kanban board on GitHub Projects — AgroTrace Rural](https://github.com/users/alucart2005/projects/1)
+**Board link (required):** [Kanban board on GitHub Projects — AgroChain Rural](https://github.com/users/alucart2005/projects/1)
 
 ---
 
 ### 🏗️ 7. Initial architecture
 
-The AgroTrace Rural architecture adopts a pragmatic hybrid approach that combines traditional infrastructure for efficient operation with the Stellar network as an integrity notary.
+The AgroChain Rural architecture adopts a pragmatic hybrid approach that combines traditional infrastructure for efficient operation with the Stellar network as an integrity notary.
 
 ```text
                             FINCA GUARUMO (FARM)
@@ -247,7 +247,7 @@ The AgroTrace Rural architecture adopts a pragmatic hybrid approach that combine
                       |                       |
                       +-----------+-----------+
                                   |
-                             AgroTrace
+                             AgroChain
                                   |
                +------------------+------------------+
                |                                     |
@@ -284,9 +284,9 @@ Stellar was chosen for its low transaction costs, very high confirmation speed (
 2. **Memo Text / Hash in transactions:** To attach the batch's SHA-256 cryptographic fingerprint (32 bytes) directly in the transaction data field on Stellar Testnet.
 
 **Relevance criterion:**
-The use of blockchain in AgroTrace Rural is strictly justified by the criterion of **integrity and auditing shared among parties that do not fully trust each other** (producer, consumer, health authority). The platform follows the golden rule: **no heavy files (photos/videos) are stored on the blockchain**. Stellar acts solely as a **decentralized digital notary** that allows independent proof that the records shown on the web have not been altered after their initial creation.
+The use of blockchain in AgroChain Rural is strictly justified by the criterion of **integrity and auditing shared among parties that do not fully trust each other** (producer, consumer, health authority). The platform follows the golden rule: **no heavy files (photos/videos) are stored on the blockchain**. Stellar acts solely as a **decentralized digital notary** that allows independent proof that the records shown on the web have not been altered after their initial creation.
 
-[⬆ Back to top](#product-blueprint-agrotrace-rural)
+[⬆ Back to top](#product-blueprint-agrochain-rural)
 
 ---
 
@@ -321,22 +321,22 @@ Consumidor final de produtos agrícolas em Cáceres, Bajo Cauca e Medellín que 
 O consumidor obtém **certeza absoluta sobre a procedência, a data de colheita e a frescura** do alimento por meio de um simples escaneamento do código QR no celular. O pequeno produtor obtém um **mecanismo de certificação de origem imutável** que elimina a opacidade da cadeia de intermediários e permite comercializar diretamente a um preço justo.
 
 **Por que escolheria esta solução:**
-Diferentemente dos selos de qualidade tradicionais, que são custosos e inacessíveis para pequenos produtores rurais, o AgroTrace Rural fornece um "passaporte digital" transparente, respaldado por evidência multimídia (fotos da produção) e verificação de integridade por meio de impressões digitais criptográficas SHA-256 ancoradas na rede Stellar.
+Diferentemente dos selos de qualidade tradicionais, que são custosos e inacessíveis para pequenos produtores rurais, o AgroChain Rural fornece um "passaporte digital" transparente, respaldado por evidência multimídia (fotos da produção) e verificação de integridade por meio de impressões digitais criptográficas SHA-256 ancoradas na rede Stellar.
 
 **Em que difere de como é resolvido hoje:**
-Atualmente, a rastreabilidade é tratada com registros em cadernos, notas fiscais físicas, fotos espalhadas no WhatsApp e declarações verbais não verificáveis. O AgroTrace Rural unifica a captura de dados em uma plataforma ágil, vincula a embalagem física por meio de códigos QR e garante por meio da blockchain que os registros históricos não possam ser manipulados nem falsificados posteriormente.
+Atualmente, a rastreabilidade é tratada com registros em cadernos, notas fiscais físicas, fotos espalhadas no WhatsApp e declarações verbais não verificáveis. O AgroChain Rural unifica a captura de dados em uma plataforma ágil, vincula a embalagem física por meio de códigos QR e garante por meio da blockchain que os registros históricos não possam ser manipulados nem falsificados posteriormente.
 
 ---
 
 ### 🔁 3. Fluxo do usuário
 
-Sequência de navegação do usuário pela plataforma AgroTrace Rural do início ao fim:
+Sequência de navegação do usuário pela plataforma AgroChain Rural do início ao fim:
 
 | Etapa | Papel | O que faz | Ponto de interação |
 | :---: | :--- | :--- | :--- |
 | **1** | Produtor Agrícola | Abre o formulário do app móvel/web, seleciona o lote (ex.: caixa de ovos HUE-2027-001), informa data/quantidade e anexa fotografia de evidência da colheita. | Formulário web em dispositivo móvel (conectado via Starlink na Finca Guarumo). |
 | **2** | Sistema / Backend | Processa as informações do lote, grava os dados operacionais no PostgreSQL, calcula o hash criptográfico SHA-256 dos dados/evidências e ancora a impressão digital na Stellar Testnet. | Servidor FastAPI + script de integração Stellar SDK. |
-| **3** | Embalador / Despacho | Gera e imprime a etiqueta com o código QR único associado ao lote `HUE-2027-001` e a fixa na embalagem (caixa de ovos). | Módulo de impressão/geração de QR no web do AgroTrace. |
+| **3** | Embalador / Despacho | Gera e imprime a etiqueta com o código QR único associado ao lote `HUE-2027-001` e a fixa na embalagem (caixa de ovos). | Módulo de impressão/geração de QR no web do AgroChain. |
 | **4** | Consumidor Final | Escaneia o código QR da caixa de ovos com a câmera do smartphone no ponto de venda ou ao receber a entrega. | Aplicativo de câmera padrão do celular do cliente. |
 | **5** | Consumidor Final | Visualiza a página pública do lote com a informação de origem, data de postura, fotos da Finca Guarumo e o indicador de verificação de integridade on-chain. | Interface web pública de consulta (`https://agrotrace.example/lote/HUE-2027-001`). |
 
@@ -361,9 +361,9 @@ Concentrar o MVP nas caixas de ovos permite testar a hipótese central do negóc
 
 ### 🖼️ 5. Lean Canvas (modelo de negócio)
 
-Canvas de uma página com o modelo de negócio simplificado do AgroTrace Rural:
+Canvas de uma página com o modelo de negócio simplificado do AgroChain Rural:
 
-**Link do Lean Canvas (obrigatório):** [Lean Canvas AgroTrace Rural](https://github.com/users/alucart2005/projects/16)
+**Link do Lean Canvas (obrigatório):** [Lean Canvas AgroChain Rural](https://github.com/users/alucart2005/projects/16)
 
 ---
 
@@ -371,13 +371,13 @@ Canvas de uma página com o modelo de negócio simplificado do AgroTrace Rural:
 
 O trabalho da equipe é gerenciado pelo board ágil do GitHub Projects, onde as tarefas priorizadas e seus critérios de aceitação são estruturados em formato Gherkin (Dado / Quando / Então).
 
-**Link do board (obrigatório):** [Board Kanban no GitHub Projects — AgroTrace Rural](https://github.com/users/alucart2005/projects/1)
+**Link do board (obrigatório):** [Board Kanban no GitHub Projects — AgroChain Rural](https://github.com/users/alucart2005/projects/1)
 
 ---
 
 ### 🏗️ 7. Arquitetura inicial
 
-A arquitetura do AgroTrace Rural adota uma abordagem híbrida pragmática que combina infraestrutura tradicional para a operação eficiente com a rede Stellar como notário de integridade.
+A arquitetura do AgroChain Rural adota uma abordagem híbrida pragmática que combina infraestrutura tradicional para a operação eficiente com a rede Stellar como notário de integridade.
 
 ```text
                           FINCA GUARUMO (FAZENDA)
@@ -389,7 +389,7 @@ A arquitetura do AgroTrace Rural adota uma abordagem híbrida pragmática que co
                       |                       |
                       +-----------+-----------+
                                   |
-                             AgroTrace
+                             AgroChain
                                   |
                +------------------+------------------+
                |                                     |
@@ -426,6 +426,6 @@ A Stellar foi selecionada por seus baixos custos de transação, altíssima velo
 2. **Memo Text / Hash nas transações:** Para anexar a impressão digital criptográfica SHA-256 (32 bytes) do lote diretamente no campo de dados da transação na Stellar Testnet.
 
 **Critério de pertinência:**
-O uso da blockchain no AgroTrace Rural justifica-se estritamente sob o critério de **integridade e auditoria compartilhada por partes que não se confiam totalmente** (produtor, consumidor, autoridade sanitária). A plataforma cumpre a regra de ouro: **nenhum arquivo pesado (fotos/vídeos) é armazenado na blockchain**. A Stellar atua apenas como um **notário digital descentralizado** que permite comprovar de forma independente que os registros apresentados na web não foram alterados após sua criação inicial.
+O uso da blockchain no AgroChain Rural justifica-se estritamente sob o critério de **integridade e auditoria compartilhada por partes que não se confiam totalmente** (produtor, consumidor, autoridade sanitária). A plataforma cumpre a regra de ouro: **nenhum arquivo pesado (fotos/vídeos) é armazenado na blockchain**. A Stellar atua apenas como um **notário digital descentralizado** que permite comprovar de forma independente que os registros apresentados na web não foram alterados após sua criação inicial.
 
-[⬆ Voltar ao topo](#product-blueprint-agrotrace-rural)
+[⬆ Voltar ao topo](#product-blueprint-agrochain-rural)

@@ -1,4 +1,4 @@
-# 📋 Backlog: Rediseño visual — AgroTrace Rural
+# 📋 Backlog: Rediseño visual — AgroChain Rural
 
 > **Feature:** Navegación, sistema visual y ayuda (ciclos `Version-0.03` → `Version-0.05`, versiones 0.3.0–0.5.0) · **Continúa:** HU-01..HU-08
 > **Patrón:** `docs/semana2/KanbanBacklog.md` · Creado como GitHub Issues [#16](https://github.com/alucart2005/AgroTraceRural/issues/16), [#17](https://github.com/alucart2005/AgroTraceRural/issues/17), [#18](https://github.com/alucart2005/AgroTraceRural/issues/18), [#19](https://github.com/alucart2005/AgroTraceRural/issues/19), [#20](https://github.com/alucart2005/AgroTraceRural/issues/20), [#21](https://github.com/alucart2005/AgroTraceRural/issues/21), [#22](https://github.com/alucart2005/AgroTraceRural/issues/22) y [#23](https://github.com/alucart2005/AgroTraceRural/issues/23) (formato `docs/backlog/IssuesListos.md`)
@@ -52,7 +52,7 @@
   - **Cuando** veo la barra,
   - **Entonces** muestra los enlaces en línea, sin hamburguesa, igual que antes.
 
-[⬆ Volver al inicio](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -77,7 +77,7 @@
   - **Cuando** se revisó la base de datos,
   - **Entonces** el duplicado quedó eliminado y la cadena de custodia cuenta una historia coherente.
 
-[⬆ Volver al inicio](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -106,7 +106,7 @@
   - **Cuando** la consulta,
   - **Entonces** ve el banner de verificación, el carrusel de fotos, las filas con iconos y el grid de evidencias.
 
-[⬆ Volver al inicio](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -135,7 +135,7 @@
   - **Cuando** abro la etiqueta para imprimir,
   - **Entonces** la vista imprimible ignora el tema oscuro y sale en claro para pegarla en la cubeta.
 
-[⬆ Volver al inicio](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -160,7 +160,7 @@
   - **Cuando** busco ayuda,
   - **Entonces** el grupo Ayuda del menú lleva al centro de ayuda y al manual de usuario.
 
-[⬆ Volver al inicio](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -185,7 +185,7 @@
   - **Cuando** la escaneo,
   - **Entonces** se decodifica correctamente — verificada con zxing-cpp — y siempre sale en tema claro aunque el usuario tenga el oscuro.
 
-[⬆ Volver al inicio](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -206,7 +206,7 @@
   - **Cuando** veo el pie,
   - **Entonces** los enlaces se organizan en dos columnas compactas y legibles, no en una torre interminable.
 
-[⬆ Volver al inicio](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -235,7 +235,7 @@
   - **Cuando** pulso el «?» del encabezado,
   - **Entonces** el desplegable me lleva al manual y a las demás páginas de ayuda.
 
-[⬆ Volver al inicio](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -250,7 +250,7 @@
 - [x] `/ayuda` con manual ES/EN/PT (`content/manual/*`), versiones, acerca de y reportar; `lib/version.ts` como única fuente de la versión.
 - [x] Verificación con Playwright a 320/360/390/430/1400 px en claro y oscuro; `npm run lint` + `npm run build`.
 
-[⬆ Volver al inicio](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Volver al inicio](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -285,7 +285,7 @@
   - **When** I see the bar,
   - **Then** it shows inline links, no hamburger, same as before.
 
-[⬆ Back to top](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Back to top](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -310,7 +310,7 @@
   - **When** the database was reviewed,
   - **Then** the duplicate was removed and the chain of custody tells a coherent story.
 
-[⬆ Back to top](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Back to top](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -339,7 +339,7 @@
   - **When** they view it,
   - **Then** they see the verification banner, the photo carousel, the icon rows and the evidence grid.
 
-[⬆ Back to top](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Back to top](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -368,7 +368,7 @@
   - **When** I open the label to print,
   - **Then** the printable view ignores dark mode and comes out light to stick on the bucket.
 
-[⬆ Back to top](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Back to top](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -393,7 +393,7 @@
   - **When** I look for help,
   - **Then** the Ayuda group in the menu leads to the help centre and the user manual.
 
-[⬆ Back to top](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Back to top](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -418,7 +418,7 @@
   - **When** I scan it,
   - **Then** it decodes correctly — verified with zxing-cpp — and it always comes out in light theme even if the user is in dark.
 
-[⬆ Back to top](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Back to top](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -439,7 +439,7 @@
   - **When** I see the footer,
   - **Then** the links sit in two compact, readable columns, not an endless tower.
 
-[⬆ Back to top](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Back to top](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -468,7 +468,7 @@
   - **When** I press the “?” in the header,
   - **Then** the dropdown takes me to the manual and the other help pages.
 
-[⬆ Back to top](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Back to top](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -483,7 +483,7 @@
 - [x] `/ayuda` with an ES/EN/PT manual (`content/manual/*`), versions, about and reporting; `lib/version.ts` as the single version source.
 - [x] Verification with Playwright at 320/360/390/430/1400 px in light and dark; `npm run lint` + `npm run build`.
 
-[⬆ Back to top](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Back to top](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -518,7 +518,7 @@
   - **Quando** vejo a barra,
   - **Então** mostra os links em linha, sem hambúrguer, igual a antes.
 
-[⬆ Voltar ao início](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -543,7 +543,7 @@
   - **Quando** o banco de dados foi revisto,
   - **Então** o duplicado foi eliminado e a cadeia de custódia conta uma história coerente.
 
-[⬆ Voltar ao início](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -572,7 +572,7 @@
   - **Quando** a consulta,
   - **Então** vê o banner de verificação, o carrossel de fotos, as linhas com ícones e a grade de evidências.
 
-[⬆ Voltar ao início](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -601,7 +601,7 @@
   - **Quando** abro a etiqueta para imprimir,
   - **Então** a vista imprimível ignora o tema escuro e sai clara para colar na cubeta.
 
-[⬆ Voltar ao início](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -626,7 +626,7 @@
   - **Quando** procuro ajuda,
   - **Então** o grupo Ayuda do menu leva à central de ajuda e ao manual do usuário.
 
-[⬆ Voltar ao início](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -651,7 +651,7 @@
   - **Quando** eu a escaneio,
   - **Então** decodifica corretamente — verificada com zxing-cpp — e sempre sai em tema claro mesmo que o usuário esteja no escuro.
 
-[⬆ Voltar ao início](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -672,7 +672,7 @@
   - **Quando** vejo o rodapé,
   - **Então** os links se organizam em duas colunas compactas e legíveis, não numa torre interminável.
 
-[⬆ Voltar ao início](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -701,7 +701,7 @@
   - **Quando** pressiono o «?» do cabeçalho,
   - **Então** o menu suspenso me leva ao manual e às demais páginas de ajuda.
 
-[⬆ Voltar ao início](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-rediseño-visual--agrochain-rural)
 
 ---
 
@@ -716,4 +716,4 @@
 - [x] `/ayuda` com manual ES/EN/PT (`content/manual/*`), versões, sobre e reporte; `lib/version.ts` como única fonte da versão.
 - [x] Verificação com Playwright a 320/360/390/430/1400 px em claro e escuro; `npm run lint` + `npm run build`.
 
-[⬆ Voltar ao início](#-backlog-rediseño-visual--agrotrace-rural)
+[⬆ Voltar ao início](#-backlog-rediseño-visual--agrochain-rural)

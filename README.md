@@ -1,43 +1,47 @@
-# 🌱 AgroTrace Rural
+# 🌱 AgroChain Rural
 
 > 🌐 **Idioma / Language:** [🇪🇸 Español](#-español) · [🇺🇸 English](#-english) · [🇧🇷 Português](#-português)
 
-[![Blockchain](https://img.shields.io/badge/Blockchain-Stellar-blueviolet)](#)
+[![Blockchain](https://img.shields.io/badge/Blockchain-NEAR-blueviolet)](#)
 [![AgTech](https://img.shields.io/badge/Industry-AgTech-green)](#)
 [![Trazabilidad](https://img.shields.io/badge/Traceability-QR%20%2B%20SHA--256-orange)](#)
 [![Colombia](https://img.shields.io/badge/Made%20in-Colombia-yellow)](#)
 [![Vercel](https://img.shields.io/badge/Deployed-Vercel-black)](https://frontend-2mx1.vercel.app)
 [![Backend](https://img.shields.io/badge/Backend-FastAPI%20on%20Render-0d9488)](https://agrotrace-backend-z3q1.onrender.com)
-[![Tests](https://img.shields.io/badge/Backend-50%20tests%20pytest-brightgreen)](#-cómo-ejecutar-el-proyecto)
+[![Tests](https://img.shields.io/badge/Backend-84%20tests%20pytest-brightgreen)](#-cómo-ejecutar-el-proyecto)
 
 > 🌐 **¡La app ya está en línea! / The app is live! / O app já está no ar!**
 > 👉 **Frontend:** **[https://frontend-2mx1.vercel.app](https://frontend-2mx1.vercel.app)**
 > ⚙️ **API (backend):** **[https://agrotrace-backend-z3q1.onrender.com](https://agrotrace-backend-z3q1.onrender.com)**
 > ⚙️ **Video Publico:** **[https://www.youtube.com/watch?v=stVQCivrmCg](https://www.youtube.com/watch?v=stVQCivrmCg)**
+> ⛓️ **Contrato KV (NEAR Testnet):** [`explorer.testnet.near.org/accounts/agrochainrural.testnet`](https://explorer.testnet.near.org/accounts/agrochainrural.testnet)
+>
+> _El despliegue en línea corresponde al repositorio original [`AgroTraceRural`](https://github.com/alucart2005/AgroTraceRural) (anclaje en Stellar); este repositorio (`AgroChainRural`) migra el anclaje a NEAR y aún no tiene su propia infraestructura. / The live deployment belongs to the original repo (Stellar anchoring); this repo migrates anchoring to NEAR and has no infrastructure of its own yet. / O deploy online pertence ao repositório original (âncora na Stellar); este repositório migra a âncora para NEAR e ainda não tem infraestrutura própria._
+
 ---
 
 ## 🇪🇸 Español
 
-> ### *"Del campo al cliente, con trazabilidad verificable."* 🇨🇴
+> ### _"Del campo al cliente, con trazabilidad verificable."_ 🇨🇴
 
 ---
 
 ### 📖 Sobre el proyecto
 
-**AgroTrace Rural** es un proyecto de trazabilidad agroalimentaria que busca crear un canal **finca → cliente**: reducir la dependencia de intermediarios y permitir que el consumidor verifique el origen de los productos que compra mediante un **código QR**.
+**AgroChain Rural** es un proyecto de trazabilidad agroalimentaria que busca crear un canal **finca → cliente**: reducir la dependencia de intermediarios y permitir que el consumidor verifique el origen de los productos que compra mediante un **código QR**.
 
-El corazón del proyecto es la plataforma **AgroTrace**, un sistema de registros digitales con huellas criptográficas **SHA-256** y anclaje selectivo de eventos en la red **Stellar**. Los documentos, fotografías y videos **no se almacenan en blockchain**: se conservan en almacenamiento digital y solo se registra su huella criptográfica, fecha, lote y referencia, de modo que una modificación posterior del archivo pueda ser detectada.
+El corazón del proyecto es la plataforma **AgroChain**, un sistema de registros digitales con huellas criptográficas **SHA-256** y anclaje selectivo de eventos en la red **NEAR** (contrato KV propio en Testnet). Los documentos, fotografías y videos **no se almacenan en blockchain**: se conservan en almacenamiento digital y solo se registra su huella criptográfica, fecha, lote y referencia, de modo que una modificación posterior del archivo pueda ser detectada.
 
 #### 📍 Contexto del piloto
 
-| | |
-|---|---|
-| **Ubicación** | Guarumo, Cáceres — Bajo Cauca antioqueño (Antioquia) |
-| **Área** | 6 hectáreas |
-| **Producción** | 🐟 Peces · 🐔 Gallinas ponedoras · 🦆 Patos · 🐖 Porcinos · 🐄 Bovinos · 🌳 Frutales |
-| **Producto piloto** | Cubeta de huevos con pasaporte digital QR |
-| **Inversión preliminar** | $48.000.000 COP |
-| **Horizonte** | 36 meses, con primera etapa de 12 meses |
+|                          |                                                                                      |
+| ------------------------ | ------------------------------------------------------------------------------------ |
+| **Ubicación**            | Guarumo, Cáceres — Bajo Cauca antioqueño (Antioquia)                                 |
+| **Área**                 | 6 hectáreas                                                                          |
+| **Producción**           | 🐟 Peces · 🐔 Gallinas ponedoras · 🦆 Patos · 🐖 Porcinos · 🐄 Bovinos · 🌳 Frutales |
+| **Producto piloto**      | Cubeta de huevos con pasaporte digital QR                                            |
+| **Inversión preliminar** | $48.000.000 COP                                                                      |
+| **Horizonte**            | 36 meses, con primera etapa de 12 meses                                              |
 
 ---
 
@@ -89,7 +93,7 @@ En cada lote:
 
 - **identificador único**;
 - registros y evidencias almacenados en el sistema con huella **SHA-256**;
-- referencia de la huella registrada en **Stellar**;
+- referencia de la huella registrada en la blockchain (**NEAR**);
 - fotografías y videos **fuera de la cadena**;
 - consulta pública al escanear el **QR** (origen, lote, fecha y evidencias).
 
@@ -101,18 +105,14 @@ La hipótesis se validará mediante un **MVP pequeño** y pruebas con usuarios r
 
 **Criterio principal:**
 
-> ✅ *Varias partes necesitan compartir un registro verificable y existe interés en preservar el histórico de los registros.*
+> ✅ _Varias partes necesitan compartir un registro verificable y existe interés en preservar el histórico de los registros._
 
 Productor, intermediarios y consumidor son actores que necesitan consultar información del mismo lote y preservar su historial sin alteraciones no registradas.
 
-**Regla fundamental:** *los datos completos permanecen fuera de blockchain.* En Stellar se registran únicamente los datos mínimos para verificar integridad:
+**Regla fundamental:** _los datos completos permanecen fuera de blockchain._ En NEAR se registra únicamente el par mínimo para verificar integridad — el código del lote y su huella, como entrada de un contrato KV propio:
 
 ```text
-lote_id
-evento
-timestamp
-hash
-referencia
+codigo (HUE-YYYY-NNN) ──▶ SHA-256 (64 caracteres hex)
 ```
 
 Esto reduce costos y protege la información sensible. La información operativa permanece en una base de datos tradicional; blockchain se usa solo donde aporta una característica adicional: **probar que una evidencia existió en un momento determinado y que no fue modificada sin dejar rastro**. La pertinencia deberá validarse comparando costo, complejidad y beneficio frente a una solución basada solo en una base de datos tradicional.
@@ -131,7 +131,7 @@ Esto reduce costos y protege la información sensible. La información operativa
              |                       |
              +-----------+-----------+
                          |
-                      AgroTrace
+                      AgroChain
                          |
               +----------+----------+
               |                     |
@@ -141,14 +141,14 @@ Esto reduce costos y protege la información sensible. La información operativa
                          |
                    SHA-256 HASH
                          |
-                      STELLAR
+                 CONTRATO NEAR
                          |
                        QR WEB
                          |
                       CLIENTE
 ```
 
-> **Infraestructura real:** frontend en **Vercel** (Next.js 14) · backend **FastAPI** en **Render** (Docker) · base de datos en **Neon Postgres** · evidencias en **Cloudflare R2** (compatible S3) · anclaje en **Stellar Testnet**, donde viaja **solo el hash SHA-256** como *Memo Hash*. En desarrollo local: SQLite y modo demo en el navegador.
+> **Infraestructura real:** frontend en **Vercel** (Next.js 14) · backend **FastAPI** en **Render** (Docker) · base de datos en **Neon Postgres** · evidencias en **Cloudflare R2** (compatible S3) · anclaje en un **contrato KV de NEAR Testnet**, donde viaja **solo el hash SHA-256** (64 caracteres hex) como valor de la entrada `codigo → hash`. En desarrollo local: SQLite y modo demo en el navegador.
 
 ---
 
@@ -184,24 +184,24 @@ La página muestra la información pública del lote y un **indicador de verific
 
 ### 🌾 Modelo productivo
 
-Distribución preliminar de las 6 hectáreas *(sujeta a levantamiento topográfico, agua, suelos y normas ambientales)*:
+Distribución preliminar de las 6 hectáreas _(sujeta a levantamiento topográfico, agua, suelos y normas ambientales)_:
 
-| Área | Hectáreas | Uso |
-|---|---:|---|
-| Ganadería bovina | 3,00 ha | Pastoreo rotacional y manejo de bovinos |
-| Piscicultura | 0,70 ha | Estanques, circulación y zona técnica |
-| Gallinas ponedoras | 0,25 ha | Galpón, patio, bodega y bioseguridad |
-| Patos | 0,15 ha | Área integrada con manejo de agua |
-| Porcinos | 0,25 ha | Porqueriza, manejo de residuos y zona sanitaria |
-| Frutales | 1,10 ha | Mango, guayaba, cítricos, papaya u otras especies adaptadas |
-| Infraestructura y reserva | 0,55 ha | Casa/bodega, accesos, agua, compostaje y servicios |
-| **TOTAL** | **6,00 ha** | |
+| Área                      |   Hectáreas | Uso                                                         |
+| ------------------------- | ----------: | ----------------------------------------------------------- |
+| Ganadería bovina          |     3,00 ha | Pastoreo rotacional y manejo de bovinos                     |
+| Piscicultura              |     0,70 ha | Estanques, circulación y zona técnica                       |
+| Gallinas ponedoras        |     0,25 ha | Galpón, patio, bodega y bioseguridad                        |
+| Patos                     |     0,15 ha | Área integrada con manejo de agua                           |
+| Porcinos                  |     0,25 ha | Porqueriza, manejo de residuos y zona sanitaria             |
+| Frutales                  |     1,10 ha | Mango, guayaba, cítricos, papaya u otras especies adaptadas |
+| Infraestructura y reserva |     0,55 ha | Casa/bodega, accesos, agua, compostaje y servicios          |
+| **TOTAL**                 | **6,00 ha** |                                                             |
 
 #### Metas iniciales
 
-- 🐔 **Gallinas ponedoras:** 80–120 aves *(producto piloto: cubeta de huevos con QR)*
+- 🐔 **Gallinas ponedoras:** 80–120 aves _(producto piloto: cubeta de huevos con QR)_
 - 🐟 **Piscicultura:** 1–2 estanques pequeños, según disponibilidad de agua
-- 🦆 **Patos:** 20–30 animales *(unidad complementaria)*
+- 🦆 **Patos:** 20–30 animales _(unidad complementaria)_
 - 🐖 **Porcinos:** pequeño lote de engorde
 - 🐄 **Bovinos:** pequeño hato según capacidad de carga
 - 🌳 **Frutales:** 1,1 ha de especies adaptadas con salida comercial
@@ -212,10 +212,10 @@ Distribución preliminar de las 6 hectáreas *(sujeta a levantamiento topográfi
 
 ### 🛒 Comercialización directa
 
-| Canal | Descripción |
-|---|---|
-| **1. WhatsApp** | Catálogo → pedido → confirmación → pago → despacho |
-| **2. Sitio web** | Catálogo: huevos, pescado, frutas, carne de cerdo, productos bovinos permitidos y otros productos |
+| Canal                       | Descripción                                                                                            |
+| --------------------------- | ------------------------------------------------------------------------------------------------------ |
+| **1. WhatsApp**             | Catálogo → pedido → confirmación → pago → despacho                                                     |
+| **2. Sitio web**            | Catálogo: huevos, pescado, frutas, carne de cerdo, productos bovinos permitidos y otros productos      |
 | **3. Clientes recurrentes** | Planes semanales: **Canasta Finca Guarumo** (huevos, fruta de temporada, pescado según disponibilidad) |
 
 **Objetivo inicial:** 20–30 clientes recurrentes en Cáceres y Bajo Cauca, con expansión posterior a Medellín.
@@ -226,9 +226,9 @@ Distribución preliminar de las 6 hectáreas *(sujeta a levantamiento topográfi
 
 - **Integrantes:**
   - Cristian Esteban Jiménez Durango — `CristianEstebanJimenezDurango`
-  - Jefferson Cabrera — *\[usuario de GitHub pendiente\]*
+  - Jefferson Cabrera — _\[usuario de GitHub pendiente\]_
   - Napoleon de Jesus Anaya Romero — `alucart2005`
-  - Diego Martínez — *\[usuario de GitHub pendiente\]*
+  - Diego Martínez — _\[usuario de GitHub pendiente\]_
 - **Rol:** Programación / Informes
 - **Responsable de entregas:** Napoleon de Jesus Anaya Romero
 - **Canal de coordinación interna:** GitHub Issues
@@ -237,20 +237,20 @@ Distribución preliminar de las 6 hectáreas *(sujeta a levantamiento topográfi
 
 ### 🗺️ Cronograma
 
-| Fase | Mes | Contenido |
-|---|---|---|
-| **0 — Preparación** | 0–1 | Levantamiento, análisis de agua/suelo, cotizaciones, requisitos ICA, diseño financiero, solicitud de crédito y diseño del MVP |
-| **1 — Infraestructura** | 2–3 | Agua, cercas, drenajes, galpón, porqueriza, estanques, bodega y compostaje |
-| **2 — Primer ciclo productivo** | 3–6 | Gallinas, patos, primer lote porcino, alevinos, frutales y bovinos según capacidad |
-| **3 — AgroTrace MVP** | 2–4 | Login, fincas, lotes, animales, producción, inventario, ventas, QR, historial, hash y anclaje en Stellar *(producto piloto: huevos)* |
-| **4 — Comercialización** | 4–8 | Catálogo, WhatsApp Business, sitio web, QR, base de clientes y pedidos |
-| **5 — Consolidación** | 7–12 | Incorporación progresiva de pescado, frutas, porcinos, patos y bovinos |
+| Fase                            | Mes  | Contenido                                                                                                                         |
+| ------------------------------- | ---- | --------------------------------------------------------------------------------------------------------------------------------- |
+| **0 — Preparación**             | 0–1  | Levantamiento, análisis de agua/suelo, cotizaciones, requisitos ICA, diseño financiero, solicitud de crédito y diseño del MVP     |
+| **1 — Infraestructura**         | 2–3  | Agua, cercas, drenajes, galpón, porqueriza, estanques, bodega y compostaje                                                        |
+| **2 — Primer ciclo productivo** | 3–6  | Gallinas, patos, primer lote porcino, alevinos, frutales y bovinos según capacidad                                                |
+| **3 — AgroChain MVP**           | 2–4  | Login, fincas, lotes, animales, producción, inventario, ventas, QR, historial, hash y anclaje en NEAR _(producto piloto: huevos)_ |
+| **4 — Comercialización**        | 4–8  | Catálogo, WhatsApp Business, sitio web, QR, base de clientes y pedidos                                                            |
+| **5 — Consolidación**           | 7–12 | Incorporación progresiva de pescado, frutas, porcinos, patos y bovinos                                                            |
 
 #### Horizonte financiero
 
-- **Año 1:** producción + trazabilidad + clientes *(MVP funcionando, primeros lotes trazables, flujo de caja)*
-- **Año 2:** escala *(más producción, clientes, infraestructura, sensores y automatización)*
-- **Año 3:** replicación *(la finca inicial como piloto para productores vecinos)*
+- **Año 1:** producción + trazabilidad + clientes _(MVP funcionando, primeros lotes trazables, flujo de caja)_
+- **Año 2:** escala _(más producción, clientes, infraestructura, sensores y automatización)_
+- **Año 3:** replicación _(la finca inicial como piloto para productores vecinos)_
 
 ---
 
@@ -258,47 +258,47 @@ Distribución preliminar de las 6 hectáreas *(sujeta a levantamiento topográfi
 
 > **Presupuesto preliminar de estructuración.** Los valores deben sustituirse por cotizaciones locales antes de radicar la solicitud.
 
-| Componente | Valor estimado (COP) |
-|---|---:|
-| Inversión productiva | $36.000.000 |
-| Tecnología y trazabilidad *(\*)* | $4.500.000 |
-| Capital de trabajo | $7.500.000 |
-| **Inversión total** | **$48.000.000** |
+| Componente                       | Valor estimado (COP) |
+| -------------------------------- | -------------------: |
+| Inversión productiva             |          $36.000.000 |
+| Tecnología y trazabilidad _(\*)_ |           $4.500.000 |
+| Capital de trabajo               |           $7.500.000 |
+| **Inversión total**              |      **$48.000.000** |
 
-*(\*) El MVP AgroTrace, dron DJI Avata 2, Starlink y computadores se aportan como contrapartida propia (**$0 financiable**).*
+_(\*) El MVP AgroChain, dron DJI Avata 2, Starlink y computadores se aportan como contrapartida propia (**$0 financiable**)._
 
 #### Estructura sugerida
 
-| Fuente | Valor |
-|---|---:|
-| Crédito solicitado | **$40.000.000** |
-| Aporte propio en efectivo | $4.000.000 |
-| Aporte propio en activos/equipos | $4.000.000+ |
-| **Proyecto** | **$48.000.000+** |
+| Fuente                           |            Valor |
+| -------------------------------- | ---------------: |
+| Crédito solicitado               |  **$40.000.000** |
+| Aporte propio en efectivo        |       $4.000.000 |
+| Aporte propio en activos/equipos |      $4.000.000+ |
+| **Proyecto**                     | **$48.000.000+** |
 
-**Principio financiero fundamental:** *no financiar con deuda todo lo que todavía no tiene mercado.*
+**Principio financiero fundamental:** _no financiar con deuda todo lo que todavía no tiene mercado._
 
 ```text
 INFRAESTRUCTURA → PRODUCCIÓN PEQUEÑA → CLIENTES
        → FLUJO DE CAJA → VALIDACIÓN → AMPLIACIÓN
 ```
 
-Posibles canales: bancos comerciales con líneas **FINAGRO**, Banco Agrario, cooperativas financieras, programas de FINAGRO y programas públicos vigentes *(tasas y disponibilidad a verificar al momento de radicar)*.
+Posibles canales: bancos comerciales con líneas **FINAGRO**, Banco Agrario, cooperativas financieras, programas de FINAGRO y programas públicos vigentes _(tasas y disponibilidad a verificar al momento de radicar)_.
 
 ---
 
 ### 📈 Indicadores y metas
 
-| Categoría | Indicadores |
-|---|---|
-| **Productivos** | Animales, huevos/día, kg de pescado/carne/fruta, mortalidad, consumo de alimento |
-| **Comerciales** | Clientes activos, ventas mensuales, ticket promedio, % venta directa, recompra |
-| **Tecnológicos** | Lotes trazados, productos con QR, eventos registrados, evidencias digitales, registros anclados en Stellar |
-| **Financieros** | Ingresos, costos, margen bruto, flujo de caja, servicio de deuda, punto de equilibrio |
+| Categoría        | Indicadores                                                                                             |
+| ---------------- | ------------------------------------------------------------------------------------------------------- |
+| **Productivos**  | Animales, huevos/día, kg de pescado/carne/fruta, mortalidad, consumo de alimento                        |
+| **Comerciales**  | Clientes activos, ventas mensuales, ticket promedio, % venta directa, recompra                          |
+| **Tecnológicos** | Lotes trazados, productos con QR, eventos registrados, evidencias digitales, registros anclados en NEAR |
+| **Financieros**  | Ingresos, costos, margen bruto, flujo de caja, servicio de deuda, punto de equilibrio                   |
 
 #### ✅ Éxito al mes 12
 
-- AgroTrace funcionando con **al menos 50 lotes/eventos trazables** y QR operando
+- AgroChain funcionando con **al menos 50 lotes/eventos trazables** y QR operando
 - Producción de huevos estable y primer ciclo de peces y porcinos
 - **20–30 clientes recurrentes** con ventas directas verificables
 - Flujo de caja mensual e historial digital útil para futura ampliación del crédito
@@ -315,15 +315,15 @@ Posibles canales: bancos comerciales con líneas **FINAGRO**, Banco Agrario, coo
 
 **Riesgos y mitigación principales:**
 
-| Riesgo | Mitigación |
-|---|---|
+| Riesgo                    | Mitigación                                                  |
+| ------------------------- | ----------------------------------------------------------- |
 | Enfermedades / mortalidad | Bioseguridad, registros sanitarios y asistencia veterinaria |
-| Sequía / inundación | Reservas de agua y drenajes |
-| Alteración de registros | Hash SHA-256 + Stellar |
-| Pérdida de datos | Backups |
-| Intermediarios | Venta directa y clientes recurrentes |
-| Baja demanda | Empezar con producción pequeña |
-| Sobreendeudamiento | Inversión por fases |
+| Sequía / inundación       | Reservas de agua y drenajes                                 |
+| Alteración de registros   | Hash SHA-256 + NEAR                                         |
+| Pérdida de datos          | Backups                                                     |
+| Intermediarios            | Venta directa y clientes recurrentes                        |
+| Baja demanda              | Empezar con producción pequeña                              |
+| Sobreendeudamiento        | Inversión por fases                                         |
 
 La hipótesis quedará invalidada si una base de datos tradicional o una integración entre sistemas existentes logra el mismo nivel de confianza con menor complejidad: por eso se comienza con un **MVP pequeño** y se mide el uso real antes de escalar.
 
@@ -344,66 +344,70 @@ La plataforma **no reemplaza** los registros oficiales: es una **capa tecnológi
 
 #### 🧰 Stack tecnológico
 
-| Capa | Tecnología |
-|---|---|
-| Frontend | Next.js 14 (App Router) · React 18 · TypeScript · Tailwind CSS · `qrcode.react` |
-| Backend | FastAPI · SQLAlchemy 2 · Alembic · Pydantic Settings · `stellar-sdk` · `boto3` |
-| Base de datos | Neon Postgres (producción) · SQLite local (desarrollo) |
-| Almacenamiento | Cloudflare R2 (evidencias **fuera** de la blockchain) |
-| Blockchain | Stellar Testnet — solo el SHA-256 viaja on-chain, como *Memo Hash* |
-| Despliegue | Vercel (frontend) · Render + Docker (backend) |
-| Pruebas | 50 tests pytest (R2 y Stellar simulados, sin red) |
+| Capa           | Tecnología                                                                                           |
+| -------------- | ---------------------------------------------------------------------------------------------------- |
+| Frontend       | Next.js 14 (App Router) · React 18 · TypeScript · Tailwind CSS · `qrcode.react`                      |
+| Backend        | FastAPI · SQLAlchemy 2 · Alembic · Pydantic Settings · `near-kit` · `boto3`                          |
+| Base de datos  | Neon Postgres (producción) · SQLite local (desarrollo)                                               |
+| Almacenamiento | Cloudflare R2 (evidencias **fuera** de la blockchain)                                                |
+| Blockchain     | NEAR Testnet — solo el SHA-256 viaja on-chain, como valor de un contrato KV propio (Rust + near-sdk) |
+| Despliegue     | Vercel (frontend) · Render + Docker (backend)                                                        |
+| Pruebas        | 84 tests pytest (R2 y NEAR simulados, sin red) · 7 tests cargo en el contrato                        |
 
 #### 1) Frontend (`frontend/`)
 
 **Requisitos:** Node.js 20+ · Git.
 
 ```bash
-git clone https://github.com/alucart2005/AgroTraceRural.git
-cd AgroTraceRural/frontend
+git clone https://github.com/alucart2005/AgroChainRural.git
+cd AgroChainRural/frontend
 npm install
 npm run dev        # abre http://localhost:3000
 ```
 
-- **Modo demo (por defecto):** sin backend configurado, el frontend usa datos de ejemplo en el navegador (localStorage) y lo **anuncia en la interfaz**. Recorre el flujo completo: `/productor/nuevo` (HU-01) → etiqueta QR (HU-04) → `/lote/HUE-2027-001` con verificación on-chain (HU-03). Las escrituras nunca se guardan en modo fantasma.
+- **Modo demo (por defecto):** sin backend configurado, el frontend usa datos de ejemplo en el navegador (localStorage) y lo **anuncia en la interfaz**. Recorre el flujo completo: `/productor/nuevo` (HU-01) → etiqueta QR (HU-04) → `/lote/HUE-2026-008` con verificación on-chain (HU-03). Las escrituras nunca se guardan en modo fantasma.
 - **Con backend:** copia `frontend/.env.example` a `frontend/.env.local` y define `NEXT_PUBLIC_API_URL` (FastAPI, **sin sufijo `/api`**: `http://localhost:8000`), `NEXT_PUBLIC_API_KEY` y `NEXT_PUBLIC_SITE_URL`.
 - **Verificación:** no hay ejecutor de tests en el frontend; validar con `npm run lint` y `npm run build` (el build es también la comprobación de tipos).
 - **Build de producción:** `npm run build && npm run start` dentro de `frontend/`.
 
 #### 2) Backend (`backend/`)
 
-**Requisitos:** Python 3.10+ (el contenedor de producción usa 3.11).
+**Requisitos:** Python 3.11+ (`near-kit` lo exige; el contenedor de producción usa 3.11).
 
 ```bash
-cd AgroTraceRural/backend
+cd AgroChainRural/backend
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env          # completa Stellar, R2, API_KEY y DATABASE_URL
+cp .env.example .env          # completa NEAR, R2, API_KEY y DATABASE_URL
 uvicorn app.main:app --reload # abre http://localhost:8000/docs (Swagger)
 ```
 
-- **Base de datos:** si `DATABASE_URL` está vacía se usa **SQLite local** (`agrotrace_local.db`, ignorado por git). En producción va la URL de **Neon**; en Render usa el *pooler* (el que termina en `-pooler`). Migraciones: `alembic upgrade head`.
-- **Pruebas:** `python -m pytest -q` → **50 tests** con R2 y Stellar simulados (sin red, sin base de datos externa).
-- **Stellar (opcional):** `python -m scripts.stellar_account create` genera y fondea la cuenta de Testnet; `python -m scripts.anchor_demo` ancla y verifica de verdad (crea una transacción real).
+- **Base de datos:** si `DATABASE_URL` está vacía se usa **SQLite local** (`agrotrace_local.db`, ignorado por git). En producción va la URL de **Neon**; en Render usa el _pooler_ (el que termina en `-pooler`). Migraciones: `alembic upgrade head`.
+- **Pruebas:** `python -m pytest -q` → **84 tests** con R2 y NEAR simulados (sin red, sin base de datos externa).
+- **NEAR (opcional):** `python -m scripts.near_account create <cuenta.testnet>` crea la cuenta y la fondea con el faucet; `python -m scripts.desplegar_contrato` despliega el contrato; `python -m scripts.anchor_demo` ancla y verifica de verdad (crea una transacción real).
+- **Contrato (`contract/`, opcional):** requiere `rustup` con el target `wasm32-unknown-unknown`. `cargo test --release` corre los 7 tests; `cargo build --release --target wasm32-unknown-unknown` genera el wasm (el artefacto desplegable ya está versionado en `contract/res/agrochain_kv.wasm`).
 
 #### 3) API
 
-| Método | Ruta | Auth | Historia |
-|---|---|---|---|
-| `GET` | `/api/health` | — | Health check |
-| `POST` | `/api/lotes` | `X-API-Key` | HU-01 |
-| `GET` | `/api/lotes` · `/api/lotes/{codigo}` | — | HU-05 / HU-02 |
-| `GET`/`POST` | `/api/lotes/{codigo}/eventos` | GET abierto · POST con clave | HU-05 |
-| `POST` | `/api/lotes/{codigo}/anclar` | `X-API-Key` | Reintento de anclaje |
-| `GET` | `/api/verify/{codigo}` | — | HU-03 |
+| Método       | Ruta                                                     | Auth                         | Historia                                |
+| ------------ | -------------------------------------------------------- | ---------------------------- | --------------------------------------- |
+| `GET`        | `/api/health`                                            | —                            | Health check                            |
+| `POST`       | `/api/auth/google`                                       | ID token de Google           | HU-06                                   |
+| `GET`/`PUT`  | `/api/auth/me`                                           | Bearer JWT                   | HU-07                                   |
+| `POST`       | `/api/lotes`                                             | Bearer JWT                   | HU-01 · HU-08                           |
+| `GET`        | `/api/lotes` · `/api/lotes/{codigo}` · `/api/lotes/mios` | — · — · JWT                  | HU-05 / HU-02 / HU-08                   |
+| `GET`/`POST` | `/api/lotes/{codigo}/eventos`                            | GET abierto · POST con clave | HU-05                                   |
+| `POST`       | `/api/lotes/{codigo}/anclar`                             | `X-API-Key`                  | Reintento de anclaje                    |
+| `GET`        | `/api/verify/{codigo}`                                   | —                            | HU-03                                   |
+| `POST`       | `/api/verify`                                            | `X-API-Key`                  | Auditoría de un hash contra el contrato |
 
-Las lecturas quedan abiertas para que el QR del consumidor funcione sin credenciales; solo las escrituras exigen `X-API-Key`.
+Las lecturas quedan abiertas para que el QR del consumidor funcione sin credenciales; el registro de lotes exige sesión Google (JWT) y las escrituras internas, `X-API-Key`.
 
 #### 4) Despliegue
 
-- **Frontend → Vercel:** importa el repo → **Root Directory: `frontend`** → Framework Next.js (auto-detectado) → agrega las env vars → Deploy. Cambiar `NEXT_PUBLIC_*` obliga a *redeploy* (van embebidas en el bundle).
-- **Backend → Render:** `render.yaml` define el servicio Docker; el CMD migra con Alembic antes de arrancar. Completar en Settings → Environment: `DATABASE_URL` (pooler de Neon), claves Stellar y R2, y `FRONTEND_URL` (CORS).
-- **Documentación:** [`AGENTS.md`](AGENTS.md) (comandos y reglas del repo) · [`docs/semana3/Documentacion.md`](docs/semana3/Documentacion.md) (cómo funciona el front) · [`docs/semana3/StellarContratos.md`](docs/semana3/StellarContratos.md) (ventajas del ecosistema Stellar).
+- **Frontend → Vercel:** importa el repo → **Root Directory: `frontend`** → Framework Next.js (auto-detectado) → agrega las env vars → Deploy. Cambiar `NEXT_PUBLIC_*` obliga a _redeploy_ (van embebidas en el bundle).
+- **Backend → Render:** `render.yaml` define el servicio Docker; el CMD migra con Alembic antes de arrancar. Completar en Settings → Environment: `DATABASE_URL` (pooler de Neon), claves NEAR (`NEAR_ACCOUNT_ID`, `NEAR_PRIVATE_KEY`, `NEAR_CONTRACT_ID`) y R2, y `FRONTEND_URL` (CORS).
+- **Documentación:** [`AGENTS.md`](AGENTS.md) (comandos y reglas del repo) · [`docs/migracion-near.md`](docs/migracion-near.md) (cómo y por qué se migró el anclaje de Stellar a NEAR) · [`docs/semana3/Documentacion.md`](docs/semana3/Documentacion.md) (cómo funciona el front) · [`docs/semana3/NearContratos.md`](docs/semana3/NearContratos.md) (por qué NEAR y cómo funciona el contrato).
 
 ---
 
@@ -411,32 +415,32 @@ Las lecturas quedan abiertas para que el QR del consumidor funcione sin credenci
 
 > **Convertir una finca de 6 hectáreas de Guarumo en un modelo demostrativo de producción agropecuaria diversificada, comercialización directa y trazabilidad verificable, utilizando tecnología para aumentar la confianza del consumidor y mejorar la gestión del productor.**
 
-[⬆ Volver al inicio](#-agrotrace-rural)
+[⬆ Volver al inicio](#-agrochain-rural)
 
 ---
 
 ## 🇺🇸 English
 
-> ### *"From the farm to the customer, with verifiable traceability."* 🇨🇴
+> ### _"From the farm to the customer, with verifiable traceability."_ 🇨🇴
 
 ---
 
 ### 📖 About the project
 
-**AgroTrace Rural** is a food traceability project that aims to create a **farm → customer** channel: reducing dependence on intermediaries and allowing consumers to verify the origin of the products they buy through a **QR code**.
+**AgroChain Rural** is a food traceability project that aims to create a **farm → customer** channel: reducing dependence on intermediaries and allowing consumers to verify the origin of the products they buy through a **QR code**.
 
-At the core of the project is the **AgroTrace** platform, a digital record system with **SHA-256** cryptographic fingerprints and selective anchoring of events on the **Stellar** network. Documents, photographs and videos are **not stored on blockchain**: they are kept in digital storage and only their cryptographic fingerprint, date, batch and reference are recorded, so a later modification of the file can be detected.
+At the core of the project is the **AgroChain** platform, a digital record system with **SHA-256** cryptographic fingerprints and selective anchoring of events on the **NEAR** network (an own KV contract on Testnet). Documents, photographs and videos are **not stored on blockchain**: they are kept in digital storage and only their cryptographic fingerprint, date, batch and reference are recorded, so a later modification of the file can be detected.
 
 #### 📍 Pilot context
 
-| | |
-|---|---|
-| **Location** | Guarumo, Cáceres — Bajo Cauca, Antioquia |
-| **Area** | 6 hectares |
-| **Production** | 🐟 Fish · 🐔 Laying hens · 🦆 Ducks · 🐖 Pigs · 🐄 Cattle · 🌳 Fruit trees |
-| **Pilot product** | Egg crate with a digital QR passport |
-| **Preliminary investment** | COP $48,000,000 |
-| **Horizon** | 36 months, with a first stage of 12 months |
+|                            |                                                                            |
+| -------------------------- | -------------------------------------------------------------------------- |
+| **Location**               | Guarumo, Cáceres — Bajo Cauca, Antioquia                                   |
+| **Area**                   | 6 hectares                                                                 |
+| **Production**             | 🐟 Fish · 🐔 Laying hens · 🦆 Ducks · 🐖 Pigs · 🐄 Cattle · 🌳 Fruit trees |
+| **Pilot product**          | Egg crate with a digital QR passport                                       |
+| **Preliminary investment** | COP $48,000,000                                                            |
+| **Horizon**                | 36 months, with a first stage of 12 months                                 |
 
 ---
 
@@ -488,7 +492,7 @@ In each batch:
 
 - a **unique identifier**;
 - records and evidence stored in the system with a **SHA-256** fingerprint;
-- a reference to the fingerprint registered on **Stellar**;
+- a reference to the fingerprint registered on the blockchain (**NEAR**);
 - photographs and videos **off-chain**;
 - public lookup by scanning the **QR** (origin, batch, date and evidence).
 
@@ -500,18 +504,14 @@ The hypothesis will be validated through a **small MVP** and testing with real u
 
 **Main criterion:**
 
-> ✅ *Multiple parties need to share a verifiable record and there is an interest in preserving the history of the records.*
+> ✅ _Multiple parties need to share a verifiable record and there is an interest in preserving the history of the records._
 
 Producer, intermediaries and consumers are actors who need to consult information about the same batch and preserve its history without untracked changes.
 
-**Fundamental rule:** *the complete data remains off the blockchain.* On Stellar, only the minimum data needed to verify integrity is registered:
+**Fundamental rule:** _the complete data remains off the blockchain._ On NEAR, only the minimum pair needed to verify integrity is registered — the batch code and its fingerprint, as an entry of an own KV contract:
 
 ```text
-lote_id
-evento
-timestamp
-hash
-referencia
+codigo (HUE-YYYY-NNN) ──▶ SHA-256 (64 hex characters)
 ```
 
 This reduces costs and protects sensitive information. Operational information remains in a traditional database; blockchain is used only where it adds an additional feature: **proving that evidence existed at a given time and was not modified without leaving a trace**. Relevance must be validated by comparing cost, complexity and benefit against a solution based solely on a traditional database.
@@ -530,7 +530,7 @@ This reduces costs and protects sensitive information. Operational information r
              |                       |
              +-----------+-----------+
                          |
-                      AgroTrace
+                      AgroChain
                          |
               +----------+----------+
               |                     |
@@ -540,14 +540,14 @@ This reduces costs and protects sensitive information. Operational information r
                          |
                    SHA-256 HASH
                          |
-                      STELLAR
+                      NEAR KV
                          |
                        QR WEB
                          |
-                      CUSTOMER
+                     CUSTOMER
 ```
 
-> **Real infrastructure:** frontend on **Vercel** (Next.js 14) · **FastAPI** backend on **Render** (Docker) · database on **Neon Postgres** · evidence on **Cloudflare R2** (S3-compatible) · anchoring on **Stellar Testnet**, where only the **SHA-256 hash** travels as a *Memo Hash*. In local development: SQLite and browser demo mode.
+> **Real infrastructure:** frontend on **Vercel** (Next.js 14) · **FastAPI** backend on **Render** (Docker) · database on **Neon Postgres** · evidence on **Cloudflare R2** (S3-compatible) · anchoring on an **own KV contract on NEAR Testnet**, where only the **SHA-256 hash** (64 hex characters) travels as the value of the `codigo → hash` entry. In local development: SQLite and browser demo mode.
 
 ---
 
@@ -583,24 +583,24 @@ The page shows the public information of the batch and a **verification indicato
 
 ### 🌾 Production model
 
-Preliminary distribution of the 6 hectares *(subject to topographic survey, water, soil and environmental regulations)*:
+Preliminary distribution of the 6 hectares _(subject to topographic survey, water, soil and environmental regulations)_:
 
-| Area | Hectares | Use |
-|---|---:|---|
-| Cattle farming | 3.00 ha | Rotational grazing and cattle management |
-| Fish farming | 0.70 ha | Ponds, circulation and technical area |
-| Laying hens | 0.25 ha | Coop, yard, warehouse and biosecurity |
-| Ducks | 0.15 ha | Integrated area with water management |
-| Pigs | 0.25 ha | Piggery, waste management and sanitary area |
-| Fruit trees | 1.10 ha | Mango, guava, citrus, papaya or other adapted species |
-| Infrastructure and reserve | 0.55 ha | House/warehouse, access, water, composting and service areas |
-| **TOTAL** | **6.00 ha** | |
+| Area                       |    Hectares | Use                                                          |
+| -------------------------- | ----------: | ------------------------------------------------------------ |
+| Cattle farming             |     3.00 ha | Rotational grazing and cattle management                     |
+| Fish farming               |     0.70 ha | Ponds, circulation and technical area                        |
+| Laying hens                |     0.25 ha | Coop, yard, warehouse and biosecurity                        |
+| Ducks                      |     0.15 ha | Integrated area with water management                        |
+| Pigs                       |     0.25 ha | Piggery, waste management and sanitary area                  |
+| Fruit trees                |     1.10 ha | Mango, guava, citrus, papaya or other adapted species        |
+| Infrastructure and reserve |     0.55 ha | House/warehouse, access, water, composting and service areas |
+| **TOTAL**                  | **6.00 ha** |                                                              |
 
 #### Initial goals
 
-- 🐔 **Laying hens:** 80–120 birds *(pilot product: egg crate with QR)*
+- 🐔 **Laying hens:** 80–120 birds _(pilot product: egg crate with QR)_
 - 🐟 **Fish farming:** 1–2 small ponds, depending on water availability
-- 🦆 **Ducks:** 20–30 animals *(complementary unit)*
+- 🦆 **Ducks:** 20–30 animals _(complementary unit)_
 - 🐖 **Pigs:** small fattening batch
 - 🐄 **Cattle:** small herd according to carrying capacity
 - 🌳 **Fruit trees:** 1.1 ha of adapted species with commercial outlet
@@ -611,10 +611,10 @@ Preliminary distribution of the 6 hectares *(subject to topographic survey, wate
 
 ### 🛒 Direct sales
 
-| Channel | Description |
-|---|---|
-| **1. WhatsApp** | Catalog → order → confirmation → payment → dispatch |
-| **2. Website** | Catalog: eggs, fish, fruit, pork, permitted beef products and other products |
+| Channel                    | Description                                                                        |
+| -------------------------- | ---------------------------------------------------------------------------------- |
+| **1. WhatsApp**            | Catalog → order → confirmation → payment → dispatch                                |
+| **2. Website**             | Catalog: eggs, fish, fruit, pork, permitted beef products and other products       |
 | **3. Recurring customers** | Weekly plans: **Finca Guarumo Basket** (eggs, seasonal fruit, fish when available) |
 
 **Initial goal:** 20–30 recurring customers in Cáceres and Bajo Cauca, with later expansion to Medellín.
@@ -625,9 +625,9 @@ Preliminary distribution of the 6 hectares *(subject to topographic survey, wate
 
 - **Members:**
   - Cristian Esteban Jiménez Durango — `CristianEstebanJimenezDurango`
-  - Jefferson Cabrera — *\[GitHub username pending\]*
+  - Jefferson Cabrera — _\[GitHub username pending\]_
   - Napoleon de Jesus Anaya Romero — `alucart2005`
-  - Diego Martínez — *\[GitHub username pending\]*
+  - Diego Martínez — _\[GitHub username pending\]_
 - **Role:** Programming / Reports
 - **Deliverables owner:** Napoleon de Jesus Anaya Romero
 - **Internal coordination channel:** GitHub Issues
@@ -636,20 +636,20 @@ Preliminary distribution of the 6 hectares *(subject to topographic survey, wate
 
 ### 🗺️ Timeline
 
-| Phase | Month | Content |
-|---|---|---|
-| **0 — Preparation** | 0–1 | Survey, water/soil analysis, quotes, ICA requirements, financial design, credit application and MVP design |
-| **1 — Infrastructure** | 2–3 | Water, fences, drains, coop, pigsty, ponds, warehouse and composting |
-| **2 — First production cycle** | 3–6 | Hens, ducks, first pig batch, fry, fruit trees and cattle within capacity |
-| **3 — AgroTrace MVP** | 2–4 | Login, farms, batches, animals, production, inventory, sales, QR, history, hash and Stellar anchoring *(pilot product: eggs)* |
-| **4 — Sales** | 4–8 | Catalog, WhatsApp Business, website, QR, customer base and orders |
-| **5 — Consolidation** | 7–12 | Progressive addition of fish, fruit, pigs, ducks and cattle |
+| Phase                          | Month | Content                                                                                                                    |
+| ------------------------------ | ----- | -------------------------------------------------------------------------------------------------------------------------- |
+| **0 — Preparation**            | 0–1   | Survey, water/soil analysis, quotes, ICA requirements, financial design, credit application and MVP design                 |
+| **1 — Infrastructure**         | 2–3   | Water, fences, drains, coop, pigsty, ponds, warehouse and composting                                                       |
+| **2 — First production cycle** | 3–6   | Hens, ducks, first pig batch, fry, fruit trees and cattle within capacity                                                  |
+| **3 — AgroChain MVP**          | 2–4   | Login, farms, batches, animals, production, inventory, sales, QR, history, hash and NEAR anchoring _(pilot product: eggs)_ |
+| **4 — Sales**                  | 4–8   | Catalog, WhatsApp Business, website, QR, customer base and orders                                                          |
+| **5 — Consolidation**          | 7–12  | Progressive addition of fish, fruit, pigs, ducks and cattle                                                                |
 
 #### Financial horizon
 
-- **Year 1:** production + traceability + customers *(working MVP, first traceable batches, cash flow)*
-- **Year 2:** scale *(more production, customers, infrastructure, sensors and automation)*
-- **Year 3:** replication *(the initial farm as a pilot for neighboring producers)*
+- **Year 1:** production + traceability + customers _(working MVP, first traceable batches, cash flow)_
+- **Year 2:** scale _(more production, customers, infrastructure, sensors and automation)_
+- **Year 3:** replication _(the initial farm as a pilot for neighboring producers)_
 
 ---
 
@@ -657,47 +657,47 @@ Preliminary distribution of the 6 hectares *(subject to topographic survey, wate
 
 > **Preliminary structuring budget.** Values must be replaced with local quotes before submitting the application.
 
-| Component | Estimated value (COP) |
-|---|---:|
-| Productive investment | $36,000,000 |
-| Technology and traceability *(\*)* | $4,500,000 |
-| Working capital | $7,500,000 |
-| **Total investment** | **$48,000,000** |
+| Component                          | Estimated value (COP) |
+| ---------------------------------- | --------------------: |
+| Productive investment              |           $36,000,000 |
+| Technology and traceability _(\*)_ |            $4,500,000 |
+| Working capital                    |            $7,500,000 |
+| **Total investment**               |       **$48,000,000** |
 
-*(\*) The AgroTrace MVP, DJI Avata 2 drone, Starlink and computers are contributed as own counterpart (**$0 financeable**).*
+_(\*) The AgroChain MVP, DJI Avata 2 drone, Starlink and computers are contributed as own counterpart (**$0 financeable**)._
 
 #### Suggested structure
 
-| Source | Value |
-|---|---:|
-| Requested credit | **$40,000,000** |
-| Own cash contribution | $4,000,000 |
-| Own contribution in assets/equipment | $4,000,000+ |
-| **Project** | **$48,000,000+** |
+| Source                               |            Value |
+| ------------------------------------ | ---------------: |
+| Requested credit                     |  **$40,000,000** |
+| Own cash contribution                |       $4,000,000 |
+| Own contribution in assets/equipment |      $4,000,000+ |
+| **Project**                          | **$48,000,000+** |
 
-**Fundamental financial principle:** *do not finance with debt everything that does not yet have a market.*
+**Fundamental financial principle:** _do not finance with debt everything that does not yet have a market._
 
 ```text
 INFRASTRUCTURE → SMALL PRODUCTION → CUSTOMERS
        → CASH FLOW → VALIDATION → EXPANSION
 ```
 
-Possible channels: commercial banks with **FINAGRO** lines, Banco Agrario, financial cooperatives, FINAGRO programs and current public programs *(rates and availability to be verified at submission)*.
+Possible channels: commercial banks with **FINAGRO** lines, Banco Agrario, financial cooperatives, FINAGRO programs and current public programs _(rates and availability to be verified at submission)_.
 
 ---
 
 ### 📈 Indicators and goals
 
-| Category | Indicators |
-|---|---|
-| **Productive** | Animals, eggs/day, kg of fish/meat/fruit, mortality, feed consumption |
-| **Commercial** | Active customers, monthly sales, average ticket, % direct sales, repeat purchases |
-| **Technological** | Tracked batches, QR products, registered events, digital evidence, records anchored on Stellar |
-| **Financial** | Revenue, costs, gross margin, cash flow, debt service, break-even point |
+| Category          | Indicators                                                                                  |
+| ----------------- | ------------------------------------------------------------------------------------------- |
+| **Productive**    | Animals, eggs/day, kg of fish/meat/fruit, mortality, feed consumption                       |
+| **Commercial**    | Active customers, monthly sales, average ticket, % direct sales, repeat purchases           |
+| **Technological** | Tracked batches, QR products, registered events, digital evidence, records anchored on NEAR |
+| **Financial**     | Revenue, costs, gross margin, cash flow, debt service, break-even point                     |
 
 #### ✅ Success at month 12
 
-- AgroTrace running with **at least 50 traceable batches/events** and a working QR
+- AgroChain running with **at least 50 traceable batches/events** and a working QR
 - Stable egg production and first fish and pig cycles
 - **20–30 recurring customers** with verifiable direct sales
 - Monthly cash flow and a digital history useful for future credit expansion
@@ -714,15 +714,15 @@ Possible channels: commercial banks with **FINAGRO** lines, Banco Agrario, finan
 
 **Main risks and mitigation:**
 
-| Risk | Mitigation |
-|---|---|
+| Risk                 | Mitigation                                            |
+| -------------------- | ----------------------------------------------------- |
 | Diseases / mortality | Biosecurity, health records and veterinary assistance |
-| Drought / flooding | Water reserves and drainage |
-| Record tampering | SHA-256 hash + Stellar |
-| Data loss | Backups |
-| Intermediaries | Direct sales and recurring customers |
-| Low demand | Start with small production |
-| Over-indebtedness | Investment in phases |
+| Drought / flooding   | Water reserves and drainage                           |
+| Record tampering     | SHA-256 hash + NEAR                                   |
+| Data loss            | Backups                                               |
+| Intermediaries       | Direct sales and recurring customers                  |
+| Low demand           | Start with small production                           |
+| Over-indebtedness    | Investment in phases                                  |
 
 The hypothesis would be invalidated if a traditional database or an integration between existing systems achieves the same level of trust with less complexity: that is why we start with a **small MVP** and measure real usage before scaling.
 
@@ -743,66 +743,70 @@ The platform **does not replace** official records: it is a **complementary tech
 
 #### 🧰 Tech stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | Next.js 14 (App Router) · React 18 · TypeScript · Tailwind CSS · `qrcode.react` |
-| Backend | FastAPI · SQLAlchemy 2 · Alembic · Pydantic Settings · `stellar-sdk` · `boto3` |
-| Database | Neon Postgres (production) · local SQLite (development) |
-| Storage | Cloudflare R2 (evidence kept **off** the blockchain) |
-| Blockchain | Stellar Testnet — only the SHA-256 hash travels on-chain, as a *Memo Hash* |
-| Deployment | Vercel (frontend) · Render + Docker (backend) |
-| Testing | 50 pytest tests (mocked R2 and Stellar, no network) |
+| Layer      | Technology                                                                                                  |
+| ---------- | ----------------------------------------------------------------------------------------------------------- |
+| Frontend   | Next.js 14 (App Router) · React 18 · TypeScript · Tailwind CSS · `qrcode.react`                             |
+| Backend    | FastAPI · SQLAlchemy 2 · Alembic · Pydantic Settings · `near-kit` · `boto3`                                 |
+| Database   | Neon Postgres (production) · local SQLite (development)                                                     |
+| Storage    | Cloudflare R2 (evidence kept **off** the blockchain)                                                        |
+| Blockchain | NEAR Testnet — only the SHA-256 hash travels on-chain, as the value of an own KV contract (Rust + near-sdk) |
+| Deployment | Vercel (frontend) · Render + Docker (backend)                                                               |
+| Testing    | 84 pytest tests (mocked R2 and NEAR, no network) · 7 cargo tests in the contract                            |
 
 #### 1) Frontend (`frontend/`)
 
 **Requirements:** Node.js 20+ · Git.
 
 ```bash
-git clone https://github.com/alucart2005/AgroTraceRural.git
-cd AgroTraceRural/frontend
+git clone https://github.com/alucart2005/AgroChainRural.git
+cd AgroChainRural/frontend
 npm install
 npm run dev        # open http://localhost:3000
 ```
 
-- **Demo mode (default):** with no backend configured, the frontend uses sample data in the browser (localStorage) and **announces it in the UI**. Walk the full flow: `/productor/nuevo` (HU-01) → QR label (HU-04) → `/lote/HUE-2027-001` with on-chain verification (HU-03). Writes are never silently stored in demo mode.
+- **Demo mode (default):** with no backend configured, the frontend uses sample data in the browser (localStorage) and **announces it in the UI**. Walk the full flow: `/productor/nuevo` (HU-01) → QR label (HU-04) → `/lote/HUE-2026-008` with on-chain verification (HU-03). Writes are never silently stored in demo mode.
 - **With a backend:** copy `frontend/.env.example` to `frontend/.env.local` and set `NEXT_PUBLIC_API_URL` (FastAPI, **without the `/api` suffix**: `http://localhost:8000`), `NEXT_PUBLIC_API_KEY` and `NEXT_PUBLIC_SITE_URL`.
 - **Verification:** there is no test runner in the frontend; validate with `npm run lint` and `npm run build` (the build is also the type check).
 - **Production build:** `npm run build && npm run start` inside `frontend/`.
 
 #### 2) Backend (`backend/`)
 
-**Requirements:** Python 3.10+ (the production container uses 3.11).
+**Requirements:** Python 3.11+ (`near-kit` requires it; the production container uses 3.11).
 
 ```bash
-cd AgroTraceRural/backend
+cd AgroChainRural/backend
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env          # fill in Stellar, R2, API_KEY and DATABASE_URL
+cp .env.example .env          # fill in NEAR, R2, API_KEY and DATABASE_URL
 uvicorn app.main:app --reload # open http://localhost:8000/docs (Swagger)
 ```
 
-- **Database:** with an empty `DATABASE_URL` a **local SQLite** is used (`agrotrace_local.db`, git-ignored). In production it points to **Neon**; on Render use the *pooler* URL (the one ending in `-pooler`). Migrations: `alembic upgrade head`.
-- **Tests:** `python -m pytest -q` → **50 tests** with mocked R2 and Stellar (no network, no external database).
-- **Stellar (optional):** `python -m scripts.stellar_account create` generates and funds the Testnet account; `python -m scripts.anchor_demo` anchors and verifies for real (creates a live transaction).
+- **Database:** with an empty `DATABASE_URL` a **local SQLite** is used (`agrotrace_local.db`, git-ignored). In production it points to **Neon**; on Render use the _pooler_ URL (the one ending in `-pooler`). Migrations: `alembic upgrade head`.
+- **Tests:** `python -m pytest -q` → **84 tests** with mocked R2 and NEAR (no network, no external database).
+- **NEAR (optional):** `python -m scripts.near_account create <account.testnet>` creates the account and funds it via the faucet; `python -m scripts.desplegar_contrato` deploys the contract; `python -m scripts.anchor_demo` anchors and verifies for real (creates a live transaction).
+- **Contract (`contract/`, optional):** requires `rustup` with the `wasm32-unknown-unknown` target. `cargo test --release` runs the 7 tests; `cargo build --release --target wasm32-unknown-unknown` builds the wasm (the deployable artifact is already versioned at `contract/res/agrochain_kv.wasm`).
 
 #### 3) API
 
-| Method | Route | Auth | Story |
-|---|---|---|---|
-| `GET` | `/api/health` | — | Health check |
-| `POST` | `/api/lotes` | `X-API-Key` | HU-01 |
-| `GET` | `/api/lotes` · `/api/lotes/{codigo}` | — | HU-05 / HU-02 |
-| `GET`/`POST` | `/api/lotes/{codigo}/eventos` | GET open · POST with key | HU-05 |
-| `POST` | `/api/lotes/{codigo}/anclar` | `X-API-Key` | Anchoring retry |
-| `GET` | `/api/verify/{codigo}` | — | HU-03 |
+| Method       | Route                                                    | Auth                     | Story                                |
+| ------------ | -------------------------------------------------------- | ------------------------ | ------------------------------------ |
+| `GET`        | `/api/health`                                            | —                        | Health check                         |
+| `POST`       | `/api/auth/google`                                       | Google ID token          | HU-06                                |
+| `GET`/`PUT`  | `/api/auth/me`                                           | Bearer JWT               | HU-07                                |
+| `POST`       | `/api/lotes`                                             | Bearer JWT               | HU-01 · HU-08                        |
+| `GET`        | `/api/lotes` · `/api/lotes/{codigo}` · `/api/lotes/mios` | — · — · JWT              | HU-05 / HU-02 / HU-08                |
+| `GET`/`POST` | `/api/lotes/{codigo}/eventos`                            | GET open · POST with key | HU-05                                |
+| `POST`       | `/api/lotes/{codigo}/anclar`                             | `X-API-Key`              | Anchoring retry                      |
+| `GET`        | `/api/verify/{codigo}`                                   | —                        | HU-03                                |
+| `POST`       | `/api/verify`                                            | `X-API-Key`              | Audit of a hash against the contract |
 
-Reads stay open so the consumer QR works without credentials; only writes require `X-API-Key`.
+Reads stay open so the consumer QR works without credentials; batch registration requires a Google session (JWT) and internal writes require `X-API-Key`.
 
 #### 4) Deployment
 
-- **Frontend → Vercel:** import the repo → **Root Directory: `frontend`** → Next.js framework (auto-detected) → add env vars → Deploy. Changing `NEXT_PUBLIC_*` requires a *redeploy* (they are inlined into the bundle).
-- **Backend → Render:** `render.yaml` defines the Docker service; its CMD runs Alembic migrations before serving. Fill in Settings → Environment: `DATABASE_URL` (Neon pooler), Stellar and R2 keys, and `FRONTEND_URL` (CORS).
-- **Documentation:** [`AGENTS.md`](AGENTS.md) (repo commands and rules) · [`docs/semana3/Documentacion.md`](docs/semana3/Documentacion.md) (how the frontend works) · [`docs/semana3/StellarContratos.md`](docs/semana3/StellarContratos.md) (Stellar ecosystem advantages).
+- **Frontend → Vercel:** import the repo → **Root Directory: `frontend`** → Next.js framework (auto-detected) → add env vars → Deploy. Changing `NEXT_PUBLIC_*` requires a _redeploy_ (they are inlined into the bundle).
+- **Backend → Render:** `render.yaml` defines the Docker service; its CMD runs Alembic migrations before serving. Fill in Settings → Environment: `DATABASE_URL` (Neon pooler), NEAR keys (`NEAR_ACCOUNT_ID`, `NEAR_PRIVATE_KEY`, `NEAR_CONTRACT_ID`) and R2, and `FRONTEND_URL` (CORS).
+- **Documentation:** [`AGENTS.md`](AGENTS.md) (repo commands and rules) · [`docs/migracion-near.md`](docs/migracion-near.md) (how and why anchoring moved from Stellar to NEAR) · [`docs/semana3/Documentacion.md`](docs/semana3/Documentacion.md) (how the frontend works) · [`docs/semana3/NearContratos.md`](docs/semana3/NearContratos.md) (why NEAR and how the contract works).
 
 ---
 
@@ -810,32 +814,32 @@ Reads stay open so the consumer QR works without credentials; only writes requir
 
 > **Turning a 6-hectare farm in Guarumo into a demonstrative model of diversified agricultural production, direct sales and verifiable traceability, using technology to increase consumer confidence and improve the producer's management.**
 
-[⬆ Back to top](#-agrotrace-rural)
+[⬆ Back to top](#-agrochain-rural)
 
 ---
 
 ## 🇧🇷 Português
 
-> ### *"Do campo ao cliente, com rastreabilidade verificável."* 🇨🇴
+> ### _"Do campo ao cliente, com rastreabilidade verificável."_ 🇨🇴
 
 ---
 
 ### 📖 Sobre o projeto
 
-**AgroTrace Rural** é um projeto de rastreabilidade alimentar que busca criar um canal **fazenda → cliente**: reduzir a dependência de intermediários e permitir que o consumidor verifique a origem dos produtos que compra por meio de um **código QR**.
+**AgroChain Rural** é um projeto de rastreabilidade alimentar que busca criar um canal **fazenda → cliente**: reduzir a dependência de intermediários e permitir que o consumidor verifique a origem dos produtos que compra por meio de um **código QR**.
 
-No centro do projeto está a plataforma **AgroTrace**, um sistema de registros digitais com impressões criptográficas **SHA-256** e ancoragem seletiva de eventos na rede **Stellar**. Documentos, fotografias e vídeos **não são armazenados na blockchain**: ficam em armazenamento digital e apenas sua impressão criptográfica, data, lote e referência são registrados, de modo que qualquer modificação posterior do arquivo possa ser detectada.
+No centro do projeto está a plataforma **AgroChain**, um sistema de registros digitais com impressões criptográficas **SHA-256** e ancoragem seletiva de eventos na rede **NEAR** (um contrato KV próprio na Testnet). Documentos, fotografias e vídeos **não são armazenados na blockchain**: ficam em armazenamento digital e apenas sua impressão criptográfica, data, lote e referência são registrados, de modo que qualquer modificação posterior do arquivo possa ser detectada.
 
 #### 📍 Contexto do piloto
 
-| | |
-|---|---|
-| **Localização** | Guarumo, Cáceres — Bajo Cauca, Antioquia |
-| **Área** | 6 hectares |
-| **Produção** | 🐟 Peixes · 🐔 Galinhas poedeiras · 🦆 Patos · 🐖 Suínos · 🐄 Bovinos · 🌳 Frutiras |
-| **Produto piloto** | Caixa de ovos com passe digital QR |
-| **Investimento preliminar** | $48.000.000 COP |
-| **Horizonte** | 36 meses, com primeira etapa de 12 meses |
+|                             |                                                                                     |
+| --------------------------- | ----------------------------------------------------------------------------------- |
+| **Localização**             | Guarumo, Cáceres — Bajo Cauca, Antioquia                                            |
+| **Área**                    | 6 hectares                                                                          |
+| **Produção**                | 🐟 Peixes · 🐔 Galinhas poedeiras · 🦆 Patos · 🐖 Suínos · 🐄 Bovinos · 🌳 Frutiras |
+| **Produto piloto**          | Caixa de ovos com passe digital QR                                                  |
+| **Investimento preliminar** | $48.000.000 COP                                                                     |
+| **Horizonte**               | 36 meses, com primeira etapa de 12 meses                                            |
 
 ---
 
@@ -887,7 +891,7 @@ Em cada lote:
 
 - **identificador único**;
 - registros e evidências armazenados no sistema com impressão **SHA-256**;
-- referência da impressão registrada na **Stellar**;
+- referência da impressão registrada na blockchain (**NEAR**);
 - fotografias e vídeos **fora da cadeia**;
 - consulta pública ao escanear o **QR** (origem, lote, data e evidências).
 
@@ -899,18 +903,14 @@ A hipótese será validada por meio de um **MVP pequeno** e testes com usuários
 
 **Critério principal:**
 
-> ✅ *Várias partes precisam compartilhar um registro verificável e existe interesse em preservar o histórico dos registros.*
+> ✅ _Várias partes precisam compartilhar um registro verificável e existe interesse em preservar o histórico dos registros._
 
 Produtor, intermediários e consumidor são atores que precisam consultar a informação do mesmo lote e preservar seu histórico sem alterações não registradas.
 
-**Regra fundamental:** *os dados completos permanecem fora da blockchain.* Na Stellar são registrados apenas os dados mínimos necessários para verificar integridade:
+**Regra fundamental:** _os dados completos permanecem fora da blockchain._ No NEAR é registrado apenas o par mínimo necessário para verificar integridade — o código do lote e sua impressão, como entrada de um contrato KV próprio:
 
 ```text
-lote_id
-evento
-timestamp
-hash
-referencia
+codigo (HUE-YYYY-NNN) ──▶ SHA-256 (64 caracteres hex)
 ```
 
 Isso reduz custos e protege informações sensíveis. A informação operacional permanece em um banco de dados tradicional; a blockchain é usada apenas onde acrescenta uma característica adicional: **provar que uma evidência existia em um momento determinado e que não foi modificada sem deixar rastro**. A pertinência deverá ser validada comparando custo, complexidade e benefício frente a uma solução baseada apenas em um banco de dados tradicional.
@@ -929,7 +929,7 @@ Isso reduz custos e protege informações sensíveis. A informação operacional
              |                       |
              +-----------+-----------+
                          |
-                      AgroTrace
+                      AgroChain
                          |
               +----------+----------+
               |                     |
@@ -939,14 +939,14 @@ Isso reduz custos e protege informações sensíveis. A informação operacional
                          |
                    SHA-256 HASH
                          |
-                      STELLAR
+                     NEAR (KV)
                          |
                        QR WEB
                          |
                       CLIENTE
 ```
 
-> **Infraestrutura real:** frontend no **Vercel** (Next.js 14) · backend **FastAPI** no **Render** (Docker) · banco de dados no **Neon Postgres** · evidências no **Cloudflare R2** (compatível com S3) · ancoragem na **Stellar Testnet**, onde viaja **apenas o hash SHA-256** como *Memo Hash*. Em desenvolvimento local: SQLite e modo demo no navegador.
+> **Infraestrutura real:** frontend no **Vercel** (Next.js 14) · backend **FastAPI** no **Render** (Docker) · banco de dados no **Neon Postgres** · evidências no **Cloudflare R2** (compatível com S3) · ancoragem em um **contrato KV próprio na NEAR Testnet**, onde viaja **apenas o hash SHA-256** (64 caracteres hex) como valor da entrada `codigo → hash`. Em desenvolvimento local: SQLite e modo demo no navegador.
 
 ---
 
@@ -982,24 +982,24 @@ A página mostra a informação pública do lote e um **indicador de verificaç�
 
 ### 🌾 Modelo produtivo
 
-Distribuição preliminar das 6 hectares *(sujeita a levantamento topográfico, água, solos e normas ambientais)*:
+Distribuição preliminar das 6 hectares _(sujeita a levantamento topográfico, água, solos e normas ambientais)_:
 
-| Área | Hectares | Uso |
-|---|---:|---|
-| Pecuária bovina | 3,00 ha | Pastoreo rotacionado e manejo de bovinos |
-| Piscicultura | 0,70 ha | Tanques, circulação e área técnica |
-| Galinhas poedeiras | 0,25 ha | Galinheiro, pátio, galpão e biosegurança |
-| Patos | 0,15 ha | Área integrada com manejo de água |
-| Suínos | 0,25 ha | Chiqueiro, manejo de resíduos e zona sanitária |
-| Frutiras | 1,10 ha | Manga, goiaba, cítricos, mamão ou outras espécies adaptadas |
-| Infraestrutura e reserva | 0,55 ha | Casa/galpão, acessos, água, compostagem e serviços |
-| **TOTAL** | **6,00 ha** | |
+| Área                     |    Hectares | Uso                                                         |
+| ------------------------ | ----------: | ----------------------------------------------------------- |
+| Pecuária bovina          |     3,00 ha | Pastoreo rotacionado e manejo de bovinos                    |
+| Piscicultura             |     0,70 ha | Tanques, circulação e área técnica                          |
+| Galinhas poedeiras       |     0,25 ha | Galinheiro, pátio, galpão e biosegurança                    |
+| Patos                    |     0,15 ha | Área integrada com manejo de água                           |
+| Suínos                   |     0,25 ha | Chiqueiro, manejo de resíduos e zona sanitária              |
+| Frutiras                 |     1,10 ha | Manga, goiaba, cítricos, mamão ou outras espécies adaptadas |
+| Infraestrutura e reserva |     0,55 ha | Casa/galpão, acessos, água, compostagem e serviços          |
+| **TOTAL**                | **6,00 ha** |                                                             |
 
 #### Metas iniciais
 
-- 🐔 **Galinhas poedeiras:** 80–120 aves *(produto piloto: caixa de ovos com QR)*
+- 🐔 **Galinhas poedeiras:** 80–120 aves _(produto piloto: caixa de ovos com QR)_
 - 🐟 **Piscicultura:** 1–2 pequenos tanques, conforme disponibilidade de água
-- 🦆 **Patos:** 20–30 animais *(unidade complementar)*
+- 🦆 **Patos:** 20–30 animais _(unidade complementar)_
 - 🐖 **Suínos:** pequeno lote de engorda
 - 🐄 **Bovinos:** pequeno rebanho conforme capacidade de carga
 - 🌳 **Frutiras:** 1,1 ha de espécies adaptadas com saída comercial
@@ -1010,10 +1010,10 @@ Distribuição preliminar das 6 hectares *(sujeita a levantamento topográfico, 
 
 ### 🛒 Venda direta
 
-| Canal | Descrição |
-|---|---|
-| **1. WhatsApp** | Catálogo → pedido → confirmação → pagamento → despacho |
-| **2. Site** | Catálogo: ovos, peixes, frutas, carne de porco, produtos bovinos permitidos e outros produtos |
+| Canal                       | Descrição                                                                                         |
+| --------------------------- | ------------------------------------------------------------------------------------------------- |
+| **1. WhatsApp**             | Catálogo → pedido → confirmação → pagamento → despacho                                            |
+| **2. Site**                 | Catálogo: ovos, peixes, frutas, carne de porco, produtos bovinos permitidos e outros produtos     |
 | **3. Clientes recorrentes** | Planos semanais: **Cesta Finca Guarumo** (ovos, fruta da estação, peixe conforme disponibilidade) |
 
 **Meta inicial:** 20–30 clientes recorrentes em Cáceres e Bajo Cauca, com expansão posterior para Medellín.
@@ -1024,9 +1024,9 @@ Distribuição preliminar das 6 hectares *(sujeita a levantamento topográfico, 
 
 - **Integrantes:**
   - Cristian Esteban Jiménez Durango — `CristianEstebanJimenezDurango`
-  - Jefferson Cabrera — *\[usuário do GitHub pendente\]*
+  - Jefferson Cabrera — _\[usuário do GitHub pendente\]_
   - Napoleon de Jesus Anaya Romero — `alucart2005`
-  - Diego Martínez — *\[usuário do GitHub pendente\]*
+  - Diego Martínez — _\[usuário do GitHub pendente\]_
 - **Função:** Programação / Relatórios
 - **Responsável pelas entregas:** Napoleon de Jesus Anaya Romero
 - **Canal de coordenação interna:** GitHub Issues
@@ -1035,20 +1035,20 @@ Distribuição preliminar das 6 hectares *(sujeita a levantamento topográfico, 
 
 ### 🗺️ Cronograma do projeto
 
-| Fase | Mês | Conteúdo |
-|---|---|---|
-| **0 — Preparação** | 0–1 | Levantamento, análises de água/solo, cotações, requisitos ICA, desenho financeiro, solicitação de crédito e desenho do MVP |
-| **1 — Infraestrutura** | 2–3 | Água, cercas, drenagens, galinheiro, chiqueiro, tanques, galpão e compostagem |
-| **2 — Primeiro ciclo produtivo** | 3–6 | Galinhas, patos, primeiro lote suíno, alevinos, frutiras e bovinos conforme capacidade |
-| **3 — MVP AgroTrace** | 2–4 | Login, fazendas, lotes, animais, produção, inventário, vendas, QR, histórico, hash e ancoragem na Stellar *(produto piloto: ovos)* |
-| **4 — Comercialização** | 4–8 | Catálogo, WhatsApp Business, site, QR, base de clientes e pedidos |
-| **5 — Consolidação** | 7–12 | Incorporação progressiva de peixes, frutas, suínos, patos e bovinos |
+| Fase                             | Mês  | Conteúdo                                                                                                                        |
+| -------------------------------- | ---- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **0 — Preparação**               | 0–1  | Levantamento, análises de água/solo, cotações, requisitos ICA, desenho financeiro, solicitação de crédito e desenho do MVP      |
+| **1 — Infraestrutura**           | 2–3  | Água, cercas, drenagens, galinheiro, chiqueiro, tanques, galpão e compostagem                                                   |
+| **2 — Primeiro ciclo produtivo** | 3–6  | Galinhas, patos, primeiro lote suíno, alevinos, frutiras e bovinos conforme capacidade                                          |
+| **3 — MVP AgroChain**            | 2–4  | Login, fazendas, lotes, animais, produção, inventário, vendas, QR, histórico, hash e ancoragem na NEAR _(produto piloto: ovos)_ |
+| **4 — Comercialização**          | 4–8  | Catálogo, WhatsApp Business, site, QR, base de clientes e pedidos                                                               |
+| **5 — Consolidação**             | 7–12 | Incorporação progressiva de peixes, frutas, suínos, patos e bovinos                                                             |
 
 #### Horizonte financeiro
 
-- **Ano 1:** produção + rastreabilidade + clientes *(MVP funcionando, primeiros lotes rastreáveis, fluxo de caixa)*
-- **Ano 2:** escala *(mais produção, clientes, infraestrutura, sensores e automação)*
-- **Ano 3:** replicação *(a fazenda inicial como piloto para produtores vizinhos)*
+- **Ano 1:** produção + rastreabilidade + clientes _(MVP funcionando, primeiros lotes rastreáveis, fluxo de caixa)_
+- **Ano 2:** escala _(mais produção, clientes, infraestrutura, sensores e automação)_
+- **Ano 3:** replicação _(a fazenda inicial como piloto para produtores vizinhos)_
 
 ---
 
@@ -1056,47 +1056,47 @@ Distribuição preliminar das 6 hectares *(sujeita a levantamento topográfico, 
 
 > **Orçamento preliminar de estruturação.** Os valores devem ser substituídos por cotações locais antes de apresentar a solicitação.
 
-| Componente | Valor estimado (COP) |
-|---|---:|
-| Investimento produtivo | $36.000.000 |
-| Tecnologia e rastreabilidade *(\*)* | $4.500.000 |
-| Capital de giro | $7.500.000 |
-| **Investimento total** | **$48.000.000** |
+| Componente                          | Valor estimado (COP) |
+| ----------------------------------- | -------------------: |
+| Investimento produtivo              |          $36.000.000 |
+| Tecnologia e rastreabilidade _(\*)_ |           $4.500.000 |
+| Capital de giro                     |           $7.500.000 |
+| **Investimento total**              |      **$48.000.000** |
 
-*(\*) O MVP AgroTrace, o drone DJI Avata 2, o Starlink e os computadores são aportados como contrapartida própria (**$0 financiável**).*
+_(\*) O MVP AgroChain, o drone DJI Avata 2, o Starlink e os computadores são aportados como contrapartida própria (**$0 financiável**)._
 
 #### Estrutura sugerida
 
-| Fonte | Valor |
-|---|---:|
-| Crédito solicitado | **$40.000.000** |
-| Aporte próprio em dinheiro | $4.000.000 |
-| Aporte próprio em ativos/equipamentos | $4.000.000+ |
-| **Projeto** | **$48.000.000+** |
+| Fonte                                 |            Valor |
+| ------------------------------------- | ---------------: |
+| Crédito solicitado                    |  **$40.000.000** |
+| Aporte próprio em dinheiro            |       $4.000.000 |
+| Aporte próprio em ativos/equipamentos |      $4.000.000+ |
+| **Projeto**                           | **$48.000.000+** |
 
-**Princípio financeiro fundamental:** *não financiar com dívida tudo aquilo que ainda não tem mercado.*
+**Princípio financeiro fundamental:** _não financiar com dívida tudo aquilo que ainda não tem mercado._
 
 ```text
 INFRAESTRUTURA → PRODUÇÃO PEQUENA → CLIENTES
        → FLUXO DE CAIXA → VALIDAÇÃO → AMPLIAÇÃO
 ```
 
-Possíveis canais: bancos comerciais com linhas **FINAGRO**, Banco Agrário, cooperativas financeiras, programas do FINAGRO e programas públicos vigentes *(taxas e disponibilidade a verificar no momento da solicitação)*.
+Possíveis canais: bancos comerciais com linhas **FINAGRO**, Banco Agrário, cooperativas financeiras, programas do FINAGRO e programas públicos vigentes _(taxas e disponibilidade a verificar no momento da solicitação)_.
 
 ---
 
 ### 📈 Indicadores e metas
 
-| Categoria | Indicadores |
-|---|---|
-| **Produtivos** | Animais, ovos/dia, kg de peixe/carne/fruta, mortalidade, consumo de ração |
-| **Comerciais** | Clientes ativos, vendas mensais, ticket médio, % venda direta, recompra |
-| **Tecnológicos** | Lotes rastreados, produtos com QR, eventos registrados, evidências digitais, registros ancorados na Stellar |
-| **Financeiros** | Receitas, custos, margem bruta, fluxo de caixa, serviço da dívida, ponto de equilíbrio |
+| Categoria        | Indicadores                                                                                              |
+| ---------------- | -------------------------------------------------------------------------------------------------------- |
+| **Produtivos**   | Animais, ovos/dia, kg de peixe/carne/fruta, mortalidade, consumo de ração                                |
+| **Comerciais**   | Clientes ativos, vendas mensais, ticket médio, % venda direta, recompra                                  |
+| **Tecnológicos** | Lotes rastreados, produtos com QR, eventos registrados, evidências digitais, registros ancorados na NEAR |
+| **Financeiros**  | Receitas, custos, margem bruta, fluxo de caixa, serviço da dívida, ponto de equilíbrio                   |
 
 #### ✅ Sucesso no mês 12
 
-- AgroTrace funcionando com **pelo menos 50 lotes/eventos rastreáveis** e QR operando
+- AgroChain funcionando com **pelo menos 50 lotes/eventos rastreáveis** e QR operando
 - Produção de ovos estável e primeiros ciclos de peixes e suínos
 - **20–30 clientes recorrentes** com vendas diretas verificáveis
 - Fluxo de caixa mensal e histórico digital útil para futura ampliação do crédito
@@ -1113,15 +1113,15 @@ Possíveis canais: bancos comerciais com linhas **FINAGRO**, Banco Agrário, coo
 
 **Principais riscos e mitigação:**
 
-| Risco | Mitigação |
-|---|---|
-| Doenças / mortalidade | Biosegurança, registros sanitários e assistência veterinária |
-| Seca / inundação | Reservas de água e drenagens |
-| Alteração de registros | Hash SHA-256 + Stellar |
-| Perda de dados | Backups |
-| Intermediários | Venda direta e clientes recorrentes |
-| Baixa demanda | Começar com produção pequena |
-| Sobreendividamento | Investimento por fases |
+| Risco                  | Mitigação                                                    |
+| ---------------------- | ------------------------------------------------------------ |
+| Doenças / mortalidade  | Biosegurança, registros sanitários e assistência veterinária |
+| Seca / inundação       | Reservas de água e drenagens                                 |
+| Alteração de registros | Hash SHA-256 + NEAR                                          |
+| Perda de dados         | Backups                                                      |
+| Intermediários         | Venda direta e clientes recorrentes                          |
+| Baixa demanda          | Começar com produção pequena                                 |
+| Sobreendividamento     | Investimento por fases                                       |
 
 A hipótese ficaria invalidada se um banco de dados tradicional ou uma integração entre sistemas existentes alcançasse o mesmo nível de confiança com menor complexidade: por isso começa-se com um **MVP pequeno** e mede-se o uso real antes de escalar.
 
@@ -1142,66 +1142,70 @@ A plataforma **não substitui** os registros oficiais: é uma **camada tecnológ
 
 #### 🧰 Stack tecnológica
 
-| Camada | Tecnologia |
-|---|---|
-| Frontend | Next.js 14 (App Router) · React 18 · TypeScript · Tailwind CSS · `qrcode.react` |
-| Backend | FastAPI · SQLAlchemy 2 · Alembic · Pydantic Settings · `stellar-sdk` · `boto3` |
-| Banco de dados | Neon Postgres (produção) · SQLite local (desenvolvimento) |
-| Armazenamento | Cloudflare R2 (evidências **fora** da blockchain) |
-| Blockchain | Stellar Testnet — apenas o hash SHA-256 viaja on-chain, como *Memo Hash* |
-| Implantação | Vercel (frontend) · Render + Docker (backend) |
-| Testes | 50 testes pytest (R2 e Stellar simulados, sem rede) |
+| Camada         | Tecnologia                                                                                                  |
+| -------------- | ----------------------------------------------------------------------------------------------------------- |
+| Frontend       | Next.js 14 (App Router) · React 18 · TypeScript · Tailwind CSS · `qrcode.react`                             |
+| Backend        | FastAPI · SQLAlchemy 2 · Alembic · Pydantic Settings · `near-kit` · `boto3`                                 |
+| Banco de dados | Neon Postgres (produção) · SQLite local (desenvolvimento)                                                   |
+| Armazenamento  | Cloudflare R2 (evidências **fora** da blockchain)                                                           |
+| Blockchain     | NEAR Testnet — apenas o hash SHA-256 viaja on-chain, como valor de um contrato KV próprio (Rust + near-sdk) |
+| Implantação    | Vercel (frontend) · Render + Docker (backend)                                                               |
+| Testes         | 84 testes pytest (R2 e NEAR simulados, sem rede) · 7 testes cargo no contrato                               |
 
 #### 1) Frontend (`frontend/`)
 
 **Requisitos:** Node.js 20+ · Git.
 
 ```bash
-git clone https://github.com/alucart2005/AgroTraceRural.git
-cd AgroTraceRural/frontend
+git clone https://github.com/alucart2005/AgroChainRural.git
+cd AgroChainRural/frontend
 npm install
 npm run dev        # abra http://localhost:3000
 ```
 
-- **Modo demo (padrão):** sem backend configurado, o frontend usa dados de exemplo no navegador (localStorage) e **anuncia isso na interface**. Percorra o fluxo completo: `/productor/nuevo` (HU-01) → etiqueta QR (HU-04) → `/lote/HUE-2027-001` com verificação on-chain (HU-03). As gravações nunca são salvas silenciosamente no modo fantasma.
+- **Modo demo (padrão):** sem backend configurado, o frontend usa dados de exemplo no navegador (localStorage) e **anuncia isso na interface**. Percorra o fluxo completo: `/productor/nuevo` (HU-01) → etiqueta QR (HU-04) → `/lote/HUE-2026-008` com verificação on-chain (HU-03). As gravações nunca são salvas silenciosamente no modo fantasma.
 - **Com backend:** copie `frontend/.env.example` para `frontend/.env.local` e defina `NEXT_PUBLIC_API_URL` (FastAPI, **sem sufixo `/api`**: `http://localhost:8000`), `NEXT_PUBLIC_API_KEY` e `NEXT_PUBLIC_SITE_URL`.
 - **Verificação:** não há executor de testes no frontend; valide com `npm run lint` e `npm run build` (o build também é a checagem de tipos).
 - **Build de produção:** `npm run build && npm run start` dentro de `frontend/`.
 
 #### 2) Backend (`backend/`)
 
-**Requisitos:** Python 3.10+ (o contêiner de produção usa 3.11).
+**Requisitos:** Python 3.11+ (`near-kit` exige; o contêiner de produção usa 3.11).
 
 ```bash
-cd AgroTraceRural/backend
+cd AgroChainRural/backend
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-cp .env.example .env          # preencha Stellar, R2, API_KEY e DATABASE_URL
+cp .env.example .env          # preencha NEAR, R2, API_KEY e DATABASE_URL
 uvicorn app.main:app --reload # abra http://localhost:8000/docs (Swagger)
 ```
 
-- **Banco de dados:** com `DATABASE_URL` vazio usa-se **SQLite local** (`agrotrace_local.db`, ignorado pelo git). Em produção aponta para **Neon**; no Render use a URL do *pooler* (a que termina em `-pooler`). Migrações: `alembic upgrade head`.
-- **Testes:** `python -m pytest -q` → **50 testes** com R2 e Stellar simulados (sem rede, sem banco externo).
-- **Stellar (opcional):** `python -m scripts.stellar_account create` gera e financia a conta de Testnet; `python -m scripts.anchor_demo` ancora e verifica de verdade (cria uma transação real).
+- **Banco de dados:** com `DATABASE_URL` vazio usa-se **SQLite local** (`agrotrace_local.db`, ignorado pelo git). Em produção aponta para **Neon**; no Render use a URL do _pooler_ (a que termina em `-pooler`). Migrações: `alembic upgrade head`.
+- **Testes:** `python -m pytest -q` → **84 testes** com R2 e NEAR simulados (sem rede, sem banco externo).
+- **NEAR (opcional):** `python -m scripts.near_account create <conta.testnet>` cria a conta e a financia pelo faucet; `python -m scripts.desplegar_contrato` implanta o contrato; `python -m scripts.anchor_demo` ancora e verifica de verdade (cria uma transação real).
+- **Contrato (`contract/`, opcional):** requer `rustup` com o target `wasm32-unknown-unknown`. `cargo test --release` roda os 7 testes; `cargo build --release --target wasm32-unknown-unknown` gera o wasm (o artefato implantável já está versionado em `contract/res/agrochain_kv.wasm`).
 
 #### 3) API
 
-| Método | Rota | Auth | História |
-|---|---|---|---|
-| `GET` | `/api/health` | — | Health check |
-| `POST` | `/api/lotes` | `X-API-Key` | HU-01 |
-| `GET` | `/api/lotes` · `/api/lotes/{codigo}` | — | HU-05 / HU-02 |
-| `GET`/`POST` | `/api/lotes/{codigo}/eventos` | GET aberto · POST com chave | HU-05 |
-| `POST` | `/api/lotes/{codigo}/anclar` | `X-API-Key` | Nova tentativa de ancoragem |
-| `GET` | `/api/verify/{codigo}` | — | HU-03 |
+| Método       | Rota                                                     | Auth                        | História                               |
+| ------------ | -------------------------------------------------------- | --------------------------- | -------------------------------------- |
+| `GET`        | `/api/health`                                            | —                           | Health check                           |
+| `POST`       | `/api/auth/google`                                       | ID token do Google          | HU-06                                  |
+| `GET`/`PUT`  | `/api/auth/me`                                           | Bearer JWT                  | HU-07                                  |
+| `POST`       | `/api/lotes`                                             | Bearer JWT                  | HU-01 · HU-08                          |
+| `GET`        | `/api/lotes` · `/api/lotes/{codigo}` · `/api/lotes/mios` | — · — · JWT                 | HU-05 / HU-02 / HU-08                  |
+| `GET`/`POST` | `/api/lotes/{codigo}/eventos`                            | GET aberto · POST com chave | HU-05                                  |
+| `POST`       | `/api/lotes/{codigo}/anclar`                             | `X-API-Key`                 | Nova tentativa de ancoragem            |
+| `GET`        | `/api/verify/{codigo}`                                   | —                           | HU-03                                  |
+| `POST`       | `/api/verify`                                            | `X-API-Key`                 | Auditoria de um hash contra o contrato |
 
-As leituras ficam abertas para que o QR do consumidor funcione sem credenciais; apenas as gravações exigem `X-API-Key`.
+As leituras ficam abertas para que o QR do consumidor funcione sem credenciais; o registro de lotes exige sessão Google (JWT) e as gravações internas, `X-API-Key`.
 
 #### 4) Implantação
 
-- **Frontend → Vercel:** importe o repositório → **Root Directory: `frontend`** → framework Next.js (detectado automaticamente) → adicione as env vars → Deploy. Alterar `NEXT_PUBLIC_*` exige um *redeploy* (ficam embutidas no bundle).
-- **Backend → Render:** `render.yaml` define o serviço Docker; o CMD roda as migrações do Alembic antes de servir. Preencha em Settings → Environment: `DATABASE_URL` (pooler do Neon), chaves Stellar e R2, e `FRONTEND_URL` (CORS).
-- **Documentação:** [`AGENTS.md`](AGENTS.md) (comandos e regras do repositório) · [`docs/semana3/Documentacion.md`](docs/semana3/Documentacion.md) (como funciona o frontend) · [`docs/semana3/StellarContratos.md`](docs/semana3/StellarContratos.md) (vantagens do ecossistema Stellar).
+- **Frontend → Vercel:** importe o repositório → **Root Directory: `frontend`** → framework Next.js (detectado automaticamente) → adicione as env vars → Deploy. Alterar `NEXT_PUBLIC_*` exige um _redeploy_ (ficam embutidas no bundle).
+- **Backend → Render:** `render.yaml` define o serviço Docker; o CMD roda as migrações do Alembic antes de servir. Preencha em Settings → Environment: `DATABASE_URL` (pooler do Neon), chaves NEAR (`NEAR_ACCOUNT_ID`, `NEAR_PRIVATE_KEY`, `NEAR_CONTRACT_ID`) e R2, e `FRONTEND_URL` (CORS).
+- **Documentação:** [`AGENTS.md`](AGENTS.md) (comandos e regras do repositório) · [`docs/migracion-near.md`](docs/migracion-near.md) (como e por que a ancoragem migrou da Stellar para a NEAR) · [`docs/semana3/Documentacion.md`](docs/semana3/Documentacion.md) (como funciona o frontend) · [`docs/semana3/NearContratos.md`](docs/semana3/NearContratos.md) (por que NEAR e como funciona o contrato).
 
 ---
 
@@ -1209,4 +1213,4 @@ As leituras ficam abertas para que o QR do consumidor funcione sem credenciais; 
 
 > **Transformar uma fazenda de 6 hectares de Guarumo em um modelo demonstrativo de produção agropecuária diversificada, venda direta e rastreabilidade verificável, utilizando tecnologia para aumentar a confiança do consumidor e melhorar a gestão do produtor.**
 
-[⬆ Voltar ao início](#-agrotrace-rural)
+[⬆ Voltar ao início](#-agrochain-rural)

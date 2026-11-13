@@ -1,4 +1,4 @@
-# 📋 Roles del MVP — Agro Cassis
+# 📋 Roles del MVP — AgroChain Rural
 
 > 🌐 **Idioma / Language:** [🇪🇸 Español](#-español) · [🇺🇸 English](#-english) · [🇧🇷 Português](#-português)
 
@@ -6,7 +6,7 @@
 
 ## 🇪🇸 Español
 
-> **Proyecto:** Agro Cassis · **Contexto:** #BafBootCampCol
+> **Proyecto:** AgroChain Rural · **Contexto:** #BafBootCampCol
 > **Alcance:** definición de los dos roles mínimos necesarios para construir y validar el MVP descrito en el Problem Brief.
 
 ---
@@ -162,15 +162,15 @@ Garantizar que el proyecto sea comprendido, entregado a tiempo dentro del bootca
 
 ---
 
-*Agro Cassis · Tecnología Blockchain para el sector agrícola colombiano · #BafBootCampCol*
+*AgroChain Rural · Tecnología Blockchain para el sector agrícola colombiano · #BafBootCampCol*
 
-[⬆ Volver al inicio](#-roles-del-mvp--agro-cassis)
+[⬆ Volver al inicio](#-roles-del-mvp--agrochain-rural)
 
 ---
 
 ## 🇺🇸 English
 
-> **Project:** Agro Cassis · **Context:** #BafBootCampCol
+> **Project:** AgroChain Rural · **Context:** #BafBootCampCol
 > **Scope:** definition of the two minimum roles needed to build and validate the MVP described in the Problem Brief.
 
 ---
@@ -326,15 +326,15 @@ Ensure the project is understood, delivered on time within the bootcamp and **va
 
 ---
 
-*Agro Cassis · Blockchain technology for the Colombian agricultural sector · #BafBootCampCol*
+*AgroChain Rural · Blockchain technology for the Colombian agricultural sector · #BafBootCampCol*
 
-[⬆ Back to top](#-roles-del-mvp--agro-cassis)
+[⬆ Back to top](#-roles-del-mvp--agrochain-rural)
 
 ---
 
 ## 🇧🇷 Português
 
-> **Projeto:** Agro Cassis · **Contexto:** #BafBootCampCol
+> **Projeto:** AgroChain Rural · **Contexto:** #BafBootCampCol
 > **Escopo:** definição dos dois papéis mínimos necessários para construir e validar o MVP descrito no Problem Brief.
 
 ---
@@ -490,6 +490,6 @@ Garantir que o projeto seja compreendido, entregue a tempo no bootcamp e **valid
 
 ---
 
-*Agro Cassis · Tecnologia Blockchain para o setor agrícola colombiano · #BafBootCampCol*
+*AgroChain Rural · Tecnologia Blockchain para o setor agrícola colombiano · #BafBootCampCol*
 
-[⬆ Voltar ao início](#-roles-del-mvp--agro-cassis)
+[⬆ Voltar ao início](#-roles-del-mvp--agrochain-rural)

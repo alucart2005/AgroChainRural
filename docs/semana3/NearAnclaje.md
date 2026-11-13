@@ -1,8 +1,8 @@
-# ⚓ Anclaje en Stellar: Diseño y Servicio (MVP)
+# ⚓ Anclaje en NEAR: diseño y servicio
 
-> **Proyecto:** AgroTrace Rural · **Módulo:** Anclaje de huellas SHA-256 en Stellar Testnet · **Código:** `backend/app/services/stellar.py`
+> **Proyecto:** AgroChain Rural · **Módulo:** Anclaje de huellas SHA-256 en un contrato KV de NEAR Testnet · **Código:** `backend/app/services/near.py` + `contract/`
 >
-> 🌐 **¡App del MVP en línea!** [https://frontend-2mx1.vercel.app](https://frontend-2mx1.vercel.app)
+> 🌐 **Historia:** hasta la versión 0.05 el ancla era un *Memo Hash* de Stellar; la migración completa se documenta en [`docs/migracion-near.md`](../migracion-near.md).
 
 > 🌐 **Idioma / Language:** [🇪🇸 Español](#-español) · [🇺🇸 English](#-english) · [🇧🇷 Português](#-português)
 
@@ -10,67 +10,74 @@
 
 ## 🇪🇸 Español
 
-📑 **Contenido:** [🔗 1. Diseño](#-1-diseño-del-anclaje) · [🔄 2. Flujo](#-2-flujo-de-anclaje) · [🔑 3. Cuenta](#-3-cuenta-y-fondeo-en-testnet) · [🧩 4. Servicio](#-4-servicio-stellarpy) · [🛠️ 5. Scripts](#-5-scripts-cli) · [🔐 6. Variables](#-6-variables-de-entorno) · [✅ 7. Verificación](#-7-verificación-on-chain) · [🧪 8. Tests](#-8-tests)
+📑 **Contenido:** [🔗 1. Diseño](#-1-diseño-del-anclaje) · [🔄 2. Flujo](#-2-flujo-de-anclaje) · [🔑 3. Cuenta y contrato](#-3-cuenta-y-contrato-en-testnet) · [🧩 4. Servicio](#-4-servicio-nearpy) · [🛠️ 5. Scripts](#-5-scripts-cli) · [🔐 6. Variables](#-6-variables-de-entorno) · [✅ 7. Verificación](#-7-verificación-on-chain) · [🧪 8. Tests](#-8-tests)
 
 ---
 
 ### 🔗 1. Diseño del anclaje
 
-El MVP **no usa contratos inteligentes**. Siguiendo `docs/semana2/ProductBlueprint.md` §8, la huella SHA-256 de cada lote se registra en el campo **Memo Hash (32 bytes)** de una transacción normal en **Stellar Testnet**.
-
-**Opción de contratos (A o B):**
+La huella SHA-256 de cada lote se guarda como **entrada de un contrato KV propio** en **NEAR Testnet**: un mapa `codigo → hash` donde el hash viaja como **cadena hexadecimal de 64 caracteres** — exactamente la misma que compara el backend, sin decodificaciones.
 
 | Opción | Qué es | Estado |
 | :--- | :--- | :--- |
-| **A** | Contratos inteligentes en Stellar (Soroban) | Descartada para el MVP |
-| **B** | Transacción clásica + Memo Hash (32 bytes) | ✅ **Elegida** |
+| **A** | Contrato KV propio (`set`/`get` sobre el estado) | ✅ **Elegida** (v0.06) |
+| **B** | Solo argumentos de la transacción, sin contrato | Descartada |
 
-*Por qué elegimos la Opción B:* el MVP solo necesita probar que la huella existió (sin lógica on-chain); cuesta ≈ 0,00001 XLM por lote y no exige mantener un contrato Rust/Wasm. *Por qué no la Opción A todavía:* un contrato sería sobreingeniería hasta que existan reglas de negocio automáticas (ver `StellarContratos.md` §3–4). **Fotos y videos jamás van en blockchain** — solo el hash.
+*Por qué la Opción A:* el RPC público de NEAR solo conserva el **detalle** de las transacciones ~36 horas; una verificación que dependiera de leer la transacción moriría con el archivo. El **estado del contrato no caduca**: `view get` responde hoy igual que dentro de un año. Además el contrato fija la regla de negocio del ancla: idempotencia y rechazo de hash distinto.
 
 | Componente | Decisión |
 | :--- | :--- |
-| Red | Stellar **Testnet** (`Test SDF Network ; September 2015`) |
-| Transacción | Pago de 1 stroop de XLM a la misma cuenta (op mínima) |
-| Memo | `MEMO_HASH` con los 32 bytes del SHA-256 del lote |
-| Firmante | Cuenta de la Finca Guarumo (`STELLAR_SECRET_KEY`) |
+| Red | NEAR **Testnet** (`testnet`) |
+| Contrato | Cuenta propia (p. ej. `agrochainrural.testnet`), Rust + near-sdk 5.30 |
+| Entrada on-chain | `get(codigo)` → hash hex de 64 caracteres (o `null`) |
+| Método de escritura | `set(codigo, hash)` — no payable, idempotente, rechaza un hash distinto |
+| Firmante | Cuenta de la Finca Guarumo (`NEAR_PRIVATE_KEY`) |
 | Regla de oro | **Fotos/videos nunca van en blockchain** — solo el hash |
+
+**Propiedades del `set` (críticas):**
+
+- **Idempotente:** reintentar el ancla con el mismo hash es un *no-op* (los reintentos del backend son seguros).
+- **Estricto:** anclar un hash *distinto* para un código ya anclado hace panic — un lote no puede cambiar de huella.
+- **No payable:** el contrato no acepta NEAR; el *storage staking* lo cubre el saldo de la propia cuenta del contrato.
 
 ---
 
 ### 🔄 2. Flujo de anclaje
 
-1. El backend calcula el hash del lote: `hash_lote(datos_lote, fotos)` (JSON canónico → SHA-256).
-2. `anchor_hash(lote_id, hash_hex)` valida que sean 32 bytes y arma la transacción.
-3. Si la cuenta no tiene saldo, **Friendbot** la fondea automáticamente.
-4. Envío a Horizon; ante `tx_too_late` / `tx_bad_seq` reintenta (máx. 3 intentos).
-5. Se guarda en la base de datos el `tx_hash` y el `ledger` del lote.
-6. El consumidor verifica con `verify_anchor(tx_hash, hash_hex)`.
+1. El backend calcula el hash del lote: `hash_lote(datos_lote)` (JSON canónico de 8 campos → SHA-256).
+2. `anchor_hash(codigo, hash_hex)` valida el formato y llama al contrato con `near-kit` (`client.call("set", ...)`).
+3. Ante fallos transitorios del RPC reintenta (máx. 3); un **panic del contrato no se reintenta** (no hay nada que arreglar).
+4. Se guardan en la base de datos `near_tx_hash` y `near_block` (la altura de bloque es cosmética: si no se resuelve, se guarda `None` y el ancla sigue siendo válida).
+5. El consumidor verifica con `verify_anchor(codigo, hash_hex)`, que lee el **estado** del contrato (`view get`).
 
 ---
 
-### 🔑 3. Cuenta y fondeo en Testnet
+### 🔑 3. Cuenta y contrato en Testnet
 
 ```bash
 cd backend
-python -m scripts.stellar_account create   # genera claves + fondea con Friendbot
-python -m scripts.stellar_account show     # muestra saldo
+python -m scripts.near_account create <cuenta.testnet>  # crea la cuenta (faucet oficial, 10 NEAR) e imprime las claves
+python -m scripts.near_account show <cuenta.testnet>    # muestra el saldo
+python -m scripts.desplegar_contrato                    # despliega contract/res/agrochain_kv.wasm en NEAR_CONTRACT_ID
 ```
 
-`create` imprime `STELLAR_PUBLIC_KEY` y `STELLAR_SECRET_KEY` para guardarlas en `backend/.env` (nunca subirlas al repositorio).
+`create` imprime `NEAR_ACCOUNT_ID` y `NEAR_PRIVATE_KEY` (`ed25519:...`) para guardarlas en `backend/.env` (nunca subirlas al repositorio). El faucet fondea la cuenta una sola vez; ese saldo paga el *gas* de los anclajes y el *storage staking* del contrato.
 
 ---
 
-### 🧩 4. Servicio `stellar.py`
+### 🧩 4. Servicio `near.py`
 
 | Función | Responsabilidad |
 | :--- | :--- |
-| `get_server()` | Cliente Horizon (`HORIZON_URL`) |
-| `load_keypair()` | Carga la clave secreta desde la configuración |
-| `ensure_funded()` | Fondea con Friendbot si la cuenta no existe |
-| `anchor_hash()` | Construye, firma y envía la transacción con Memo Hash; reintenta ante errores transitorios |
-| `verify_anchor()` | Consulta la transacción en Horizon y compara el memo decodificado (base64) con el hash esperado |
+| `get_client()` | Cliente `near-kit` (`NEAR_NETWORK`, `NEAR_RPC_URL`, cuenta y clave) |
+| `_validar()` | Comprueba formato de código y hash (64 hex) antes de tocar la red |
+| `_contrato()` | Resuelve la cuenta del contrato (`NEAR_CONTRACT_ID`) |
+| `_bloque_de()` | Altura del bloque de la transacción (2 llamadas RPC crudas; a fallo suave → `None`) |
+| `anchor_hash()` | Llama a `set` con reintentos; devuelve `{successful, tx_hash, block}` |
+| `get_hash()` | Hash anclado para un código, leyendo el **estado** con `view get` |
+| `verify_anchor()` | Compara el hash on-chain con el esperado → `{verified, hash_registrado}` |
 
-Errores propios: `StellarError` (hash inválido, transacción rechazada, cuenta sin clave, etc.).
+Error propio: `NearError` (hash inválido, RPC caído, contrato ausente...). Nunca escapa como 500.
 
 ---
 
@@ -78,14 +85,17 @@ Errores propios: `StellarError` (hash inválido, transacción rechazada, cuenta 
 
 ```bash
 cd backend
-python -m scripts.anchor_demo    # HUE-2027-001: hash → ancla → verifica (Testnet real)
+python -m scripts.anchor_demo        # HUE-2027-001: hash → ancla → verifica (Testnet real)
+python -m scripts.reanclar --listar  # lotes con near_tx_hash = NULL, sin escribir en la cadena
+python -m scripts.reanclar           # re-ancla los lotes pendientes (idempotente)
 ```
 
-Salida esperada:
+Salida esperada de `anchor_demo`:
 
 ```text
-SHA-256 : cf1adb06...
-Anclado : tx=fa454397... ledger=5133158
+Lote    : HUE-2027-001
+SHA-256 : 77304c85...
+Anclado : tx=EEFcqP... bloque=277310783
 Verificación on-chain: VERIFICADO
 ```
 
@@ -94,23 +104,27 @@ Verificación on-chain: VERIFICADO
 ### 🔐 6. Variables de entorno
 
 ```bash
-STELLAR_NETWORK=testnet
-HORIZON_URL=https://horizon-testnet.stellar.org
-STELLAR_PUBLIC_KEY=G...
-STELLAR_SECRET_KEY=S...
+NEAR_NETWORK=testnet
+NEAR_RPC_URL=https://test.rpc.fastnear.com
+NEAR_ACCOUNT_ID=agrochainrural.testnet
+NEAR_PRIVATE_KEY=ed25519:...
+NEAR_CONTRACT_ID=agrochainrural.testnet
 ```
 
 ---
 
 ### ✅ 7. Verificación on-chain
 
-`POST /api/verify` con `{"tx_hash", "hash_hex"}` devuelve:
+`POST /api/verify` con `{"codigo", "hash_hex"}`
+(protegido con `X-API-Key`: sin ella sería un proxy abierto y gratuito a la red) devuelve:
 
 ```json
-{"verified": true, "memo_match": true, "successful": true, "ledger": 5133158}
+{"verified": true, "hash_registrado": "242301d4...20da92"}
 ```
 
-Horizon entrega los memos hash en **base64**; el servicio los decodifica y compara byte a byte con el hash recalculado — así se detecta cualquier alteración posterior de los datos del lote.
+La ruta del consumidor es `GET /api/verify/{codigo}`, que cierra la **triangulación**: hash recalculado en el servidor ↔ hash guardado en la base ↔ hash devuelto por el contrato. Cualquier alteración posterior de los datos del lote rompe la coincidencia.
+
+> El explorador de la transacción es `https://explorer.testnet.near.org/transactions/<tx_hash>` (la ficha del lote enlaza directo). El bloque (`near_block`) es informativo; la verificación no depende de él.
 
 ---
 
@@ -118,79 +132,86 @@ Horizon entrega los memos hash en **base64**; el servicio los decodifica y compa
 
 ```bash
 cd backend
-python -m pytest tests/ -v
+python -m pytest tests/ -v     # 84 tests, todos sin red
 ```
 
 - `test_sha256.py`: determinismo, orden independiente de claves, sensibilidad a cambios.
-- `test_stellar.py`: memo de 32 bytes, anclaje con Horizon mockeado, casos de verificación (ok / memo distinto / tx inexistente).
+- `test_near.py`: validación de hash, anclaje con el cliente NEAR simulado, idempotencia, verificación (ok / hash distinto / código sin ancla / RPC caído).
 
-[⬆ Volver al inicio](#-anclaje-en-stellar-diseño-y-servicio-mvp)
+[⬆ Volver al inicio](#-anclaje-en-near-diseño-y-servicio)
 
 ---
 
 ## 🇺🇸 English
 
-📑 **Contents:** [🔗 1. Design](#-1-anchoring-design) · [🔄 2. Flow](#-2-anchoring-flow) · [🔑 3. Account](#-3-account-and-testnet-funding) · [🧩 4. Service](#-4-stellarpy-service) · [🛠️ 5. Scripts](#-5-cli-scripts) · [🔐 6. Env vars](#-6-environment-variables) · [✅ 7. Verification](#-7-on-chain-verification) · [🧪 8. Tests](#-8-tests)
+📑 **Contents:** [🔗 1. Design](#-1-anchoring-design) · [🔄 2. Flow](#-2-anchoring-flow) · [🔑 3. Account & contract](#-3-account-and-contract-on-testnet) · [🧩 4. Service](#-4-nearpy-service) · [🛠️ 5. Scripts](#-5-cli-scripts) · [🔐 6. Env vars](#-6-environment-variables) · [✅ 7. Verification](#-7-on-chain-verification) · [🧪 8. Tests](#-8-tests)
 
 ---
 
 ### 🔗 1. Anchoring design
 
-The MVP **does not use smart contracts**. Following `docs/semana2/ProductBlueprint.md` §8, each batch's SHA-256 fingerprint is recorded in the **Memo Hash field (32 bytes)** of a regular transaction on **Stellar Testnet**.
-
-**Contract option (A or B):**
+Each batch's SHA-256 fingerprint is stored as **an entry of an own KV contract** on **NEAR Testnet**: a `codigo → hash` map where the hash travels as a **64-character hex string** — exactly the one the backend compares, with no decoding.
 
 | Option | What it is | Status |
 | :--- | :--- | :--- |
-| **A** | Smart contracts on Stellar (Soroban) | Discarded for the MVP |
-| **B** | Classic transaction + Memo Hash (32 bytes) | ✅ **Chosen** |
+| **A** | Own KV contract (`set`/`get` over state) | ✅ **Chosen** (v0.06) |
+| **B** | Only transaction arguments, no contract | Discarded |
 
-*Why we chose Option B:* the MVP only needs to prove the fingerprint existed (no on-chain logic); it costs ≈ 0.00001 XLM per batch and requires no Rust/Wasm contract maintenance. *Why not Option A yet:* a contract would be over-engineering until automatic business rules exist (see `StellarContratos.md` §3–4). **Photos and videos never go on blockchain** — only the hash.
+*Why Option A:* NEAR's public RPC keeps transaction **detail** for only ~36 hours; a verification that depended on reading the transaction would die with the archive. **Contract state does not expire**: `view get` answers today the same as in a year. The contract also pins the anchor's business rule: idempotency and rejection of a different hash.
 
 | Component | Decision |
 | :--- | :--- |
-| Network | Stellar **Testnet** (`Test SDF Network ; September 2015`) |
-| Transaction | Payment of 1 stroop of XLM to the same account (minimal operation) |
-| Memo | `MEMO_HASH` carrying the batch's 32-byte SHA-256 |
-| Signer | Finca Guarumo account (`STELLAR_SECRET_KEY`) |
+| Network | NEAR **Testnet** (`testnet`) |
+| Contract | Own account (e.g. `agrochainrural.testnet`), Rust + near-sdk 5.30 |
+| On-chain entry | `get(codigo)` → 64-char hex hash (or `null`) |
+| Write method | `set(codigo, hash)` — not payable, idempotent, rejects a different hash |
+| Signer | Finca Guarumo account (`NEAR_PRIVATE_KEY`) |
 | Golden rule | **Photos/videos never go on blockchain** — only the hash |
+
+**`set` properties (critical):**
+
+- **Idempotent:** retrying the anchor with the same hash is a *no-op* (backend retries are safe).
+- **Strict:** anchoring a *different* hash for an already-anchored code panics — a batch cannot change its fingerprint.
+- **Not payable:** the contract accepts no NEAR; storage staking is covered by the contract account's own balance.
 
 ---
 
 ### 🔄 2. Anchoring flow
 
-1. The backend computes the batch hash: `hash_lote(batch_data, photos)` (canonical JSON → SHA-256).
-2. `anchor_hash(batch_id, hash_hex)` validates the 32 bytes and builds the transaction.
-3. If the account has no balance, **Friendbot** funds it automatically.
-4. Submission to Horizon; on `tx_too_late` / `tx_bad_seq` it retries (max 3 attempts).
-5. The `tx_hash` and `ledger` are stored for the batch.
-6. The consumer verifies with `verify_anchor(tx_hash, hash_hex)`.
+1. The backend computes the batch hash: `hash_lote(batch_data)` (canonical JSON of 8 fields → SHA-256).
+2. `anchor_hash(codigo, hash_hex)` validates the format and calls the contract via `near-kit` (`client.call("set", ...)`).
+3. On transient RPC failures it retries (max 3); a **contract panic is not retried** (nothing to fix).
+4. `near_tx_hash` and `near_block` are stored (block height is cosmetic: if unresolved, `None` is saved and the anchor stays valid).
+5. The consumer verifies with `verify_anchor(codigo, hash_hex)`, which reads contract **state** (`view get`).
 
 ---
 
-### 🔑 3. Account and Testnet funding
+### 🔑 3. Account and contract on Testnet
 
 ```bash
 cd backend
-python -m scripts.stellar_account create   # generates keys + funds via Friendbot
-python -m scripts.stellar_account show     # shows balance
+python -m scripts.near_account create <account.testnet>  # creates the account (official faucet, 10 NEAR) and prints the keys
+python -m scripts.near_account show <account.testnet>    # shows the balance
+python -m scripts.desplegar_contrato                     # deploys contract/res/agrochain_kv.wasm to NEAR_CONTRACT_ID
 ```
 
-`create` prints `STELLAR_PUBLIC_KEY` and `STELLAR_SECRET_KEY` to store in `backend/.env` (never commit them).
+`create` prints `NEAR_ACCOUNT_ID` and `NEAR_PRIVATE_KEY` (`ed25519:...`) to store in `backend/.env` (never commit them). The faucet funds the account once; that balance pays anchor *gas* and the contract's *storage staking*.
 
 ---
 
-### 🧩 4. `stellar.py` service
+### 🧩 4. `near.py` service
 
 | Function | Responsibility |
 | :--- | :--- |
-| `get_server()` | Horizon client (`HORIZON_URL`) |
-| `load_keypair()` | Loads the secret key from settings |
-| `ensure_funded()` | Funds via Friendbot if the account does not exist |
-| `anchor_hash()` | Builds, signs and submits the Memo Hash transaction; retries on transient errors |
-| `verify_anchor()` | Fetches the transaction from Horizon and compares the decoded (base64) memo against the expected hash |
+| `get_client()` | `near-kit` client (`NEAR_NETWORK`, `NEAR_RPC_URL`, account and key) |
+| `_validar()` | Checks code and hash format (64 hex) before touching the network |
+| `_contrato()` | Resolves the contract account (`NEAR_CONTRACT_ID`) |
+| `_bloque_de()` | Block height of the transaction (2 raw RPC calls; soft-fails to `None`) |
+| `anchor_hash()` | Calls `set` with retries; returns `{successful, tx_hash, block}` |
+| `get_hash()` | Anchored hash for a code, reading **state** via `view get` |
+| `verify_anchor()` | Compares the on-chain hash with the expected one → `{verified, hash_registrado}` |
 
-Custom error: `StellarError`.
+Custom error: `NearError`. Never escapes as a 500.
 
 ---
 
@@ -198,14 +219,17 @@ Custom error: `StellarError`.
 
 ```bash
 cd backend
-python -m scripts.anchor_demo    # HUE-2027-001: hash → anchor → verify (real Testnet)
+python -m scripts.anchor_demo        # HUE-2027-001: hash → anchor → verify (real Testnet)
+python -m scripts.reanclar --listar  # batches with near_tx_hash = NULL, without writing on-chain
+python -m scripts.reanclar          # re-anchors pending batches (idempotent)
 ```
 
-Expected output:
+Expected `anchor_demo` output:
 
 ```text
-SHA-256 : cf1adb06...
-Anclado : tx=fa454397... ledger=5133158
+Lote    : HUE-2027-001
+SHA-256 : 77304c85...
+Anclado : tx=EEFcqP... block=277310783
 Verificación on-chain: VERIFICADO
 ```
 
@@ -214,23 +238,27 @@ Verificación on-chain: VERIFICADO
 ### 🔐 6. Environment variables
 
 ```bash
-STELLAR_NETWORK=testnet
-HORIZON_URL=https://horizon-testnet.stellar.org
-STELLAR_PUBLIC_KEY=G...
-STELLAR_SECRET_KEY=S...
+NEAR_NETWORK=testnet
+NEAR_RPC_URL=https://test.rpc.fastnear.com
+NEAR_ACCOUNT_ID=agrochainrural.testnet
+NEAR_PRIVATE_KEY=ed25519:...
+NEAR_CONTRACT_ID=agrochainrural.testnet
 ```
 
 ---
 
 ### ✅ 7. On-chain verification
 
-`POST /api/verify` with `{"tx_hash", "hash_hex"}` returns:
+`POST /api/verify` with `{"codigo", "hash_hex"}`
+(guarded by `X-API-Key`: without it, it would be a free open proxy to the network) returns:
 
 ```json
-{"verified": true, "memo_match": true, "successful": true, "ledger": 5133158}
+{"verified": true, "hash_registrado": "242301d4...20da92"}
 ```
 
-Horizon returns hash memos as **base64**; the service decodes them and compares byte by byte with the recomputed hash — detecting any later modification of the batch data.
+The consumer route is `GET /api/verify/{codigo}`, which closes the **triangulation**: hash recomputed on the server ↔ hash stored in the database ↔ hash returned by the contract. Any later modification of the batch data breaks the match.
+
+> The transaction explorer is `https://explorer.testnet.near.org/transactions/<tx_hash>` (the batch page links straight to it). The block (`near_block`) is informational; verification does not depend on it.
 
 ---
 
@@ -238,79 +266,86 @@ Horizon returns hash memos as **base64**; the service decodes them and compares 
 
 ```bash
 cd backend
-python -m pytest tests/ -v
+python -m pytest tests/ -v     # 84 tests, all without network
 ```
 
 - `test_sha256.py`: determinism, key-order independence, change sensitivity.
-- `test_stellar.py`: 32-byte memo, anchoring with mocked Horizon, verification cases (ok / mismatched memo / missing tx).
+- `test_near.py`: hash validation, anchoring with the NEAR client mocked, idempotency, verification (ok / different hash / unanchored code / RPC down).
 
-[⬆ Back to top](#-anclaje-en-stellar-diseño-y-servicio-mvp)
+[⬆ Back to top](#-anclaje-en-near-diseño-y-servicio)
 
 ---
 
 ## 🇧🇷 Português
 
-📑 **Conteúdo:** [🔗 1. Design](#-1-design-da-ancoragem) · [🔄 2. Fluxo](#-2-fluxo-de-ancoragem) · [🔑 3. Conta](#-3-conta-e-financiamento-na-testnet) · [🧩 4. Serviço](#-4-serviço-stellarpy) · [🛠️ 5. Scripts](#-5-scripts-cli) · [🔐 6. Variáveis](#-6-variáveis-de-ambiente) · [✅ 7. Verificação](#-7-verificação-on-chain) · [🧪 8. Testes](#-8-testes)
+📑 **Conteúdo:** [🔗 1. Design](#-1-design-da-ancoragem) · [🔄 2. Fluxo](#-2-fluxo-de-ancoragem) · [🔑 3. Conta e contrato](#-3-conta-e-contrato-na-testnet) · [🧩 4. Serviço](#-4-serviço-nearpy) · [🛠️ 5. Scripts](#-5-scripts-cli) · [🔐 6. Variáveis](#-6-variáveis-de-ambiente) · [✅ 7. Verificação](#-7-verificação-on-chain) · [🧪 8. Testes](#-8-testes)
 
 ---
 
 ### 🔗 1. Design da ancoragem
 
-O MVP **não usa contratos inteligentes**. Seguindo `docs/semana2/ProductBlueprint.md` §8, a impressão digital SHA-256 de cada lote é registrada no campo **Memo Hash (32 bytes)** de uma transação normal na **Stellar Testnet**.
-
-**Opção de contratos (A ou B):**
+A impressão digital SHA-256 de cada lote é guardada como **entrada de um contrato KV próprio** na **NEAR Testnet**: um mapa `codigo → hash` onde a impressão viaja como **cadeia hexadecimal de 64 caracteres** — exatamente a que o backend compara, sem decodificações.
 
 | Opção | O que é | Status |
 | :--- | :--- | :--- |
-| **A** | Contratos inteligentes na Stellar (Soroban) | Descartada para o MVP |
-| **B** | Transação clássica + Memo Hash (32 bytes) | ✅ **Escolhida** |
+| **A** | Contrato KV próprio (`set`/`get` sobre o estado) | ✅ **Escolhida** (v0.06) |
+| **B** | Só argumentos da transação, sem contrato | Descartada |
 
-*Por que escolhemos a Opção B:* o MVP só precisa provar que a impressão existiu (sem lógica on-chain); custa ≈ 0,00001 XLM por lote e não exige manter um contrato Rust/Wasm. *Por que não a Opção A ainda:* um contrato seria superengenharia até existirem regras de negócio automáticas (ver `StellarContratos.md` §3–4). **Fotos e vídeos nunca vão para a blockchain** — apenas o hash.
+*Por que a Opção A:* o RPC público da NEAR guarda o **detalhe** das transações por apenas ~36 horas; uma verificação que dependesse de ler a transação morreria com o arquivo. **O estado do contrato não caduca**: `view get` responde hoje igual como daqui a um ano. O contrato também fixa a regra de negócio da âncora: idempotência e rejeição de hash diferente.
 
 | Componente | Decisão |
 | :--- | :--- |
-| Rede | Stellar **Testnet** (`Test SDF Network ; September 2015`) |
-| Transação | Pagamento de 1 stroop de XLM para a mesma conta (operação mínima) |
-| Memo | `MEMO_HASH` com os 32 bytes do SHA-256 do lote |
-| Assinante | Conta da Finca Guarumo (`STELLAR_SECRET_KEY`) |
+| Rede | NEAR **Testnet** (`testnet`) |
+| Contrato | Conta própria (p. ex. `agrochainrural.testnet`), Rust + near-sdk 5.30 |
+| Entrada on-chain | `get(codigo)` → hash hex de 64 caracteres (ou `null`) |
+| Método de escrita | `set(codigo, hash)` — não payable, idempotente, rejeita hash diferente |
+| Assinante | Conta da Finca Guarumo (`NEAR_PRIVATE_KEY`) |
 | Regra de ouro | **Fotos/vídeos nunca vão para a blockchain** — apenas o hash |
+
+**Propriedades do `set` (críticas):**
+
+- **Idempotente:** reancorar com o mesmo hash é um *no-op* (os retries do backend são seguros).
+- **Estrito:** ancorar um hash *diferente* para um código já ancorado faz panic — um lote não pode trocar de impressão.
+- **Não payable:** o contrato não aceita NEAR; o *storage staking* é coberto pelo saldo da própria conta do contrato.
 
 ---
 
 ### 🔄 2. Fluxo de ancoragem
 
-1. O backend calcula o hash do lote: `hash_lote(dados_lote, fotos)` (JSON canônico → SHA-256).
-2. `anchor_hash(lote_id, hash_hex)` valida os 32 bytes e monta a transação.
-3. Se a conta não tem saldo, o **Friendbot** a financia automaticamente.
-4. Envio ao Horizon; em `tx_too_late` / `tx_bad_seq` tenta novamente (máx. 3 tentativas).
-5. O `tx_hash` e o `ledger` são gravados para o lote.
-6. O consumidor verifica com `verify_anchor(tx_hash, hash_hex)`.
+1. O backend calcula o hash do lote: `hash_lote(dados_lote)` (JSON canônico de 8 campos → SHA-256).
+2. `anchor_hash(codigo, hash_hex)` valida o formato e chama o contrato via `near-kit` (`client.call("set", ...)`).
+3. Em falhas transitórias do RPC tenta novamente (máx. 3); um **panic do contrato não é repetido** (não há nada a consertar).
+4. Gravam-se `near_tx_hash` e `near_block` (a altura do bloco é cosmética: sem resolução, grava-se `None` e a âncora continua válida).
+5. O consumidor verifica com `verify_anchor(codigo, hash_hex)`, que lê o **estado** do contrato (`view get`).
 
 ---
 
-### 🔑 3. Conta e financiamento na Testnet
+### 🔑 3. Conta e contrato na Testnet
 
 ```bash
 cd backend
-python -m scripts.stellar_account create   # gera chaves + financia via Friendbot
-python -m scripts.stellar_account show     # mostra saldo
+python -m scripts.near_account create <conta.testnet>  # cria a conta (faucet oficial, 10 NEAR) e imprime as chaves
+python -m scripts.near_account show <conta.testnet>    # mostra o saldo
+python -m scripts.desplegar_contrato                   # implanta contract/res/agrochain_kv.wasm em NEAR_CONTRACT_ID
 ```
 
-`create` imprime `STELLAR_PUBLIC_KEY` e `STELLAR_SECRET_KEY` para guardar em `backend/.env` (nunca subir ao repositório).
+`create` imprime `NEAR_ACCOUNT_ID` e `NEAR_PRIVATE_KEY` (`ed25519:...`) para guardar em `backend/.env` (nunca subir ao repositório). O faucet financia a conta uma única vez; esse saldo paga o *gas* das âncoras e o *storage staking* do contrato.
 
 ---
 
-### 🧩 4. Serviço `stellar.py`
+### 🧩 4. Serviço `near.py`
 
 | Função | Responsabilidade |
 | :--- | :--- |
-| `get_server()` | Cliente Horizon (`HORIZON_URL`) |
-| `load_keypair()` | Carrega a chave secreta das configurações |
-| `ensure_funded()` | Financia via Friendbot se a conta não existir |
-| `anchor_hash()` | Constrói, assina e envia a transação com Memo Hash; repete em erros transitórios |
-| `verify_anchor()` | Consulta a transação no Horizon e compara o memo decodificado (base64) com o hash esperado |
+| `get_client()` | Cliente `near-kit` (`NEAR_NETWORK`, `NEAR_RPC_URL`, conta e chave) |
+| `_validar()` | Confere o formato de código e hash (64 hex) antes de tocar a rede |
+| `_contrato()` | Resolve a conta do contrato (`NEAR_CONTRACT_ID`) |
+| `_bloque_de()` | Altura do bloco da transação (2 chamadas RPC cruas; falha suave → `None`) |
+| `anchor_hash()` | Chama `set` com retries; devolve `{successful, tx_hash, block}` |
+| `get_hash()` | Hash ancorado para um código, lendo o **estado** com `view get` |
+| `verify_anchor()` | Compara o hash on-chain com o esperado → `{verified, hash_registrado}` |
 
-Erro próprio: `StellarError`.
+Erro próprio: `NearError`. Nunca escapa como 500.
 
 ---
 
@@ -318,15 +353,18 @@ Erro próprio: `StellarError`.
 
 ```bash
 cd backend
-python -m scripts.anchor_demo    # HUE-2027-001: hash → ancora → verifica (Testnet real)
+python -m scripts.anchor_demo        # HUE-2027-001: hash → ancora → verifica (Testnet real)
+python -m scripts.reanclar --listar  # lotes com near_tx_hash = NULL, sem escrever na cadeia
+python -m scripts.reanclar           # reancora os lotes pendentes (idempotente)
 ```
 
-Saída esperada:
+Saída esperada do `anchor_demo`:
 
 ```text
-SHA-256 : cf1adb06...
-Anclado : tx=fa454397... ledger=5133158
-Verificación on-chain: VERIFICADO
+Lote    : HUE-2027-001
+SHA-256 : 77304c85...
+Anclado : tx=EEFcqP... bloque=277310783
+Verificação on-chain: VERIFICADO
 ```
 
 ---
@@ -334,23 +372,27 @@ Verificación on-chain: VERIFICADO
 ### 🔐 6. Variáveis de ambiente
 
 ```bash
-STELLAR_NETWORK=testnet
-HORIZON_URL=https://horizon-testnet.stellar.org
-STELLAR_PUBLIC_KEY=G...
-STELLAR_SECRET_KEY=S...
+NEAR_NETWORK=testnet
+NEAR_RPC_URL=https://test.rpc.fastnear.com
+NEAR_ACCOUNT_ID=agrochainrural.testnet
+NEAR_PRIVATE_KEY=ed25519:...
+NEAR_CONTRACT_ID=agrochainrural.testnet
 ```
 
 ---
 
 ### ✅ 7. Verificação on-chain
 
-`POST /api/verify` com `{"tx_hash", "hash_hex"}` retorna:
+`POST /api/verify` com `{"codigo", "hash_hex"}`
+(protegido com `X-API-Key`: sem ela seria um proxy aberto e gratuito à rede) retorna:
 
 ```json
-{"verified": true, "memo_match": true, "successful": true, "ledger": 5133158}
+{"verified": true, "hash_registrado": "242301d4...20da92"}
 ```
 
-O Horizon devolve memos hash em **base64**; o serviço os decodifica e compara byte a byte com o hash recalculado — detectando qualquer alteração posterior dos dados do lote.
+A rota do consumidor é `GET /api/verify/{codigo}`, que fecha a **triangulação**: hash recalculado no servidor ↔ hash guardado no banco ↔ hash devolvido pelo contrato. Qualquer alteração posterior dos dados do lote quebra a coincidência.
+
+> O explorador da transação é `https://explorer.testnet.near.org/transactions/<tx_hash>` (a ficha do lote aponta direto para ele). O bloco (`near_block`) é informativo; a verificação não depende dele.
 
 ---
 
@@ -358,10 +400,10 @@ O Horizon devolve memos hash em **base64**; o serviço os decodifica e compara b
 
 ```bash
 cd backend
-python -m pytest tests/ -v
+python -m pytest tests/ -v     # 84 testes, todos sem rede
 ```
 
 - `test_sha256.py`: determinismo, independência da ordem das chaves, sensibilidade a mudanças.
-- `test_stellar.py`: memo de 32 bytes, ancoragem com Horizon simulado, casos de verificação (ok / memo diferente / tx inexistente).
+- `test_near.py`: validação de hash, ancoragem com o cliente NEAR simulado, idempotência, verificação (ok / hash diferente / código sem âncora / RPC caído).
 
-[⬆ Voltar ao topo](#-anclaje-en-stellar-diseño-y-servicio-mvp)
+[⬆ Voltar ao topo](#-anclaje-en-near-diseño-y-servicio)
