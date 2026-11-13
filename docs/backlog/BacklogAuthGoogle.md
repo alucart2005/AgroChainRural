@@ -13,7 +13,7 @@
 
 ## 🇪🇸 Español
 
-📑 **Contenido:** [HU-06 Ingreso con Google](#-hu-06-ingreso-de-productor-con-google) · [HU-07 Datos del primer ingreso](#-hu-07-registro-de-datos-del-productor-en-el-primer-ingreso) · [HU-08 Lotes autenticados](#-hu-08-registro-de-lotes-con-sesión-de-productor) · [Tareas técnicas](#-tareas-técnicas)
+📑 **Contenido:** [HU-06 Ingreso con Google](#-hu-06-ingreso-de-productor-con-google) · [HU-07 Datos del primer ingreso](#-hu-07-registro-de-datos-del-productor-en-el-primer-ingreso) · [HU-08 Lotes autenticados](#-hu-08-registro-de-lotes-con-sesión-de-productor) · [Tareas técnicas](#-tareas-técnicas-no-son-hu)
 
 ---
 
@@ -143,7 +143,7 @@
 
 ## 🇺🇸 English
 
-📑 **Contents:** [HU-06 Google sign-in](#-hu-06-farmer-sign-in-with-google) · [HU-07 First-login data](#-hu-07-farmer-data-capture-on-first-sign-in) · [HU-08 Authenticated batches](#-hu-08-batch-registration-with-farmer-session) · [Technical tasks](#-technical-tasks)
+📑 **Contents:** [HU-06 Google sign-in](#-hu-06-farmer-sign-in-with-google) · [HU-07 First-login data](#-hu-07-farmer-data-capture-on-first-sign-in) · [HU-08 Authenticated batches](#-hu-08-batch-registration-with-farmer-session) · [Technical tasks](#-technical-tasks-not-user-stories)
 
 ---
 
@@ -176,7 +176,7 @@
   - **When** they click "Sign out" in the navigation,
   - **Then** the browser token is removed and they return to the public page.
 
-[⬆ Back to top](#-backlog-autentication-with-google--agrochain-rural)
+[⬆ Back to top](#-backlog-autenticación-con-google--agrochain-rural)
 
 ---
 
@@ -205,7 +205,7 @@
   - **When** they sign in with Google again,
   - **Then** no data is requested again.
 
-[⬆ Back to top](#-backlog-autentication-with-google--agrochain-rural)
+[⬆ Back to top](#-backlog-autenticación-con-google--agrochain-rural)
 
 ---
 
@@ -234,7 +234,7 @@
   - **When** they view the public page and run the on-chain integrity check,
   - **Then** it still works without credentials and the **8-field canonical hash remains intact** (`usuario_id` stays out of the hash).
 
-[⬆ Back to top](#-backlog-autentication-with-google--agrochain-rural)
+[⬆ Back to top](#-backlog-autenticación-con-google--agrochain-rural)
 
 ---
 
@@ -273,7 +273,7 @@
 
 ## 🇧🇷 Português
 
-📑 **Conteúdo:** [HU-06 Entrada com Google](#-hu-06-entrada-do-produtor-com-google) · [HU-07 Dados do primeiro acesso](#-hu-07-registro-de-dados-do-produtor-no-primeiro-acesso) · [HU-08 Lotes autenticados](#-hu-08-registro-de-lotes-com-sessão-de-produtor) · [Tarefas técnicas](#-tarefas-técnicas)
+📑 **Conteúdo:** [HU-06 Entrada com Google](#-hu-06-entrada-do-produtor-com-google) · [HU-07 Dados do primeiro acesso](#-hu-07-registro-de-dados-do-produtor-no-primeiro-acesso) · [HU-08 Lotes autenticados](#-hu-08-registro-de-lotes-com-sessão-de-produtor) · [Tarefas técnicas](#-tarefas-técnicas-não-são-hu)
 
 ---
 
@@ -306,7 +306,7 @@
   - **Quando** clica em "Sair" na navegação,
   - **Então** o token é removido do navegador e ele volta à página pública.
 
-[⬆ Voltar ao topo](#-backlog-autenticação-com-google--agrochain-rural)
+[⬆ Voltar ao topo](#-backlog-autenticación-con-google--agrochain-rural)
 
 ---
 
@@ -335,7 +335,7 @@
   - **Quando** entra novamente com o Google,
   - **Então** nenhum dado é solicitado de novo.
 
-[⬆ Voltar ao topo](#-backlog-autenticação-com-google--agrochain-rural)
+[⬆ Voltar ao topo](#-backlog-autenticación-con-google--agrochain-rural)
 
 ---
 
@@ -364,7 +364,7 @@
   - **Quando** consulta a ficha pública e verifica a integridade on-chain,
   - **Então** continua funcionando sem credenciais e o **hash canônico de 8 campos permanece intacto** (o `usuario_id` fica fora do hash).
 
-[⬆ Voltar ao topo](#-backlog-autenticação-com-google--agrochain-rural)
+[⬆ Voltar ao topo](#-backlog-autenticación-con-google--agrochain-rural)
 
 ---
 
