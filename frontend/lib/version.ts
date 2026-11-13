@@ -11,8 +11,8 @@ export const CICLO = "Version-0.06";
 export const FECHA_LANZAMIENTO = "2026-11-11";
 
 export const ENLACES = {
-  app: "https://frontend-2mx1.vercel.app",
-  api: "https://agrotrace-backend-z3q1.onrender.com",
+  app: "https://agrochain-frontend-kappa.vercel.app",
+  api: "https://agrochain-backend-f89w.onrender.com",
   repositorio: "https://github.com/alucart2005/AgroChainRural",
   video: "https://www.youtube.com/watch?v=stVQCivrmCg",
   // Explorador de NEAR Testnet: el ancla se consulta por el ESTADO del

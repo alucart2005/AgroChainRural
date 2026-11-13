@@ -9,7 +9,7 @@ from app.db import Base, asegurar_columnas_sqlite, engine
 from app.models import Evento, Lote, Usuario  # noqa: F401 — registra las tablas
 
 ORIGENES_PUBLICOS = (
-    "https://frontend-2mx1.vercel.app",  # producción (Vercel)
+    "https://agrochain-frontend-kappa.vercel.app",  # producción (Vercel)
     "http://localhost:3000",  # desarrollo del frontend
 )
 
