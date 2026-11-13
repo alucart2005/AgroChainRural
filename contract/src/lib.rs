@@ -15,14 +15,14 @@ use near_sdk::store::LookupMap;
 const LEN_HASH: usize = 64;
 
 #[near(contract_state)]
-pub struct AgroTraceKv {
+pub struct AgroChainKv {
     /// codigo_de_lote → hash SHA-256 en hex.
     lotes: LookupMap<String, String>,
 }
 
 // `LookupMap` no implementa `Default` (necesita un prefijo de almacenamiento
 // propio), así que se escribe a mano.
-impl Default for AgroTraceKv {
+impl Default for AgroChainKv {
     fn default() -> Self {
         Self {
             lotes: LookupMap::new(&b"lotes"[..]),
@@ -31,7 +31,7 @@ impl Default for AgroTraceKv {
 }
 
 #[near]
-impl AgroTraceKv {
+impl AgroChainKv {
     /// Ancla el hash de un lote.
     ///
     /// Es **idempotente**:
@@ -77,7 +77,7 @@ mod tests {
     #[test]
     fn guarda_y_devuelve_el_hash() {
         setup_free();
-        let mut contrato = AgroTraceKv::default();
+        let mut contrato = AgroChainKv::default();
         contrato.set(CODIGO.into(), HASH_A.into());
         assert_eq!(contrato.get(CODIGO.into()), Some(HASH_A.to_string()));
     }
@@ -85,14 +85,14 @@ mod tests {
     #[test]
     fn codigo_desconocido_devuelve_none() {
         setup_free();
-        let contrato = AgroTraceKv::default();
+        let contrato = AgroChainKv::default();
         assert_eq!(contrato.get("NO-EXISTE".into()), None);
     }
 
     #[test]
     fn es_idempotente_con_el_mismo_hash() {
         setup_free();
-        let mut contrato = AgroTraceKv::default();
+        let mut contrato = AgroChainKv::default();
         contrato.set(CODIGO.into(), HASH_A.into());
         // Un reintento debe ser un no-op, no un error.
         contrato.set(CODIGO.into(), HASH_A.into());
@@ -103,7 +103,7 @@ mod tests {
     #[should_panic(expected = "hash debe tener 64 caracteres hex")]
     fn rechaza_hash_de_longitud_incorrecta() {
         setup_free();
-        let mut contrato = AgroTraceKv::default();
+        let mut contrato = AgroChainKv::default();
         contrato.set(CODIGO.into(), "abc".into());
     }
 
@@ -111,7 +111,7 @@ mod tests {
     #[should_panic(expected = "codigo vacio")]
     fn rechaza_codigo_vacio() {
         setup_free();
-        let mut contrato = AgroTraceKv::default();
+        let mut contrato = AgroChainKv::default();
         contrato.set(String::new(), HASH_A.into());
     }
 
@@ -119,7 +119,7 @@ mod tests {
     #[should_panic(expected = "el lote ya existe con un hash distinto")]
     fn rechaza_hash_distinto_para_el_mismo_codigo() {
         setup_free();
-        let mut contrato = AgroTraceKv::default();
+        let mut contrato = AgroChainKv::default();
         contrato.set(CODIGO.into(), HASH_A.into());
         contrato.set(CODIGO.into(), HASH_B.into());
     }
@@ -127,7 +127,7 @@ mod tests {
     #[test]
     fn aislamiento_entre_prefijos_de_almacenamiento() {
         setup_free();
-        let mut contrato = AgroTraceKv::default();
+        let mut contrato = AgroChainKv::default();
         contrato.set("HUE-2027-001".into(), HASH_A.into());
         contrato.set("HUE-2027-002".into(), HASH_B.into());
         assert_eq!(contrato.get("HUE-2027-001".into()), Some(HASH_A.to_string()));

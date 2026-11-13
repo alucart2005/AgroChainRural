@@ -46,14 +46,14 @@ rustup target add wasm32-unknown-unknown
 ```bash
 cd contract
 cargo test --release                                  # tests unitarios (sin red)
-cargo build --release --target wasm32-unknown-unknown # → target/.../agrotrace_kv.wasm
+cargo build --release --target wasm32-unknown-unknown # → target/.../agrochain_kv.wasm
 ```
 
 Los tests usan `near_sdk::test_utils::test_env::setup_free()` (feature
 `unit-testing` en `[dev-dependencies]`); no abren red ni necesitan sandbox de
 Docker.
 
-El wasm compilado se versiona en **`res/agrotrace_kv.wasm`** — es el artefacto
+El wasm compilado se versiona en **`res/agrochain_kv.wasm`** — es el artefacto
 que se despliega, para que el deploy no dependa de la toolchain de quien
 clona.
 
@@ -78,7 +78,7 @@ contract/
 ├── Cargo.lock          # versionado (dependencias exactas)
 ├── src/lib.rs          # el contrato + 7 tests unitarios
 └── res/
-    └── agrotrace_kv.wasm   # artefacto desplegable, versionado
+    └── agrochain_kv.wasm   # artefacto desplegable, versionado
 ```
 
 `target/` está en `.gitignore`.
