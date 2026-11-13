@@ -1,4 +1,4 @@
-"""Despliega `contract/res/agrotrace_kv.wasm` en la cuenta de NEAR configurada.
+"""Despliega `contract/res/agrochain_kv.wasm` en la cuenta de NEAR configurada.
 
     python -m scripts.desplegar_contrato
 
@@ -20,7 +20,7 @@ WASM = (
     pathlib.Path(__file__).resolve().parent.parent.parent
     / "contract"
     / "res"
-    / "agrotrace_kv.wasm"
+    / "agrochain_kv.wasm"
 )
 CODIGO_PRUEBA = "HUE-1999-000"
 

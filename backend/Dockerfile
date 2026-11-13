@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-# Backend AgroTrace — se despliega en Render (Web Service con Docker).
+# Backend AgroChain — se despliega en Render (Web Service con Docker).
 FROM python:3.11-slim
 
 ENV PYTHONUNBUFFERED=1 \

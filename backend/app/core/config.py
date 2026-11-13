@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     near_rpc_url: str = "https://test.rpc.fastnear.com"
     near_account_id: str = ""
     near_private_key: str = ""
-    # Cuenta donde está desplegado `contract/res/agrotrace_kv.wasm`.
+    # Cuenta donde está desplegado `contract/res/agrochain_kv.wasm`.
     near_contract_id: str = ""
     frontend_url: str = "http://localhost:3000"
 

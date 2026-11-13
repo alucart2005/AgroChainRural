@@ -24,7 +24,7 @@ async def lifespan(_: FastAPI):
     yield
 
 
-app = FastAPI(title="AgroTrace Rural API", lifespan=lifespan)
+app = FastAPI(title="AgroChain Rural API", lifespan=lifespan)
 
 allow_origins = [o for o in dict.fromkeys([settings.frontend_url, *ORIGENES_PUBLICOS]) if o]
 

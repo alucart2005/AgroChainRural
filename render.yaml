@@ -1,4 +1,4 @@
-# Blueprint de Render para el backend de AgroTrace Rural.
+# Blueprint de Render para el backend de AgroChain Rural.
 #
 # En Render: New → Blueprint → elegir este repositorio; el servicio se crea con
 # este archivo. Los valores con `sync: false` se completan en el panel
@@ -21,7 +21,7 @@ services:
     region: oregon
     healthCheckPath: /api/health
     envVars:
-      # Base de datos: proyecto Neon "agrotrace" (aws-us-west-2).
+      # Base de datos: proyecto Neon NEON (aws-us-west-2).
       # Pegar el connection string DEL POOLER (el que termina en -pooler):
       # el servicio web hace muchas conexiones cortas y el endpoint directo
       # agotaría las conexiones simultáneas del plan gratuito.
@@ -60,7 +60,7 @@ services:
       # Clave ed25519 de esa cuenta (incluye el prefijo `ed25519:`).
       - key: NEAR_PRIVATE_KEY
         sync: false
-      # Cuenta donde está desplegado contract/res/agrotrace_kv.wasm
+      # Cuenta donde está desplegado contract/res/agrochain_kv.wasm
       # (python -m scripts.desplegar_contrato).
       - key: NEAR_CONTRACT_ID
         sync: false

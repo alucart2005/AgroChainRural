@@ -1,7 +1,7 @@
 """Endpoints de autenticación con Google (HU-06) y perfil (HU-07).
 
 - ``POST /api/auth/google``: valida el ID token de Google, crea (o recupera)
-  al productor por su ``sub`` y devuelve el JWT de sesión de AgroTrace.
+  al productor por su ``sub`` y devuelve el JWT de sesión de AgroChain.
 - ``GET  /api/auth/me``: perfil del productor autenticado.
 - ``PUT  /api/auth/me``: completa los 5 datos del primer ingreso.
 """
@@ -25,7 +25,7 @@ router = APIRouter()
 
 @router.post("/api/auth/google", response_model=SesionOut)
 def login_con_google(datos: GoogleLoginIn, db: Session = Depends(get_db)):
-    """HU-06: intercambia el ID token de Google por la sesión de AgroTrace."""
+    """HU-06: intercambia el ID token de Google por la sesión de AgroChain."""
     try:
         info = auth.verificar_id_token(datos.id_token)
     except AuthError as exc:

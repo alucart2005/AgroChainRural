@@ -8,7 +8,7 @@ import os
 os.environ.setdefault("DATABASE_URL", "sqlite://")
 # Secreto de los JWT de sesión: sin él el login respondería 503 en las pruebas.
 # ≥32 bytes: PyJWT advierte si la clave HS256 es más corta (RFC 7518).
-os.environ.setdefault("AUTH_SECRET", "agrotrace-secreto-de-prueba-0123456789abcdef")
+os.environ.setdefault("AUTH_SECRET", "agrochain-secreto-de-prueba-0123456789abcdef")
 
 import base64  # noqa: E402
 
