@@ -11,7 +11,7 @@ import SelectorIdioma from "@/components/SelectorIdioma";
 
 const ABOUTS = { es, en, pt };
 
-/** Acerca de AgroTrace Rural, en español, inglés y portugués. */
+/** Acerca de AgroChain Rural, en español, inglés y portugués. */
 export default function AcercaDePage() {
   const [idioma, setIdioma] = useState<"es" | "en" | "pt">("es");
   const contenido: ContenidoAbout = ABOUTS[idioma];
@@ -136,7 +136,7 @@ export default function AcercaDePage() {
           ))}
         </ul>
         <p className="mt-4 border-t border-emerald-900/10 pt-3 text-sm text-emerald-900/60">
-          AgroTrace Rural · v{VERSION}
+          AgroChain Rural · v{VERSION}
         </p>
       </section>
     </div>

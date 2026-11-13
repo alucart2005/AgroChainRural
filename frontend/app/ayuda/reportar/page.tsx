@@ -53,7 +53,7 @@ export default function ReportarPage() {
             Escríbenos y lo revisamos. Respondemos en horario de finca.
           </p>
           <a
-            href={`mailto:${ENLACES.correo}?subject=Reporte%20AgroTrace`}
+            href={`mailto:${ENLACES.correo}?subject=Reporte%20AgroChain`}
             className="btn-primary mt-4"
           >
             Escribir un correo

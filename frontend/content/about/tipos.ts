@@ -1,4 +1,4 @@
-/** Estructura de la página «Acerca de AgroTrace». */
+/** Estructura de la página «Acerca de AgroChain». */
 
 export interface BloqueAbout {
   id: string;

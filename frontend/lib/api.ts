@@ -159,7 +159,7 @@ export async function verificarLote(codigo: string): Promise<Verificacion | null
 // --- Autenticación con Google (HU-06, HU-07) ---------------------------------
 
 /**
- * Intercambia el ID token de Google por la sesión de AgroTrace.
+ * Intercambia el ID token de Google por la sesión de AgroChain.
  *
  * NO tiene fallback demo: sin backend el error se muestra y la pantalla de
  * login ofrece entrar en modo demo de forma explícita (nunca de forma silenciosa).

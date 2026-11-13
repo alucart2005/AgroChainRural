@@ -18,7 +18,7 @@ const secciones = [
   },
   {
     href: "/ayuda/acerca-de",
-    titulo: "Acerca de AgroTrace Rural",
+    titulo: "Acerca de AgroChain Rural",
     texto:
       "El proyecto, el piloto en Finca Guarumo, cómo se sella un lote y la infraestructura que lo sostiene.",
     etiqueta: "Es · En · Pt",
@@ -43,7 +43,7 @@ export default function AyudaPage() {
           Centro de ayuda
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-emerald-900/70">
-          Todo lo necesario para usar AgroTrace con soltura: la guía completa,
+          Todo lo necesario para usar AgroChain con soltura: la guía completa,
           el historial de cambios, la historia del proyecto y el contacto para
           reportar cualquier cosa.
         </p>

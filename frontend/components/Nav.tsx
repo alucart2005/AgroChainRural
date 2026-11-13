@@ -107,7 +107,7 @@ export default function Nav() {
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
         <Link
           href="/"
-          aria-label="AgroTrace Rural — ir al inicio"
+          aria-label="AgroChain Rural — ir al inicio"
           className="min-w-0 shrink-0"
         >
           <Logo />

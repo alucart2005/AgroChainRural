@@ -1,4 +1,4 @@
-/** Logo AgroTrace Rural: hoja en dos tonos de verde + wordmark. La marca se
+/** Logo AgroChain Rural: hoja en dos tonos de verde + wordmark. La marca se
  * apoya en la tipografía display (Fraunces) para el nombre y la grotesca
  * (Archivo) para el descriptor. */
 
@@ -38,7 +38,7 @@ export default function Logo({
         <span
           className={`block font-display font-semibold tracking-tight text-emerald-950 ${titulo}`}
         >
-          AgroTrace
+          AgroChain
         </span>
         <span
           className={`block font-sans font-medium uppercase tracking-[0.18em] text-emerald-800/80 ${descriptor}`}

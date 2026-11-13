@@ -7,7 +7,7 @@ import { VERSION } from "@/lib/version";
 const enlaces = [
   { href: "/ayuda/manual", label: "Manual de usuario", detalle: "Guía paso a paso" },
   { href: "/ayuda/versiones", label: "Novedades y versiones", detalle: "Qué cambió y cuándo" },
-  { href: "/ayuda/acerca-de", label: "Acerca de AgroTrace", detalle: "El proyecto y el piloto" },
+  { href: "/ayuda/acerca-de", label: "Acerca de AgroChain", detalle: "El proyecto y el piloto" },
   { href: "/ayuda/reportar", label: "Reportar un problema", detalle: "Correo e incidencias" },
 ];
 

@@ -8,9 +8,9 @@ export const manual: Manual = {
   secciones: [
     {
       id: "que-es",
-      titulo: "What AgroTrace is and how it works",
+      titulo: "What AgroChain is and how it works",
       parrafos: [
-        "AgroTrace Rural opens a direct channel between the farm and the buyer. Every registered harvest gets a unique code (for example HUE-2026-008), its own public page and a QR label to stick on the crate. Buyers scan the code and see the origin, the date, the photos and the timeline of the batch.",
+        "AgroChain Rural opens a direct channel between the farm and the buyer. Every registered harvest gets a unique code (for example HUE-2026-008), its own public page and a QR label to stick on the crate. Buyers scan the code and see the origin, the date, the photos and the timeline of the batch.",
         "The principle is simple: heavy files never go on the blockchain. The photos live in external storage and only the SHA-256 fingerprint travels to NEAR, as the value of an entry in the contract.",
       ],
       tabla: {
@@ -139,7 +139,7 @@ export const manual: Manual = {
       id: "ayuda",
       titulo: "Help and limits",
       lista: [
-        "AgroTrace proves that the record was not altered; it does not certify product quality nor replace the official sanitary register.",
+        "AgroChain proves that the record was not altered; it does not certify product quality nor replace the official sanitary register.",
         "Anchoring happens on NEAR Testnet, the test network.",
         "Photos live in external storage, not on the blockchain.",
       ],

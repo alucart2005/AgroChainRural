@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 const enlaces = [
   { href: "/ayuda/manual", label: "Manual de usuario" },
   { href: "/ayuda/versiones", label: "Novedades y versiones" },
-  { href: "/ayuda/acerca-de", label: "Acerca de AgroTrace" },
+  { href: "/ayuda/acerca-de", label: "Acerca de AgroChain" },
   { href: "/ayuda/reportar", label: "Reportar un problema" },
 ];
 

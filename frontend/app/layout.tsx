@@ -22,8 +22,8 @@ const archivo = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "AgroTrace Rural — Trazabilidad verificable",
-    template: "%s | AgroTrace Rural",
+    default: "AgroChain Rural — Trazabilidad verificable",
+    template: "%s | AgroChain Rural",
   },
   description:
     "Pasaporte digital para productos del campo: QR + SHA-256 anclados en NEAR Testnet.",

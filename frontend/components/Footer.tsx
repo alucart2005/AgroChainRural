@@ -32,7 +32,7 @@ const enlaces = [
     items: [
       { label: "Manual de usuario", href: "/ayuda/manual" },
       { label: "Novedades y versiones", href: "/ayuda/versiones" },
-      { label: "Acerca de AgroTrace", href: "/ayuda/acerca-de" },
+      { label: "Acerca de AgroChain", href: "/ayuda/acerca-de" },
       { label: "Reportar un problema", href: "/ayuda/reportar" },
     ],
   },
@@ -54,7 +54,7 @@ export default function Footer() {
             </span>
           </p>
           <p className="mt-3 text-xs text-emerald-900/50">
-            AgroTrace Rural ·{" "}
+            AgroChain Rural ·{" "}
             <Link
               href="/ayuda/versiones"
               className="font-semibold text-emerald-700 underline underline-offset-4"

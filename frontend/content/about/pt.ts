@@ -1,16 +1,16 @@
 import type { ContenidoAbout } from "./tipos";
 
-/** Sobre o AgroTrace — Português. */
+/** Sobre o AgroChain — Português. */
 export const about: ContenidoAbout = {
-  titulo: "Sobre o AgroTrace Rural",
+  titulo: "Sobre o AgroChain Rural",
   bajada:
     "Um canal direto entre a fazenda e o comprador, com rastreabilidade verificável em cada bandeja.",
   bloques: [
     {
       id: "proyecto",
-      titulo: "O que é o AgroTrace Rural",
+      titulo: "O que é o AgroChain Rural",
       parrafos: [
-        "O AgroTrace Rural é um projeto de rastreabilidade agroalimentar que quer criar um canal fazenda → comprador: reduzir a dependência de intermediários e permitir que o consumidor verifique a origem do que compra por meio de um código QR.",
+        "O AgroChain Rural é um projeto de rastreabilidade agroalimentar que quer criar um canal fazenda → comprador: reduzir a dependência de intermediários e permitir que o consumidor verifique a origem do que compra por meio de um código QR.",
         "O coração do projeto é uma plataforma de registros digitais com impressões criptográficas SHA-256 e ancoragem seletiva de eventos na rede NEAR. Documentos, fotografias e vídeos não ficam na blockchain: ficam em armazenamento digital e só se registra a impressão criptográfica, a data, o lote e a referência, de modo que uma alteração posterior do arquivo possa ser detectada.",
       ],
     },

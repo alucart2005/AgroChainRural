@@ -1,16 +1,16 @@
 import type { ContenidoAbout } from "./tipos";
 
-/** About AgroTrace — English. */
+/** About AgroChain — English. */
 export const about: ContenidoAbout = {
-  titulo: "About AgroTrace Rural",
+  titulo: "About AgroChain Rural",
   bajada:
     "A direct channel between the farm and the buyer, with verifiable traceability on every crate.",
   bloques: [
     {
       id: "proyecto",
-      titulo: "What AgroTrace Rural is",
+      titulo: "What AgroChain Rural is",
       parrafos: [
-        "AgroTrace Rural is an agrifood traceability project aiming to build a farm → buyer channel: to reduce the dependence on middlemen and let consumers verify the origin of what they buy through a QR code.",
+        "AgroChain Rural is an agrifood traceability project aiming to build a farm → buyer channel: to reduce the dependence on middlemen and let consumers verify the origin of what they buy through a QR code.",
         "At the heart of the project is a platform of digital records with SHA-256 cryptographic fingerprints and selective anchoring of events on the NEAR network. Documents, photographs and videos are never stored on the blockchain: they live in digital storage and only their cryptographic fingerprint, date, batch and reference are recorded, so that any later change to the file can be detected.",
       ],
     },

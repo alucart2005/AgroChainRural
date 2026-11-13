@@ -49,7 +49,7 @@ export const ENTRADAS: (GrupoMenu | (EnlaceMenu & { id: string }))[] = [
     id: "inicio",
     href: "/",
     label: "Inicio",
-    descripcion: "Portada de AgroTrace Rural",
+    descripcion: "Portada de AgroChain Rural",
     icono: "inicio",
   },
   {
@@ -159,7 +159,7 @@ export const ENTRADAS: (GrupoMenu | (EnlaceMenu & { id: string }))[] = [
       },
       {
         href: "/ayuda/acerca-de",
-        label: "Acerca de AgroTrace",
+        label: "Acerca de AgroChain",
         descripcion: "El proyecto, el piloto y la infraestructura",
         icono: "info",
       },

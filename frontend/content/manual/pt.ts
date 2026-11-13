@@ -8,9 +8,9 @@ export const manual: Manual = {
   secciones: [
     {
       id: "que-es",
-      titulo: "O que é o AgroTrace e como funciona",
+      titulo: "O que é o AgroChain e como funciona",
       parrafos: [
-        "O AgroTrace Rural abre um canal direto entre a fazenda e o comprador. Cada colheita registrada recebe um código único (por exemplo HUE-2026-008), sua própria página pública e uma etiqueta QR para colar na bandeja. Quem compra escaneia o código e vê a origem, a data, as fotos e a linha do tempo do lote.",
+        "O AgroChain Rural abre um canal direto entre a fazenda e o comprador. Cada colheita registrada recebe um código único (por exemplo HUE-2026-008), sua própria página pública e uma etiqueta QR para colar na bandeja. Quem compra escaneia o código e vê a origem, a data, as fotos e a linha do tempo do lote.",
         "O princípio é simples: arquivos pesados nunca vão para a blockchain. As fotos ficam em armazenamento externo e para o NEAR vai apenas a impressão digital SHA-256, como o valor de uma entrada no contrato.",
       ],
       tabla: {
@@ -139,7 +139,7 @@ export const manual: Manual = {
       id: "ayuda",
       titulo: "Ajuda e limites",
       lista: [
-        "O AgroTrace prova que o registro não foi alterado; não certifica a qualidade do produto nem substitui o registro sanitário oficial.",
+        "O AgroChain prova que o registro não foi alterado; não certifica a qualidade do produto nem substitui o registro sanitário oficial.",
         "A ancoragem acontece na NEAR Testnet, a rede de testes.",
         "As fotos ficam em armazenamento externo, não na blockchain.",
       ],
