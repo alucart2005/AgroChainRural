@@ -111,7 +111,7 @@
 ### 📌 Tareas técnicas (no son HU)
 
 **Google Cloud Console (manual):**
-- [x] Pantalla de consentimiento OAuth (modo testing) + Client ID "Web application" con orígenes autorizados `http://localhost:3000` y `https://frontend-2mx1.vercel.app`. *(origen de Vercel verificado en producción; `http://localhost:3000` queda por confirmar al probar en local)*
+- [x] Pantalla de consentimiento OAuth (modo testing) + Client ID "Web application" con orígenes autorizados `http://localhost:3000` y `https://agrochain-frontend-kappa.vercel.app`. *(origen de Vercel verificado en producción; `http://localhost:3000` queda por confirmar al probar en local)*
 
 **Backend (`backend/`):**
 - [x] Modelo `Usuario` (`google_sub` único, email, nombre, foto_url, cédula, teléfono, finca, municipio) + FK `usuario_id` en `lotes`.
@@ -241,7 +241,7 @@
 ### 📌 Technical tasks (not user stories)
 
 **Google Cloud Console (manual):**
-- [x] OAuth consent screen (testing mode) + "Web application" Client ID with authorized origins `http://localhost:3000` and `https://frontend-2mx1.vercel.app`. *(Vercel origin verified in production; `http://localhost:3000` still pending confirmation in local testing)*
+- [x] OAuth consent screen (testing mode) + "Web application" Client ID with authorized origins `http://localhost:3000` and `https://agrochain-frontend-kappa.vercel.app`. *(Vercel origin verified in production; `http://localhost:3000` still pending confirmation in local testing)*
 
 **Backend (`backend/`):**
 - [x] `Usuario` model (`google_sub` unique, email, name, photo, national ID, phone, farm, municipality) + `usuario_id` FK on `lotes`.
@@ -371,7 +371,7 @@
 ### 📌 Tarefas técnicas (não são HU)
 
 **Google Cloud Console (manual):**
-- [x] Tela de consentimento OAuth (modo testing) + Client ID "Web application" com origens autorizadas `http://localhost:3000` e `https://frontend-2mx1.vercel.app`. *(origem do Vercel verificada em produção; `http://localhost:3000` pendente de confirmação no teste local)*
+- [x] Tela de consentimento OAuth (modo testing) + Client ID "Web application" com origens autorizadas `http://localhost:3000` e `https://agrochain-frontend-kappa.vercel.app`. *(origem do Vercel verificada em produção; `http://localhost:3000` pendente de confirmação no teste local)*
 
 **Backend (`backend/`):**
 - [x] Modelo `Usuario` (`google_sub` único, email, nome, foto_url, cédula, telefone, fazenda, município) + FK `usuario_id` em `lotes`.

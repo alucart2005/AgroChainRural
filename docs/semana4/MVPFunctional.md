@@ -120,6 +120,6 @@ La validación se documentará en `docs/` con un registro de consentimiento simp
 
 🌱 *Del campo al cliente, con trazabilidad verificable.*
 
-**AgroChain Rural** · [https://frontend-2mx1.vercel.app](https://frontend-2mx1.vercel.app)
+**AgroChain Rural** · [https://agrochain-frontend-kappa.vercel.app](https://agrochain-frontend-kappa.vercel.app)
 
 </div>

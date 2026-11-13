@@ -35,8 +35,8 @@ Contrato (`contract/`, requiere `rustup` con `wasm32-unknown-unknown`):
 
 ## Base de datos
 
-SQLAlchemy 2 + Alembic. **Producción: Neon Postgres** (proyecto NEON,
-región `aws-us-west-2`). **Desarrollo local: SQLite** (`agrotrace_local.db`,
+SQLAlchemy 2 + Alembic. **Producción: Neon Postgres** (proyecto AgroChainRural,
+región `aws-us-east-2`). **Desarrollo local: SQLite** (`agrotrace_local.db`,
 ignorado por git) cuando `DATABASE_URL` está vacía — ver `app/db.py`.
 
 La URL de Neon vive en `backend/.env.neon` (ignorado por git), **no** en
@@ -206,7 +206,7 @@ no lleva secreto; vacío → `/login` muestra el aviso de no configurado y ofrec
 el modo demo).
 
 **`NEXT_PUBLIC_API_URL` va SIN sufijo `/api`** (`http://localhost:8000`,
-`https://agrotrace-backend.onrender.com`). `lib/api.ts` concatena rutas que ya
+`https://agrochain-backend-f89w.onrender.com`). `lib/api.ts` concatena rutas que ya
 empiezan por `/api/`; un sufijo produce `/api/api/lotes` → 404 y el frontend
 cae en modo demo sin avisar.
 
@@ -215,25 +215,37 @@ navegador: `NEXT_PUBLIC_API_KEY` es **pública**, no un secreto.
 
 ## Despliegue
 
-> **Este repositorio (`AgroChainRural`) todavía no tiene infraestructura
-> propia.** Los servicios de abajo siguen apuntando al repo original
-> `AgroTraceRural` (que conserva la versión con anclaje en Stellar) y **no se
-> tocan**: Render solo despliega desde `main` de ese repo, así que hacer push
-> aquí no dispara ningún deploy. Provisionar Neon/Render/Vercel nuevos para
-> este repositorio es un paso pendiente.
+> **Infraestructura propia de `AgroChainRural` (provisionada 2026-11-13).**
+> La infraestructura del repo original `AgroTraceRural` (Render
+> `agrotrace-backend-z3q1`, Vercel `frontend-2mx1`, Neon `agrotrace`, R2
+> `agrotrace-evidence`) es **independiente y no se toca**: aquí hay copias
+> nuevas y vacías, sin migración de datos.
 
+- **Base de datos → Neon**, proyecto `AgroChainRural`
+  (`broad-butterfly-52434898`, `aws-us-east-2`), rama `br-odd-sun-bem5k9ti`,
+  base `neondb`, PostgreSQL 18. En Render va la URI **del pooler** (termina en
+  `-pooler`); para migraciones a mano, la URI **directa**. Esquema en `0003_near`
+  (4 tablas; `lotes` con 18 columnas, incluidas `near_tx_hash` y `near_block`).
 - **Backend → Render** (Web Service + Docker, `render.yaml`). NO Vercel: las
   funciones de Vercel se cortan a los 10 s y su filesystem es efímero.
-  Servicio actual `agrotrace-backend-z3q1` (`srv-db9d6r67bikc73fjqe80`), región
-  Oregon, plan free → `https://agrotrace-backend-z3q1.onrender.com`.
-  Render despliega desde `main`; el CMD del Dockerfile migra antes de servir.
-  `backend/.env.rendered` (gitignored) guarda el service id y el `API_KEY`
-  generado en el panel.
-- **Frontend → Vercel**, proyecto `frontend-2mx1`, Root Directory `frontend`.
+  Servicio `agrochain-backend` (`srv-dbr7r45ckfvc73dfps40`), región Oregon,
+  plan free, `healthCheckPath=/api/health`
+  → `https://agrochain-backend-f89w.onrender.com`.
+  Render despliega desde `main`; el CMD del Dockerfile migra antes de servir
+  (log esperado al arrancar: `Context impl PostgresqlImpl`).
+  11 variables de entorno en el panel (API REST:
+  `PUT /v1/services/{id}/env-vars` **reemplaza la lista completa**).
+- **Frontend → Vercel**, proyecto `agrochain-frontend`
+  (`prj_vdHS8cb0seFR8qpmvtQUwxQK8uKJ`), Root Directory `frontend`, enlazado a
+  este repo (`main`) → `https://agrochain-frontend-kappa.vercel.app`.
   Variables de producción: `NEXT_PUBLIC_API_URL` (la de Render, **sin** sufijo
-  `/api`) y `NEXT_PUBLIC_API_KEY`. Cambiarlas obliga a **redeploy**: Next
-  las inlina en el bundle durante el build. **Este repositorio no cambia
-  `NEXT_PUBLIC_*`: el frontend no habla con la cadena**, solo con el backend.
+  `/api`), `NEXT_PUBLIC_API_KEY`, `NEXT_PUBLIC_SITE_URL` y
+  `NEXT_PUBLIC_GOOGLE_CLIENT_ID`. Cambiarlas obliga a **redeploy**: Next
+  las inlina en el bundle durante el build. **Ojo**: `agrochain-frontend.vercel.app`
+  (sin sufijo) es otro proyecto ajeno, no usarlo.
+- **Evidencia → Cloudflare R2**, bucket `agrochain-evidence` (pendiente de
+  crear con un token con permisos R2). La producción vieja usa
+  `agrotrace-evidence` y **no se toca**.
 - El frontend llama al backend **directamente** con `NEXT_PUBLIC_API_URL` y el
   backend permite el origen con `FRONTEND_URL`. **No hay `vercel.json`**: Vercel
   no interpola variables de entorno dentro de ese fichero, así que un rewrite

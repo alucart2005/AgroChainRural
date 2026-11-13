@@ -6,13 +6,13 @@
 [![AgTech](https://img.shields.io/badge/Industry-AgTech-green)](#)
 [![Trazabilidad](https://img.shields.io/badge/Traceability-QR%20%2B%20SHA--256-orange)](#)
 [![Colombia](https://img.shields.io/badge/Made%20in-Colombia-yellow)](#)
-[![Vercel](https://img.shields.io/badge/Deployed-Vercel-black)](https://frontend-2mx1.vercel.app)
-[![Backend](https://img.shields.io/badge/Backend-FastAPI%20on%20Render-0d9488)](https://agrotrace-backend-z3q1.onrender.com)
+[![Vercel](https://img.shields.io/badge/Deployed-Vercel-black)](https://agrochain-frontend-kappa.vercel.app)
+[![Backend](https://img.shields.io/badge/Backend-FastAPI%20on%20Render-0d9488)](https://agrochain-backend-f89w.onrender.com)
 [![Tests](https://img.shields.io/badge/Backend-84%20tests%20pytest-brightgreen)](#-cómo-ejecutar-el-proyecto)
 
 > 🌐 **¡La app ya está en línea! / The app is live! / O app já está no ar!**
-> 👉 **Frontend:** **[https://frontend-2mx1.vercel.app](https://frontend-2mx1.vercel.app)**
-> ⚙️ **API (backend):** **[https://agrotrace-backend-z3q1.onrender.com](https://agrotrace-backend-z3q1.onrender.com)**
+> 👉 **Frontend:** **[https://agrochain-frontend-kappa.vercel.app](https://agrochain-frontend-kappa.vercel.app)**
+> ⚙️ **API (backend):** **[https://agrochain-backend-f89w.onrender.com](https://agrochain-backend-f89w.onrender.com)**
 > ⚙️ **Video Publico:** **[https://www.youtube.com/watch?v=stVQCivrmCg](https://www.youtube.com/watch?v=stVQCivrmCg)**
 > ⛓️ **Contrato KV (NEAR Testnet):** [`explorer.testnet.near.org/accounts/agrochainrural.testnet`](https://explorer.testnet.near.org/accounts/agrochainrural.testnet)
 >
@@ -340,7 +340,7 @@ La plataforma **no reemplaza** los registros oficiales: es una **capa tecnológi
 ### 🚀 Cómo ejecutar el proyecto
 
 > 🌐 **¡La aplicación está desplegada!** No necesitas instalar nada para usarla:
-> **Frontend:** [https://frontend-2mx1.vercel.app](https://frontend-2mx1.vercel.app) · **API:** [https://agrotrace-backend-z3q1.onrender.com](https://agrotrace-backend-z3q1.onrender.com)
+> **Frontend:** [https://agrochain-frontend-kappa.vercel.app](https://agrochain-frontend-kappa.vercel.app) · **API:** [https://agrochain-backend-f89w.onrender.com](https://agrochain-backend-f89w.onrender.com)
 
 #### 🧰 Stack tecnológico
 
@@ -739,7 +739,7 @@ The platform **does not replace** official records: it is a **complementary tech
 ### 🚀 How to run the project
 
 > 🌐 **The application is deployed!** You don't need to install anything to use it:
-> **Frontend:** [https://frontend-2mx1.vercel.app](https://frontend-2mx1.vercel.app) · **API:** [https://agrotrace-backend-z3q1.onrender.com](https://agrotrace-backend-z3q1.onrender.com)
+> **Frontend:** [https://agrochain-frontend-kappa.vercel.app](https://agrochain-frontend-kappa.vercel.app) · **API:** [https://agrochain-backend-f89w.onrender.com](https://agrochain-backend-f89w.onrender.com)
 
 #### 🧰 Tech stack
 
@@ -1138,7 +1138,7 @@ A plataforma **não substitui** os registros oficiais: é uma **camada tecnológ
 ### 🚀 Como executar o projeto
 
 > 🌐 **O aplicativo está implantado!** Você não precisa instalar nada para usá-lo:
-> **Frontend:** [https://frontend-2mx1.vercel.app](https://frontend-2mx1.vercel.app) · **API:** [https://agrotrace-backend-z3q1.onrender.com](https://agrotrace-backend-z3q1.onrender.com)
+> **Frontend:** [https://agrochain-frontend-kappa.vercel.app](https://agrochain-frontend-kappa.vercel.app) · **API:** [https://agrochain-backend-f89w.onrender.com](https://agrochain-backend-f89w.onrender.com)
 
 #### 🧰 Stack tecnológica
 
