@@ -559,9 +559,10 @@ function WizardLote() {
 
               <p className="rounded-xl bg-emerald-50 px-4 py-3 text-xs text-emerald-900/70">
                 Al guardar se calcula el SHA-256 de los 8 campos del lote (código,
-                fechas, producto, cantidad, unidad, finca, ubicación y
-                evidencias) y solo esa huella viaja a NEAR Testnet. Las fotos
-                quedan como evidencia y nunca se suben a la red pública.
+                fecha de cosecha, producto, cantidad, unidad, finca, ubicación y
+                evidencias) y solo esa huella viaja a NEAR Testnet. La fecha de
+                postura queda fuera de la huella; las fotos quedan como
+                evidencia y nunca se suben a la red pública.
               </p>
             </div>
           )}
