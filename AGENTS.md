@@ -243,9 +243,11 @@ navegador: `NEXT_PUBLIC_API_KEY` es **pública**, no un secreto.
   `NEXT_PUBLIC_GOOGLE_CLIENT_ID`. Cambiarlas obliga a **redeploy**: Next
   las inlina en el bundle durante el build. **Ojo**: `agrochain-frontend.vercel.app`
   (sin sufijo) es otro proyecto ajeno, no usarlo.
-- **Evidencia → Cloudflare R2**, bucket `agrochain-evidence` (pendiente de
-  crear con un token con permisos R2). La producción vieja usa
-  `agrotrace-evidence` y **no se toca**.
+- **Evidencia → Cloudflare R2**, bucket `agrochain-evidence` (creado
+  2026-11-13; dominio público `pub-235fbd13176a4f298067edff073a2b23.r2.dev`
+  habilitado). Credenciales S3 con scope a ese bucket, generadas en R2 →
+  Manage R2 API Tokens. La producción vieja usa `agrotrace-evidence` y **no se
+  toca**.
 - El frontend llama al backend **directamente** con `NEXT_PUBLIC_API_URL` y el
   backend permite el origen con `FRONTEND_URL`. **No hay `vercel.json`**: Vercel
   no interpola variables de entorno dentro de ese fichero, así que un rewrite
