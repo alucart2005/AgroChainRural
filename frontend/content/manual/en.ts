@@ -106,6 +106,7 @@ export const manual: Manual = {
       titulo: "Verifying integrity",
       lista: [
         "Batch verified: the recalculated fingerprint matches the one anchored on NEAR Testnet.",
+        "Pending anchor: the recalculated fingerprint matches the stored one, but the batch has no transaction on NEAR Testnet yet.",
         "Batch not verified: the fingerprint does not match the anchor.",
         "Verification unavailable: neither the backend nor the NEAR network could be reached.",
       ],

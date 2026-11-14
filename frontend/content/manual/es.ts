@@ -106,6 +106,7 @@ export const manual: Manual = {
       titulo: "Verificar la integridad",
       lista: [
         "Lote verificado: la huella recalculada coincide con la anclada en NEAR Testnet.",
+        "Pendiente de anclar: la huella recalculada coincide con la guardada, pero el lote aún no tiene transacción en NEAR Testnet.",
         "Lote no verificado: la huella no coincide con el ancla.",
         "Verificación no disponible: no se pudo consultar el backend o la red de NEAR.",
       ],

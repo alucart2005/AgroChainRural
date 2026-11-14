@@ -106,6 +106,7 @@ export const manual: Manual = {
       titulo: "Verificar a integridade",
       lista: [
         "Lote verificado: a impressão recalculada coincide com a ancorada no NEAR Testnet.",
+        "Pendente de ancoragem: a impressão recalculada coincide com a guardada, mas o lote ainda não tem transação no NEAR Testnet.",
         "Lote não verificado: a impressão não coincide com a âncora.",
         "Verificação indisponível: não foi possível consultar o backend ou a rede NEAR.",
       ],

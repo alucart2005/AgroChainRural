@@ -18,17 +18,47 @@ import {
   IconoUbicacion,
 } from "@/components/icons";
 
-/** Estado de la verificación on-chain, tal como lo devuelve /api/verify. */
-type EstadoVerificacion = "verificando" | "verificado" | "noverificado" | "nodisponible";
+/**
+ * Estado de la verificación on-chain, tal como lo devuelve /api/verify.
+ *
+ * - ``sinanclar``: no hay transacción en NEAR que contrastar (el backend lo
+ *   reporta con ``tx_hash`` nulo). No es una alteración: es un ancla pendiente.
+ */
+type EstadoVerificacion =
+  | "verificando"
+  | "verificado"
+  | "sinanclar"
+  | "noverificado"
+  | "nodisponible";
 
 function estadoDe(v: Verificacion | null | undefined): EstadoVerificacion {
   if (v === undefined) return "verificando";
   if (v === null) return "nodisponible";
-  return v.verificado ? "verificado" : "noverificado";
+  if (v.verificado) return "verificado";
+  // Sin transacción no hay ancla en NEAR. Solo se habla de «pendiente» si la
+  // huella recalculada sigue coincidiendo con la guardada; si difieren, hay un
+  // problema real de integridad y se reporta como no verificado.
+  if (!v.tx_hash) {
+    return v.hash_calculado === v.hash_registrado ? "sinanclar" : "noverificado";
+  }
+  // Con ancla pero falla de infraestructura (RPC caído, contrato sin
+  // responder): tampoco se afirma alteración, solo que no se pudo verificar.
+  if (v.error) return "nodisponible";
+  return "noverificado";
 }
 
 /** Banner superior: solo afirma lo que la verificación demostró. */
-function BannerVerificacion({ estado }: { estado: EstadoVerificacion }) {
+function BannerVerificacion({
+  estado,
+  detalle,
+  conAncla,
+}: {
+  estado: EstadoVerificacion;
+  /** ``Verificacion.error``: el motivo exacto que reportó el backend. */
+  detalle?: string | null;
+  /** ¿Existe transacción en NEAR que contrastar? */
+  conAncla?: boolean;
+}) {
   if (estado === "verificando") {
     return (
       <div className="flex items-center gap-3 rounded-2xl border border-emerald-900/10 bg-superficie px-4 py-3">
@@ -61,6 +91,26 @@ function BannerVerificacion({ estado }: { estado: EstadoVerificacion }) {
     );
   }
 
+  if (estado === "sinanclar") {
+    return (
+      <div className="flex items-center gap-4 rounded-card border border-amber-400/50 bg-amber-50 px-5 py-4">
+        <span className="sello bg-amber-500">
+          <IconoCheckCircle className="h-6 w-6" />
+        </span>
+        <div>
+          <p className="font-display text-[22px] font-semibold leading-tight tracking-tight text-amber-900">
+            Pendiente de anclar en NEAR
+          </p>
+          <p className="text-sm text-amber-900/80">
+            La huella recalculada coincide con la guardada, pero este lote
+            todavía no tiene transacción en NEAR Testnet: aún no hay ancla en
+            la red que contrastar.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (estado === "noverificado") {
     return (
       <div className="flex items-center gap-4 rounded-card border border-red-300/50 bg-red-50 px-5 py-4">
@@ -72,7 +122,9 @@ function BannerVerificacion({ estado }: { estado: EstadoVerificacion }) {
             Lote no verificado
           </p>
           <p className="text-sm text-red-800/80">
-            La huella calculada no coincide con la anclada en NEAR.
+            {conAncla
+              ? "La huella calculada no coincide con la anclada en NEAR."
+              : "La huella recalculada no coincide con la guardada al registrar el lote."}
           </p>
         </div>
       </div>
@@ -89,7 +141,7 @@ function BannerVerificacion({ estado }: { estado: EstadoVerificacion }) {
           Verificación no disponible
         </p>
         <p className="text-sm text-amber-900/80">
-          No se pudo consultar el backend o NEAR Testnet.
+          {detalle ?? "No se pudo consultar el backend o NEAR Testnet."}
         </p>
       </div>
     </div>
@@ -101,6 +153,13 @@ function BadgeEstado({ estado }: { estado: EstadoVerificacion }) {
     return (
       <span className="badge whitespace-nowrap bg-emerald-100 text-emerald-800 ring-1 ring-emerald-600/30">
         Verificado en blockchain
+      </span>
+    );
+  }
+  if (estado === "sinanclar") {
+    return (
+      <span className="badge whitespace-nowrap bg-amber-100 text-amber-800 ring-1 ring-amber-500/30">
+        Pendiente de anclar
       </span>
     );
   }
@@ -192,7 +251,11 @@ export default function LotePage({
         />
       )}
 
-      <BannerVerificacion estado={estado} />
+      <BannerVerificacion
+        estado={estado}
+        detalle={verificacion?.error}
+        conAncla={!!verificacion?.tx_hash}
+      />
 
       <section className="card space-y-5">
         <div>
